@@ -1,0 +1,63 @@
+<div class="glass-card rounded-2xl p-6 flex flex-col gap-3 relative overflow-hidden group h-full">
+    <!-- Dynamic Glow -->
+    <div class="absolute -right-4 -top-4 w-24 h-24 rounded-full blur-2xl transition-all" [ngClass]="{
+            'bg-primary/20 group-hover:bg-primary/30': glowColor === 'primary',
+            'bg-emerald-500/20 group-hover:bg-emerald-500/30': glowColor === 'emerald',
+            'bg-red-500/20 group-hover:bg-red-500/30': glowColor === 'red'
+        }">
+    </div>
+
+    <div class="flex items-center justify-between z-10">
+        <p class="text-slate-400 text-sm font-medium uppercase tracking-wider">{{title}}</p>
+        <span class="material-symbols-outlined p-2 rounded-lg" [ngClass]="{
+                'text-primary bg-primary/10': glowColor === 'primary',
+                'text-emerald-500 bg-emerald-500/10': glowColor === 'emerald',
+                'text-red-500 bg-red-500/10': glowColor === 'red'
+            }">
+            {{icon}}
+        </span>
+    </div>
+
+    <p class="text-4xl font-bold z-10" [ngClass]="{
+            'text-white': glowColor === 'primary',
+            'text-emerald-400': glowColor === 'emerald',
+            'text-red-500': glowColor === 'red'
+        }">
+        {{value}}
+    </p>
+
+    <!-- Optional Trend -->
+    @if(trendText) {
+    <div class="flex items-center gap-2 mt-auto pt-2 z-10">
+        <span class="material-symbols-outlined text-sm" [ngClass]="{
+                'text-emerald-500': trendColor === 'emerald',
+                'text-red-500': trendColor === 'red',
+                'text-primary': trendColor === 'primary'
+            }">
+            {{ trendColor === 'red' ? 'trending_down' : 'trending_up' }}
+        </span>
+        <p class="text-sm font-medium" [ngClass]="{
+                'text-emerald-500': trendColor === 'emerald',
+                'text-red-500': trendColor === 'red',
+                'text-primary': trendColor === 'primary'
+            }">
+            {{trendText}}
+        </p>
+    </div>
+    }
+
+    <!-- Optional Progress Bar -->
+    @if(progressPercentage !== undefined) {
+    <div class="flex items-center gap-2 mt-auto pt-2 z-10 w-full">
+        <div class="w-full bg-slate-800 rounded-full h-1.5 mt-1">
+            <div class="h-1.5 rounded-full" [style.width.%]="progressPercentage" [ngClass]="{
+                    'bg-emerald-500': trendColor === 'emerald',
+                    'bg-red-500': trendColor === 'red',
+                    'bg-primary': trendColor === 'primary'
+                }">
+            </div>
+        </div>
+        <span class="text-slate-400 text-xs ml-2">{{progressPercentage}}%</span>
+    </div>
+    }
+</div>
