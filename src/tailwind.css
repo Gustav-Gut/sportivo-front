@@ -8,6 +8,9 @@
     --color-cardBg: #111E2F;
     --color-bodyText: #94A3B8;
 
+    --color-surface-dark: rgba(30, 41, 59, 0.7);
+    --color-border-dark: rgba(51, 65, 85, 0.5);
+
     --font-sans: "Plus Jakarta Sans", sans-serif;
 }
 
