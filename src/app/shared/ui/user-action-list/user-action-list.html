@@ -1,0 +1,14 @@
+<div class="flex items-center justify-between p-3 rounded-xl bg-slate-800/30 border border-slate-700/30">
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-sm font-bold text-white">
+            {{initials}}</div>
+        <div>
+            <p class="text-sm font-semibold text-slate-200">{{title}}</p>
+            <p class="text-xs text-red-400" [innerHTML]="subtitle"></p>
+        </div>
+    </div>
+    <button type="button"
+        class="w-8 h-8 border-none rounded-full bg-primary/10 hover:bg-primary/20 text-primary flex items-center justify-center transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-sm">{{actionIcon}}</span>
+    </button>
+</div>
