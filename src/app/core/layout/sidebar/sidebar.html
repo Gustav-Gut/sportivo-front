@@ -1,0 +1,78 @@
+<aside
+    class="flex flex-col h-screen bg-background-dark border-r border-white/5 transition-all duration-300 ease-in-out relative"
+    [class.w-64]="!isCollapsed()" [class.w-20]="isCollapsed()">
+
+    <!-- Header / Logo -->
+    <div class="h-16 flex items-center px-4 mb-4 mt-2 justify-between">
+        <div class="flex items-center gap-3 overflow-hidden text-white cursor-pointer" routerLink="/finances/dashboard">
+            <span class="material-symbols-outlined text-primary text-3xl shrink-0">sports_score</span>
+            <h2 class="text-2xl font-bold leading-tight tracking-tight transition-opacity duration-300"
+                [class.opacity-0]="isCollapsed()" [class.w-0]="isCollapsed()">Sportivo</h2>
+        </div>
+    </div>
+
+    <!-- Toggle Button -->
+    <button (click)="toggleSidebar()"
+        class="absolute -right-3 top-20 w-6 h-6 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center cursor-pointer hover:bg-primary hover:text-white transition-colors z-10 shadow-lg">
+        <span class="material-symbols-outlined text-sm transition-transform duration-300"
+            [class.rotate-180]="isCollapsed()">chevron_left</span>
+    </button>
+
+    <!-- Navigation Menu -->
+    <nav class="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-1 px-3">
+        <!-- Overview Group -->
+        <div class="mb-4">
+            <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2"
+                [class.opacity-0]="isCollapsed()">Overview</p>
+            <a routerLink="/finances/dashboard" routerLinkActive="bg-primary/10 text-primary font-medium"
+                [routerLinkActiveOptions]="{exact: true}"
+                class="flex items-center gap-3 rounded-xl px-3 h-10 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 transition-colors">
+                <span class="material-symbols-outlined text-lg shrink-0">dashboard</span>
+                <span class="text-sm overflow-hidden whitespace-nowrap transition-opacity duration-300"
+                    [class.opacity-0]="isCollapsed()">Dashboard</span>
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 rounded-xl px-3 h-10 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 transition-colors">
+                <span class="material-symbols-outlined text-lg shrink-0">group</span>
+                <span class="text-sm overflow-hidden whitespace-nowrap transition-opacity duration-300"
+                    [class.opacity-0]="isCollapsed()">Members</span>
+            </a>
+        </div>
+
+        <!-- Finances Group -->
+        <div class="mb-4">
+            <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2"
+                [class.opacity-0]="isCollapsed()">Finances</p>
+            <a routerLink="/finances/payments" routerLinkActive="bg-primary/10 text-primary font-medium"
+                class="flex items-center gap-3 rounded-xl px-3 h-10 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 transition-colors">
+                <span class="material-symbols-outlined text-lg shrink-0">payments</span>
+                <span class="text-sm overflow-hidden whitespace-nowrap transition-opacity duration-300"
+                    [class.opacity-0]="isCollapsed()">Payments & Invoices</span>
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 rounded-xl px-3 h-10 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 transition-colors">
+                <span class="material-symbols-outlined text-lg shrink-0">query_stats</span>
+                <span class="text-sm overflow-hidden whitespace-nowrap transition-opacity duration-300"
+                    [class.opacity-0]="isCollapsed()">Reports</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Footer / User Profile -->
+    <div class="p-4 border-t border-white/5 mt-auto">
+        <div
+            class="flex items-center gap-3 cursor-pointer p-2 rounded-xl hover:bg-slate-800/50 transition-colors overflow-hidden">
+            <div class="w-8 h-8 rounded-full bg-slate-700 bg-cover bg-center shrink-0 border border-slate-600 shadow-sm"
+                style="background-image: url('https://cdn.usegalileo.ai/stability/117a7a13-8681-42cb-b1f8-081e7d2d3a37.png');">
+            </div>
+            <div class="flex flex-col min-w-0 transition-opacity duration-300" [class.opacity-0]="isCollapsed()">
+                <p class="text-sm font-semibold text-white truncate">Admin User</p>
+                <p class="text-xs text-slate-400 truncate">admin&#64;sportivo.com</p>
+            </div>
+            @if(!isCollapsed()) {
+            <span
+                class="material-symbols-outlined text-slate-400 ml-auto text-sm transition-opacity duration-300">expand_more</span>
+            }
+        </div>
+    </div>
+</aside>

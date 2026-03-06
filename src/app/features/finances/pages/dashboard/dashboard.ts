@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Header } from '../../../../core/layout/header/header';
 import { StatCard } from '../../../../shared/ui/stat-card/stat-card';
 import { QuickAction } from '../../../../shared/ui/quick-action/quick-action';
 import { SummaryTable, TableColumn } from '../../../../shared/ui/summary-table/summary-table';
@@ -10,7 +9,7 @@ import { BarChart, ChartDataPoint } from '../../../../shared/ui/bar-chart/bar-ch
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, Header, StatCard, QuickAction, SummaryTable, UserActionList, BarChart],
+  imports: [CommonModule, StatCard, QuickAction, SummaryTable, UserActionList, BarChart],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
