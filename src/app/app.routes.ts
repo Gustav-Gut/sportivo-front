@@ -7,6 +7,7 @@ export const routes: Routes = [
     },
     {
         path: 'finances',
+        loadComponent: () => import('./core/layout/main-layout/main-layout').then(m => m.MainLayout),
         loadChildren: () => import('./features/finances/finances.routes').then(r => r.financesRoutes)
     },
     {

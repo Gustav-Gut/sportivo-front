@@ -1,0 +1,27 @@
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root bg-background-dark">
+    <div class="layout-container flex h-full grow flex-col">
+        <div class="px-4 md:px-8 lg:px-12 flex flex-1 justify-center py-5">
+            <div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+
+                <div class="mb-6 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white tracking-tight">Financial Records</h2>
+                        <p class="text-slate-400 text-sm mt-1">View, search and manage all historical payments and
+                            pending invoices.</p>
+                    </div>
+
+                    <button
+                        class="h-10 px-5 rounded-lg bg-primary hover:bg-blue-600 text-white text-sm font-bold shadow-[0_0_15px_rgba(59,131,247,0.3)] transition-colors border-none flex items-center gap-2 cursor-pointer">
+                        <span class="material-symbols-outlined text-lg">add</span>
+                        New Invoice
+                    </button>
+                </div>
+
+                <app-advanced-data-table title="All Transactions" [columns]="columns" [data]="paymentsData"
+                    [pageSize]="10">
+                </app-advanced-data-table>
+
+            </div>
+        </div>
+    </div>
+</div>
