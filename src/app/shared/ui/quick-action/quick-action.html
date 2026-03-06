@@ -1,0 +1,17 @@
+<button
+    class="flex items-center justify-between w-full p-4 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 border border-slate-700/50 transition-colors group cursor-pointer border-none text-left">
+    <div class="flex items-center gap-3">
+        <div class="p-2 text-xl rounded-lg transition-colors flex items-center justify-center" [ngClass]="{
+                'bg-primary/20 text-primary group-hover:bg-primary/30': theme === 'primary',
+                'bg-emerald-500/20 text-emerald-500 group-hover:bg-emerald-500/30': theme === 'emerald',
+                'bg-red-500/20 text-red-500 group-hover:bg-red-500/30': theme === 'red'
+            }">
+            <span class="material-symbols-outlined">{{icon}}</span>
+        </div>
+        <div>
+            <p class="text-sm font-semibold text-slate-200">{{title}}</p>
+            <p class="text-xs text-slate-400">{{subtitle}}</p>
+        </div>
+    </div>
+    <span class="material-symbols-outlined text-slate-500 group-hover:text-slate-300">chevron_right</span>
+</button>
