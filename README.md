@@ -1,59 +1,98 @@
-# SportivoFront
+# ⚽ Sportivo - Frontend Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## Development server
+Welcome to the **Sportivo** frontend repository! This modern web application is the client-facing platform for the Sportivo ecosystem, built with the latest version of **Angular**, leveraging **Standalone Components**, the new **Control Flow**, and **Signals** for reactive state management.
 
-To start a local development server, run:
+## 🚀 Quick Start (Docker)
 
-```bash
-ng serve
-```
+The absolute easiest way to get this project running is via our fully containerized Docker setup. This ensures you have the exact same environment as every other developer.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Prerequisites
+- [Docker](https://docs.docker.com/get-docker/) & [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Code scaffolding
+### Running the App
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Ensure your backend and database (`sportivo-back`) are already running, as this frontend connects to the shared `sportivo_network`.
+2. Navigate to this repository's root directory.
+3. Run the following command:
 
 ```bash
-ng generate --help
+docker-compose up -d --build
 ```
 
-## Building
+The application will be built and served. You can access it at: **[http://localhost:4200](http://localhost:4200)**
 
-To build the project run:
-
+To stop the container, run:
 ```bash
-ng build
+docker-compose down
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🛠 Manual Setup (Local Development)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+If you prefer running the application outside of Docker for development purposes:
 
-```bash
-ng test
+1. Ensure you have **Node.js** (v18 or higher) installed.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+
+---
+
+## 🏗 Architecture & Folder Structure
+
+We follow a strict, scalable, and modular architecture based on `features`. This ensures the application remains maintainable even as it grows massively. We heavily utilize **Standalone Components** removing the need for `NgModules`.
+
+```text
+sportivo-front/
+├── src/
+│   ├── app/
+│   │   ├── core/          # 🧠 The "Brain" (Singletons)
+│   │   │   ├── guards/    # Route protection (AuthGuard)
+│   │   │   ├── intercept/ # HTTP Interceptors (JWT Injection)
+│   │   │   ├── services/  # Global state/services
+│   │   │   └── layout/    # Structural base (Header, Sidebar)
+│   │   │
+│   │   ├── shared/        # ♻️ Reusable UI Components
+│   │   │   ├── components/# Generic Buttons, Modals, Cards
+│   │   │   ├── directives/# Custom HTML behavior
+│   │   │   ├── pipes/     # Data formatting
+│   │   │   └── ui/        # Design System tokens
+│   │   │
+│   │   ├── features/      # 🚀 Business Logic / Domains (Lazy Loaded)
+│   │   │   ├── auth/      # Login, Registration
+│   │   │   ├── dashboard/ # Analytics, Financial Dashboard
+│   │   │   ├── payments/  # Transaction management
+│   │   │   ├── schools/   # Organizations/Clubs
+│   │   │   └── students/  # User/Student profiles
+│   │   │
+│   │   ├── app.component.ts # Root component
+│   │   ├── app.config.ts    # Global providers & HttpClient
+│   │   └── app.routes.ts    # Main Router (Connects features)
 ```
 
-## Running end-to-end tests
+## 🎨 Design System & UI
 
-For end-to-end (e2e) testing, run:
+This application's UI is derived from professional AI-driven designs provided via **Google Stitch (Figma)**. The core design principles focus on a clean, responsive, and highly modern athletic aesthetic.
 
-```bash
-ng e2e
-```
+- **Main Views:** `Financial Dashboard`, `Payment Analytics`, `Student Directory`.
+- **Styling:** Handled via global SCSS and responsive utility classes.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 📝 Contribution Guidelines
 
-## Additional Resources
+1. **Branching Strategy:** Use `feature/nombre-de-la-tarea` for new developments and `fix/nombre-del-bug` for bug fixes.
+2. **Commits:** We follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Please make small, descriptive, and atomic commits.
+3. **Standalone Only:** Please do not create `.module.ts` files. Everything should be an `@Component({ standalone: true })`.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+*Built with passion for Sportivo.* ⚽
