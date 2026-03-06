@@ -1,0 +1,17 @@
+services:
+  sportivo-front:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sportivo_front
+    ports:
+      - '4200:4200'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - sportivo_network
+
+networks:
+  sportivo_network:
+    external: true
