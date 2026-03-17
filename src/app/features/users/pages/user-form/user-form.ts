@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../environments/environment';
+import { UsersService } from '../../../../core/services/users.service';
+import { SportsService } from '../../../../core/services/sports.service';
 
 @Component({
   selector: 'app-user-form',
@@ -13,13 +13,15 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./user-form.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserForm {
+export class UserForm implements OnInit {
   private fb = inject(FormBuilder);
-  private http = inject(HttpClient);
+  private usersService = inject(UsersService);
+  private sportsService = inject(SportsService);
   private router = inject(Router);
 
   isSaving = signal(false);
   errorMessage = signal<string | null>(null);
+  sportsSchema = signal<any[]>([]);
 
   // For simplicity, we manage the primary selected role in UI to toggle the specific profile fields
   selectedPrimaryRole = signal<'STUDENT' | 'COACH' | 'TUTOR' | 'ADMIN' | 'SUPERADMIN'>('STUDENT');
@@ -54,6 +56,39 @@ export class UserForm {
     tutor_address: ['']
   });
 
+  ngOnInit() {
+    this.loadSportsSchema();
+  }
+
+  private loadSportsSchema() {
+    this.sportsService.getSportsSchema().subscribe({
+      next: (schema) => {
+        this.sportsSchema.set(schema);
+        this.registerDynamicFields(schema);
+      },
+      error: (err) => console.error('Error loading sports schema:', err)
+    });
+  }
+
+  private registerDynamicFields(sports: any[]) {
+    sports.forEach(sport => {
+      // Register student fields
+      sport.schema.student?.forEach((field: any) => {
+        const controlName = `sport_${sport.sportName.toLowerCase()}_student_${field.key}`;
+        if (!this.userForm.contains(controlName)) {
+          this.userForm.addControl(controlName, this.fb.control('', field.required ? Validators.required : []));
+        }
+      });
+      // Register coach fields
+      sport.schema.coach?.forEach((field: any) => {
+        const controlName = `sport_${sport.sportName.toLowerCase()}_coach_${field.key}`;
+        if (!this.userForm.contains(controlName)) {
+          this.userForm.addControl(controlName, this.fb.control('', field.required ? Validators.required : []));
+        }
+      });
+    });
+  }
+
   onRoleChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const role = selectElement.value as any;
@@ -85,18 +120,44 @@ export class UserForm {
     const role = this.selectedPrimaryRole();
 
     if (role === 'STUDENT') {
+      const sportData: any = {};
+      this.sportsSchema().forEach(s => {
+        const sportKey = s.sportName.toLowerCase();
+        sportData[sportKey] = {};
+        s.schema.student?.forEach((f: any) => {
+          const val = formValues[`sport_${sportKey}_student_${f.key}`];
+          if (val !== undefined && val !== '') {
+            sportData[sportKey][f.key] = f.type === 'number' ? parseFloat(val) : val;
+          }
+        });
+      });
+
       payload.studentProfile = {
         birthDate: formValues.student_birthDate ? new Date(formValues.student_birthDate).toISOString() : undefined,
         weight: formValues.student_weight ? parseFloat(formValues.student_weight) : undefined,
         height: formValues.student_height ? parseFloat(formValues.student_height) : undefined,
         bloodType: formValues.student_bloodType || undefined,
-        medicalNotes: formValues.student_medicalNotes || undefined
+        medicalNotes: formValues.student_medicalNotes || undefined,
+        sportData
       };
     } else if (role === 'COACH') {
+      const sportData: any = {};
+      this.sportsSchema().forEach(s => {
+        const sportKey = s.sportName.toLowerCase();
+        sportData[sportKey] = {};
+        s.schema.coach?.forEach((f: any) => {
+          const val = formValues[`sport_${sportKey}_coach_${f.key}`];
+          if (val !== undefined && val !== '') {
+            sportData[sportKey][f.key] = f.type === 'number' ? parseFloat(val) : val;
+          }
+        });
+      });
+
       payload.coachProfile = {
         specialty: formValues.coach_specialty || undefined,
         yearsExperience: formValues.coach_yearsExperience ? parseInt(formValues.coach_yearsExperience, 10) : undefined,
-        certifications: formValues.coach_certifications || undefined
+        certifications: formValues.coach_certifications || undefined,
+        sportData
       };
     } else if (role === 'TUTOR') {
       payload.tutorProfile = {
@@ -106,7 +167,7 @@ export class UserForm {
       };
     }
 
-    this.http.post(`${environment.apiUrl}/users`, payload).subscribe({
+    this.usersService.createUser(payload).subscribe({
       next: () => {
         this.isSaving.set(false);
         this.router.navigate(['/users']);

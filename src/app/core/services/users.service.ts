@@ -31,5 +31,7 @@ export class UsersService {
     return this.http.get<UserListResponse>(this.apiUrl, { params });
   }
 
-  // Create user will be added here later
+  createUser(userData: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, userData);
+  }
 }
