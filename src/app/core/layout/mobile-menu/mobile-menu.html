@@ -1,44 +1,41 @@
 <!-- Floating Action Button -->
-<button 
-  (click)="toggle()"
+<button (click)="toggle()"
   class="fixed bottom-6 right-6 z-[60] w-16 h-16 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.5)] border-2 border-slate-700 overflow-hidden flex items-center justify-center bg-slate-800 transition-transform active:scale-95 hover:scale-105 select-none touch-manipulation"
-  [class.ring-2]="isOpen()"
-  [class.ring-primary]="isOpen()">
-  
+  [class.ring-2]="isOpen()" [class.ring-primary]="isOpen()">
+
   @if (school()?.logoUrl) {
-    <img [src]="school()!.logoUrl" alt="School Logo" class="w-full h-full object-cover bg-white" />
+  <img [src]="school()!.logoUrl" alt="School Logo" class="w-full h-full object-cover bg-white" />
   } @else {
-    <div class="w-full h-full bg-primary flex items-center justify-center text-white font-bold text-2xl uppercase">
-      S
-    </div>
+  <div class="w-full h-full bg-primary flex items-center justify-center text-white font-bold text-2xl uppercase">
+    S
+  </div>
   }
 </button>
 
 <!-- Backdrop Overlay -->
 @if (isOpen()) {
-  <div 
-    (click)="close()"
-    class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 touch-none animate-fade-in transition-opacity">
-  </div>
+<div (click)="close()"
+  class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 touch-none animate-fade-in transition-opacity">
+</div>
 }
 
 <!-- Bottom Sheet Mobile Menu Drawer -->
-<div 
+<div
   class="fixed bottom-0 left-0 w-full bg-slate-900 border-t border-slate-700/50 rounded-t-3xl z-50 transform transition-transform duration-300 ease-out shadow-[0_-10px_40px_rgba(0,0,0,0.5)] flex flex-col max-h-[85vh] md:hidden"
-  [class.translate-y-0]="isOpen()"
-  [class.translate-y-full]="!isOpen()">
-  
+  [class.translate-y-0]="isOpen()" [class.translate-y-full]="!isOpen()">
+
   <!-- Drag Handle Indicator -->
   <div class="w-full pt-4 pb-2 flex justify-center cursor-pointer touch-none" (click)="close()">
     <div class="w-12 h-1.5 bg-slate-700 rounded-full"></div>
   </div>
 
   <div class="px-6 pb-24 pt-2 overflow-y-auto overscroll-contain">
-    
+
     <!-- User / Welcome -->
     <div class="mb-6 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 shrink-0">
+        <div
+          class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 shrink-0">
           <span class="material-symbols-outlined text-primary">emoji_people</span>
         </div>
         <div>
@@ -49,12 +46,13 @@
     </div>
 
     <div class="space-y-6">
-      
+
       <!-- Finances Actions Grid -->
       <div>
         <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3 ml-1">Finances & Data</h4>
         <div class="grid grid-cols-2 gap-3">
-          <a routerLink="/finances/dashboard" routerLinkActive="bg-primary/20 text-primary border-primary/50" [routerLinkActiveOptions]="{exact: true}"
+          <a routerLink="/finances/dashboard" routerLinkActive="bg-primary/20 text-primary border-primary/50"
+            [routerLinkActiveOptions]="{exact: true}"
             class="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-slate-800/40 border border-slate-700/40 text-slate-300 active:bg-slate-700/60 transition-colors cursor-pointer select-none">
             <span class="material-symbols-outlined text-3xl mb-1">space_dashboard</span>
             <span class="text-[11px] font-bold tracking-wide uppercase">Dashboard</span>
@@ -80,7 +78,8 @@
       <!-- School Config List -->
       <div>
         <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3 ml-1">Settings & Setup</h4>
-        <div class="flex border border-slate-700/50 bg-slate-800/20 rounded-2xl overflow-hidden shadow-inner flex-col divide-y divide-slate-700/50">
+        <div
+          class="flex border border-slate-700/50 bg-slate-800/20 rounded-2xl overflow-hidden shadow-inner flex-col divide-y divide-slate-700/50">
           <a routerLink="/school/info" routerLinkActive="bg-slate-800 text-primary pl-5"
             class="flex items-center gap-4 py-4 px-4 hover:bg-slate-800/50 text-slate-300 active:bg-slate-700 transition-all select-none">
             <span class="material-symbols-outlined text-lg">apartment</span>
@@ -115,7 +114,8 @@
 
     <!-- Actions -->
     <div class="mt-8 pt-6 border-t border-slate-700/50 pb-2">
-      <button (click)="logout()" class="w-full flex items-center justify-center gap-2 p-4 rounded-xl text-red-400 bg-red-400/10 active:bg-red-400/20 font-bold tracking-wide transition-colors touch-manipulation">
+      <button (click)="logout()"
+        class="w-full flex items-center justify-center gap-2 p-4 rounded-xl text-red-400 bg-red-400/10 active:bg-red-400/20 font-bold tracking-wide transition-colors touch-manipulation">
         <span class="material-symbols-outlined">logout</span>
         EXIT ACCOUNT
       </button>
