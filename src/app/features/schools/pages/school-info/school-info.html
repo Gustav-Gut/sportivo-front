@@ -1,0 +1,203 @@
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root bg-background-dark">
+  <div class="layout-container flex h-full grow flex-col">
+    <div class="px-4 md:px-8 lg:px-12 flex flex-1 justify-center py-5">
+      <div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+
+        <!-- Page Header -->
+        <div class="mb-6 flex items-center justify-between">
+          <div>
+            <h2 class="text-2xl font-bold text-white tracking-tight">School Information</h2>
+            <p class="text-slate-400 text-sm mt-1">Manage your school's branding and contact details.</p>
+          </div>
+        </div>
+
+        @if (isLoading()) {
+        <div class="flex justify-center p-12 text-slate-400">
+          <div class="flex flex-col items-center gap-3">
+            <svg class="animate-spin h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
+            </svg>
+            <span>Loading school data...</span>
+          </div>
+        </div>
+        } @else {
+
+        <!-- Section: School Information & Logo -->
+        <div
+          class="w-full bg-slate-900/50 rounded-xl border border-slate-700/50 shadow-2xl overflow-hidden backdrop-blur-sm mb-8">
+          <form [formGroup]="schoolForm" (ngSubmit)="onSaveSchool()" class="flex flex-col">
+            <div class="p-8 space-y-6">
+              <h3
+                class="text-lg font-semibold text-slate-200 border-b border-slate-700/50 pb-2 flex items-center gap-2">
+                <span class="material-symbols-outlined text-xl text-primary">apartment</span> General Details
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Name -->
+                <div>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">School Name <span
+                      class="text-red-400">*</span></label>
+                  <input type="text" formControlName="name"
+                    class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
+                    placeholder="My School" />
+                </div>
+
+                <!-- Slug (Read-only) -->
+                <div>
+                  <label class="text-sm font-medium text-slate-300 block mb-2 flex items-center gap-1.5">
+                    Slug (URL Identifier)
+                    <span class="material-symbols-outlined text-sm text-slate-500">lock</span>
+                  </label>
+                  <div
+                    class="w-full bg-slate-800/30 border border-slate-700/30 text-slate-500 rounded-lg h-11 px-4 flex items-center cursor-not-allowed select-none">
+                    {{ school()?.slug }}
+                  </div>
+                </div>
+
+                <!-- Address -->
+                <div class="col-span-full">
+                  <label class="text-sm font-medium text-slate-300 block mb-2">Address</label>
+                  <input type="text" formControlName="address"
+                    class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
+                    placeholder="123 Main St, City" />
+                </div>
+
+                <!-- Email -->
+                <div>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">Contact Email</label>
+                  <input type="email" formControlName="email"
+                    class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
+                    placeholder="contact@school.edu" />
+                </div>
+
+                <!-- Phone -->
+                <div>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">Phone Number</label>
+                  <input type="tel" formControlName="phone"
+                    class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
+                    placeholder="+1 234 567 8900" />
+                </div>
+
+                <!-- Website -->
+                <div>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">Website</label>
+                  <input type="url" formControlName="website"
+                    class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
+                    placeholder="https://www.school.edu" />
+                </div>
+
+                <!-- Description -->
+                <div class="col-span-full">
+                  <label class="text-sm font-medium text-slate-300 block mb-2">School Description</label>
+                  <textarea formControlName="description" rows="3"
+                    class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary px-4 py-3 placeholder:text-slate-500 transition-colors"
+                    placeholder="A brief description of your school..."></textarea>
+                </div>
+
+                <!-- Created At (Read-only) -->
+                <div>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">Created At</label>
+                  <div
+                    class="w-full bg-slate-800/30 border border-slate-700/30 text-slate-500 rounded-lg h-11 px-4 flex items-center cursor-not-allowed select-none">
+                    <span class="material-symbols-outlined text-sm mr-2">calendar_month</span>
+                    @if(school()?.createdAt) {
+                    {{ formatDate(school()!.createdAt) }}
+                    }
+                  </div>
+                </div>
+
+                <!-- Status (Read-only) -->
+                <div>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">Status</label>
+                  <div
+                    class="w-full bg-slate-800/30 border border-slate-700/30 rounded-lg h-11 px-4 flex items-center cursor-not-allowed select-none">
+                    @if (school()!.active) {
+                    <span class="inline-flex items-center gap-1.5 text-emerald-400 text-sm font-medium">
+                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      Active
+                    </span>
+                    } @else {
+                    <span class="inline-flex items-center gap-1.5 text-red-400 text-sm font-medium">
+                      <span class="w-2 h-2 rounded-full bg-red-400"></span>
+                      Inactive
+                    </span>
+                    }
+                  </div>
+                </div>
+
+                <!-- Logo Component Add-on -->
+                <div class="col-span-full border-t border-slate-700/50 pt-6 mt-2">
+                  <label class="text-sm font-medium text-slate-300 block mb-2">School Logo</label>
+                  <p class="text-xs text-slate-500 mb-4">Recommended format: PNG or WebP, transparent background, 400x400px.</p>
+
+                  <div class="flex items-center gap-6">
+                    <div class="relative w-24 h-24 rounded-xl bg-slate-800 border border-slate-700 overflow-hidden flex items-center justify-center shrink-0 group">
+                      @if (school()?.logoUrl) {
+                      <img [src]="school()!.logoUrl" alt="School Logo" class="w-full h-full object-contain p-2" />
+                      } @else {
+                      <span class="material-symbols-outlined text-3xl opacity-50 text-slate-500">image_not_supported</span>
+                      }
+                      
+                      <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer pointer-events-none">
+                        <span class="material-symbols-outlined text-white mb-1">edit</span>
+                        <span class="text-[10px] font-medium text-white uppercase tracking-wider">Change</span>
+                      </div>
+
+                      <input type="file" accept="image/*" (change)="onLogoSelected($event)" [disabled]="isUploadingLogo()"
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed z-10" title="Upload Logo" />
+                    </div>
+
+                    <div class="flex-1">
+                      @if (isUploadingLogo()) {
+                        <div class="flex items-center gap-2 text-primary">
+                          <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span class="text-sm font-medium">Uploading logo, please wait...</span>
+                        </div>
+                      } @else {
+                        <p class="text-sm text-slate-400">Click the placeholder image to upload or replace your school logo.</p>
+                      }
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div
+              class="px-8 py-5 border-t border-slate-700/50 bg-slate-900/30 flex items-center justify-end gap-4 rounded-b-xl">
+              <button type="submit" [disabled]="schoolForm.invalid || isSaving()"
+                class="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-primary transition-all cursor-pointer shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+
+                @if (isSaving()) {
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                  </path>
+                </svg>
+                <span>Saving...</span>
+                } @else {
+                <span class="material-symbols-outlined text-sm">save</span>
+                <span>Save Changes</span>
+                }
+
+              </button>
+            </div>
+          </form>
+        </div>
+        }
+
+      </div>
+    </div>
+  </div>
+</div>
