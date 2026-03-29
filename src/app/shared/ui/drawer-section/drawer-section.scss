@@ -1,0 +1,4 @@
+// Ensure the host element is always block-level (Angular custom elements default to inline)
+:host {
+  display: block;
+}

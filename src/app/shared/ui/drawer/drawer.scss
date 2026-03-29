@@ -1,0 +1,53 @@
+// ── Entry animations ──────────────────────────────────────────────
+@keyframes drawerInRight {
+  from { transform: translate3d(100%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+@keyframes drawerInBottom {
+  from { transform: translate3d(0, 100%, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+// ── Exit animations ───────────────────────────────────────────────
+@keyframes drawerOutRight {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(100%, 0, 0); }
+}
+@keyframes drawerOutBottom {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, 100%, 0); }
+}
+
+// ── Backdrop ──────────────────────────────────────────────────────
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+.animate-fade-in  { animation: fadeIn  0.25s ease both; }
+.animate-fade-out { animation: fadeOut 0.25s ease both; }
+
+// ── Panel: mobile (bottom sheet) ──────────────────────────────────
+.drawer-panel-in {
+  animation: drawerInBottom 0.3s cubic-bezier(0.32, 0.72, 0, 1) both;
+  will-change: transform;
+}
+.drawer-panel-out {
+  animation: drawerOutBottom 0.28s cubic-bezier(0.32, 0.72, 0, 1) both;
+  will-change: transform;
+}
+
+// ── Panel: desktop (right slide) ─────────────────────────────────
+@media (min-width: 768px) {
+  .drawer-panel-in {
+    animation: drawerInRight 0.3s cubic-bezier(0.32, 0.72, 0, 1) both;
+    width: var(--drawer-width, 520px);
+    max-width: 95vw;
+    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.4);
+    will-change: transform;
+  }
+  .drawer-panel-out {
+    animation: drawerOutRight 0.28s cubic-bezier(0.32, 0.72, 0, 1) both;
+    width: var(--drawer-width, 520px);
+    max-width: 95vw;
+    will-change: transform;
+  }
+}

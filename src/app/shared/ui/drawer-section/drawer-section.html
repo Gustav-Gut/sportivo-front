@@ -1,0 +1,48 @@
+<div class="rounded-xl border overflow-hidden transition-all duration-200"
+     [class.border-slate-700/50]="!isOpen"
+     [class.border-primary/40]="isOpen">
+
+  <!-- Section header — click to toggle -->
+  <button type="button" (click)="toggle.emit()"
+    class="w-full flex items-center justify-between px-5 py-3.5 bg-slate-800/60 hover:bg-slate-800 transition-colors text-left cursor-pointer">
+    <div class="flex items-center gap-3">
+
+      <!-- Number badge: blue when active, green+check when done, grey otherwise -->
+      <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all duration-200"
+           [class.bg-primary]="isOpen"
+           [class.text-white]="isOpen"
+           [class.bg-green-500/20]="!isOpen && isDone"
+           [class.text-green-400]="!isOpen && isDone"
+           [class.bg-slate-700]="!isOpen && !isDone"
+           [class.text-slate-400]="!isOpen && !isDone">
+        @if (!isOpen && isDone) {
+          <span class="material-symbols-outlined text-base">check</span>
+        } @else {
+          {{ number }}
+        }
+      </div>
+
+      <!-- Title + optional subtitle when collapsed -->
+      <div>
+        <p class="text-sm font-semibold text-slate-200">{{ title }}</p>
+        @if (!isOpen && subtitle) {
+          <p class="text-xs text-slate-500 mt-0.5 truncate max-w-[260px]">{{ subtitle }}</p>
+        }
+      </div>
+    </div>
+
+    <!-- Chevron rotates when open -->
+    <span class="material-symbols-outlined text-slate-400 transition-transform duration-200"
+          [class.rotate-180]="isOpen">
+      expand_more
+    </span>
+  </button>
+
+  <!-- Collapsible body -->
+  @if (isOpen) {
+    <div class="px-5 py-4 bg-slate-900/40 space-y-4">
+      <ng-content></ng-content>
+    </div>
+  }
+
+</div>
