@@ -7,28 +7,33 @@ export const routes: Routes = [
         loadChildren: () => import('./features/auth/auth.routes').then(r => r.authRoutes)
     },
     {
-        path: 'finances',
+        // Single shared layout for all authenticated routes
+        path: '',
         canActivate: [authGuard],
         loadComponent: () => import('./core/layout/main-layout/main-layout').then(m => m.MainLayout),
-        loadChildren: () => import('./features/finances/finances.routes').then(r => r.financesRoutes)
-    },
-    {
-        path: 'users',
-        canActivate: [authGuard],
-        loadComponent: () => import('./core/layout/main-layout/main-layout').then(m => m.MainLayout),
-        loadChildren: () => import('./features/users/users.routes').then(r => r.usersRoutes)
-    },
-    {
-        path: 'school',
-        canActivate: [authGuard],
-        loadComponent: () => import('./core/layout/main-layout/main-layout').then(m => m.MainLayout),
-        loadChildren: () => import('./features/schools/schools.routes').then(r => r.schoolsRoutes)
-    },
-    {
-        path: 'lessons',
-        canActivate: [authGuard],
-        loadComponent: () => import('./core/layout/main-layout/main-layout').then(m => m.MainLayout),
-        loadChildren: () => import('./features/lessons/lessons.routes').then(r => r.lessonsRoutes)
+        children: [
+            {
+                path: 'finances',
+                loadChildren: () => import('./features/finances/finances.routes').then(r => r.financesRoutes)
+            },
+            {
+                path: 'users',
+                loadChildren: () => import('./features/users/users.routes').then(r => r.usersRoutes)
+            },
+            {
+                path: 'school',
+                loadChildren: () => import('./features/schools/schools.routes').then(r => r.schoolsRoutes)
+            },
+            {
+                path: 'lessons',
+                loadChildren: () => import('./features/lessons/lessons.routes').then(r => r.lessonsRoutes)
+            },
+            {
+                path: '',
+                redirectTo: 'finances/dashboard',
+                pathMatch: 'full'
+            }
+        ]
     },
     {
         path: '',
