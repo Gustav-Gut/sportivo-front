@@ -1,0 +1,120 @@
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root bg-background-dark">
+  <div class="layout-container flex h-full grow flex-col">
+    <div class="px-4 md:px-8 lg:px-12 flex flex-1 justify-center py-5">
+      <div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+
+        <!-- Page Header -->
+        <div class="mb-6 flex items-center justify-between">
+          <div>
+            <h2 class="text-2xl font-bold text-white tracking-tight">Facilities Management</h2>
+            <p class="text-slate-400 text-sm mt-1">Manage the courts, fields, and rooms available for scheduling classes.
+            </p>
+          </div>
+        </div>
+
+        @if (isLoading()) {
+        <div class="flex justify-center p-12 text-slate-400">
+          <div class="flex flex-col items-center gap-3">
+            <svg class="animate-spin h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
+            </svg>
+            <span>Loading facilities data...</span>
+          </div>
+        </div>
+        } @else {
+
+        <!-- Facilities Configuration Card -->
+        <div
+          class="w-full bg-slate-900/50 rounded-xl border border-slate-700/50 shadow-2xl overflow-hidden backdrop-blur-sm">
+          <div class="p-8 space-y-6">
+            
+            <div
+              class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-700/50 pb-4 gap-4">
+              <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                <span class="material-symbols-outlined text-xl text-primary">location_on</span> Registered Locations
+              </h3>
+
+              <!-- Add Facility Form Inline -->
+              <form [formGroup]="facilityForm" (ngSubmit)="onCreate()" class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                <div class="relative w-full sm:w-64">
+                  <input type="text" formControlName="name"
+                    class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-10 px-3 text-sm placeholder:text-slate-500 transition-colors"
+                    placeholder="e.g. Main Court, Pool A" />
+                </div>
+                <button type="submit" [disabled]="facilityForm.invalid || isSubmitting()"
+                  class="h-10 px-4 w-full sm:w-auto rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all cursor-pointer shadow-lg shadow-primary/20 flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                  @if (isSubmitting()) {
+                    <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  } @else {
+                    <span class="material-symbols-outlined text-sm">add</span>
+                    Add
+                  }
+                </button>
+              </form>
+            </div>
+
+            @if (facilities().length === 0) {
+            <div class="flex flex-col items-center justify-center py-12 text-slate-500">
+              <span class="material-symbols-outlined text-5xl mb-3 text-slate-600">location_off</span>
+              <p class="text-sm font-medium">No facilities created yet.</p>
+              <p class="text-xs text-slate-600 mt-1">Use the input above to add courts or fields to your school.
+              </p>
+            </div>
+            } @else {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              @for (facility of facilities(); track facility.id) {
+              <div class="bg-slate-800/30 rounded-xl border border-slate-700/30 overflow-hidden flex flex-col justify-between">
+
+                <!-- Facility Header -->
+                <div class="px-6 py-4 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <span class="material-symbols-outlined text-primary text-xl">location_city</span>
+                    </div>
+                    <div class="overflow-hidden">
+                      <h4 class="text-sm font-semibold text-slate-200 truncate" [title]="facility.name">{{ facility.name }}</h4>
+                      <p class="text-xs text-slate-500 mt-0.5">
+                        Added {{ facility.createdAt | date:'shortDate' }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-2 shrink-0">
+                    <button (click)="onDelete(facility)"
+                      class="p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer flex items-center justify-center" title="Delete Facility">
+                      <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Footer Summary -->
+                <div class="px-6 py-3 bg-slate-900/30 border-t border-slate-700/30 flex items-center justify-between">
+                  <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[14px]">event_available</span> Active Classes
+                  </p>
+                  <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-md border border-primary/20">
+                    {{ facility._count?.lessons || 0 }}
+                  </span>
+                </div>
+
+              </div>
+              }
+            </div>
+            }
+
+          </div>
+        </div>
+
+        }
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-
 export const schoolsRoutes: Routes = [
     {
         path: '',
@@ -13,6 +12,10 @@ export const schoolsRoutes: Routes = [
     {
         path: 'sports',
         loadComponent: () => import('./pages/school-sports/school-sports').then(m => m.SchoolSports)
+    },
+    {
+        path: 'facilities',
+        loadComponent: () => import('./pages/school-facilities/school-facilities').then(m => m.SchoolFacilitiesComponent)
     },
     {
         path: 'payment-plans',
