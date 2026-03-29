@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay, tap } from 'rxjs';
 
 export interface School {
   id: string;
@@ -24,17 +24,29 @@ export class SchoolsService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/schools`;
 
+  // Cache the school data for the entire session — avoids repeated GET /schools calls
+  private school$ = this.http.get<School>(this.apiUrl).pipe(shareReplay(1));
+
   getSchool(): Observable<School> {
-    return this.http.get<School>(this.apiUrl);
+    return this.school$;
+  }
+
+  /** Call this after updating school data to bust the cache */
+  invalidateCache() {
+    this.school$ = this.http.get<School>(this.apiUrl).pipe(shareReplay(1));
   }
 
   updateSchool(data: Partial<Omit<School, 'id' | 'slug' | 'active' | 'createdAt' | 'logoUrl'>>): Observable<School> {
-    return this.http.patch<School>(this.apiUrl, data);
+    return this.http.patch<School>(this.apiUrl, data).pipe(
+      tap(() => this.invalidateCache())
+    );
   }
 
   uploadLogo(file: File): Observable<School> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<School>(`${this.apiUrl}/logo`, formData);
+    return this.http.post<School>(`${this.apiUrl}/logo`, formData).pipe(
+      tap(() => this.invalidateCache())
+    );
   }
 }
