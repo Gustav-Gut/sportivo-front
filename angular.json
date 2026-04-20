@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "sportivo-front": {
+    "clubit-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,10 +65,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "sportivo-front:build:production"
+              "buildTarget": "clubit-front:build:production"
             },
             "development": {
-              "buildTarget": "sportivo-front:build:development"
+              "buildTarget": "clubit-front:build:development"
             }
           },
           "defaultConfiguration": "development"

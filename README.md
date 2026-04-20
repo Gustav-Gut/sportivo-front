@@ -1,11 +1,11 @@
-# ⚽ Sportivo - Frontend Application
+# ⚽ Clubit - Frontend Application
 
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-Welcome to the **Sportivo** frontend repository! This modern web application is the client-facing platform for the Sportivo ecosystem, built with the latest version of **Angular**, leveraging **Standalone Components**, the new **Control Flow**, and **Signals** for reactive state management.
+Welcome to the **Clubit** frontend repository! This modern web application is the client-facing platform for the Clubit ecosystem, built with the latest version of **Angular**, leveraging **Standalone Components**, the new **Control Flow**, and **Signals** for reactive state management.
 
 ## 🚀 Quick Start (Docker)
 
@@ -16,7 +16,7 @@ The absolute easiest way to get this project running is via our fully containeri
 
 ### Running the App
 
-1. Ensure your backend and database (`sportivo-back`) are already running, as this frontend connects to the shared `sportivo_network`.
+1. Ensure your backend and database (`clubit-back`) are already running, as this frontend connects to the shared `clubit_network`.
 2. Navigate to this repository's root directory.
 3. Run the following command:
 
@@ -54,7 +54,7 @@ If you prefer running the application outside of Docker for development purposes
 We follow a strict, scalable, and modular architecture based on `features`. This ensures the application remains maintainable even as it grows massively. We heavily utilize **Standalone Components** removing the need for `NgModules`.
 
 ```text
-sportivo-front/
+clubit-front/
 ├── src/
 │   ├── app/
 │   │   ├── core/          # 🧠 The "Brain" (Singletons)
@@ -95,4 +95,4 @@ This application's UI is derived from professional AI-driven designs provided vi
 3. **Standalone Only:** Please do not create `.module.ts` files. Everything should be an `@Component({ standalone: true })`.
 
 ---
-*Built with passion for Sportivo.* ⚽
+*Built with passion for Clubit.* ⚽

@@ -1,17 +1,17 @@
 services:
-  sportivo-front:
+  clubit-front:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: sportivo_front
+    container_name: clubit_front
     ports:
       - '4200:4200'
     volumes:
       - .:/app
       - /app/node_modules
     networks:
-      - sportivo_network
+      - clubit_network
 
 networks:
-  sportivo_network:
+  clubit_network:
     external: true
