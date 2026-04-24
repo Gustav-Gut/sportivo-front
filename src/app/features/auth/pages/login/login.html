@@ -7,8 +7,8 @@
                 <h1 class="font-bold text-4xl tracking-tight text-white">Clubit</h1>
             </div>
 
-            <h2 class="text-xl font-extrabold tracking-tight sm:text-2xl mb-2">Welcome back</h2>
-            <p class="text-bodyText">Log in to manage your sports club</p>
+            <h2 class="text-xl font-extrabold tracking-tight sm:text-2xl mb-2">{{ 'AUTH.LOGIN.WELCOME' | translate }}</h2>
+            <p class="text-bodyText">{{ 'AUTH.LOGIN.SUBTITLE' | translate }}</p>
         </div>
 
         <div class="glass-card rounded-2xl p-6 sm:p-8">
@@ -28,12 +28,12 @@
                         d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                         fill="#EA4335"></path>
                 </svg>
-                Login with Google
+                {{ 'AUTH.LOGIN.GOOGLE_LOGIN' | translate }}
             </button>
 
             <div class="relative flex items-center py-2 mb-6">
                 <div class="flex-grow border-t border-slateBorder"></div>
-                <span class="flex-shrink-0 mx-4 text-sm text-bodyText">or continue with email</span>
+                <span class="flex-shrink-0 mx-4 text-sm text-bodyText">{{ 'AUTH.LOGIN.OR_CONTINUE' | translate }}</span>
                 <div class="flex-grow border-t border-slateBorder"></div>
             </div>
 
@@ -48,34 +48,33 @@
                 }
 
                 <div>
-                    <label class="block text-sm font-medium text-white mb-2" for="schoolSlug">Organization Code</label>
+                    <label class="block text-sm font-medium text-white mb-2" for="schoolSlug">{{ 'AUTH.LOGIN.ORG_CODE' | translate }}</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <span class="material-symbols-outlined text-bodyText text-lg">apartment</span>
                         </div>
                         <input formControlName="schoolSlug"
                             class="block w-full pl-10 pr-3 py-3 border border-slateBorder rounded-lg bg-navy/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all"
-                            id="schoolSlug" name="schoolSlug" placeholder="my-club-name" required="" type="text" />
+                            id="schoolSlug" name="schoolSlug" [placeholder]="'AUTH.LOGIN.ORG_PLACEHOLDER' | translate" required="" type="text" />
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-white mb-2" for="email">Email address</label>
+                    <label class="block text-sm font-medium text-white mb-2" for="email">{{ 'AUTH.LOGIN.EMAIL' | translate }}</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <span class="material-symbols-outlined text-bodyText text-lg">mail</span>
                         </div>
                         <input formControlName="email"
                             class="block w-full pl-10 pr-3 py-3 border border-slateBorder rounded-lg bg-navy/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all"
-                            id="email" name="email" placeholder="you@example.com" required="" type="email" />
+                            id="email" name="email" [placeholder]="'AUTH.LOGIN.EMAIL_PLACEHOLDER' | translate" required="" type="email" />
                     </div>
                 </div>
 
                 <div>
                     <div class="flex items-center justify-between mb-2">
-                        <label class="block text-sm font-medium text-white" for="password">Password</label>
-                        <a class="text-sm font-medium text-primary hover:text-cyan transition-colors" href="#">Forgot
-                            password?</a>
+                        <label class="block text-sm font-medium text-white" for="password">{{ 'AUTH.LOGIN.PASSWORD' | translate }}</label>
+                        <a class="text-sm font-medium text-primary hover:text-cyan transition-colors" href="#">{{ 'AUTH.LOGIN.FORGOT_PASSWORD' | translate }}</a>
                     </div>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -93,9 +92,9 @@
                         type="submit">
                         @if(isLoading()) {
                         <span class="material-symbols-outlined animate-spin text-lg">progress_activity</span>
-                        Logging in...
+                        {{ 'AUTH.LOGIN.LOGGING_IN' | translate }}
                         } @else {
-                        Login
+                        {{ 'AUTH.LOGIN.SUBMIT' | translate }}
                         }
                     </button>
                 </div>
