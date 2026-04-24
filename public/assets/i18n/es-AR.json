@@ -1,0 +1,18 @@
+{
+  "AUTH": {
+    "LOGIN": {
+      "WELCOME": "Bienvenido de nuevo",
+      "SUBTITLE": "Iniciá sesión para gestionar tu club deportivo",
+      "GOOGLE_LOGIN": "Ingresar con Google",
+      "OR_CONTINUE": "o continuá con tu email",
+      "ORG_CODE": "Código de la Organización",
+      "ORG_PLACEHOLDER": "nombre-de-tu-club",
+      "EMAIL": "Email",
+      "EMAIL_PLACEHOLDER": "tu@ejemplo.com",
+      "PASSWORD": "Contraseña",
+      "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
+      "SUBMIT": "Ingresar",
+      "LOGGING_IN": "Ingresando..."
+    }
+  }
+}

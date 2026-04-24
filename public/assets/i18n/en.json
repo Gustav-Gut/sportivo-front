@@ -1,0 +1,18 @@
+{
+  "AUTH": {
+    "LOGIN": {
+      "WELCOME": "Welcome back",
+      "SUBTITLE": "Log in to manage your sports club",
+      "GOOGLE_LOGIN": "Login with Google",
+      "OR_CONTINUE": "or continue with email",
+      "ORG_CODE": "Organization Code",
+      "ORG_PLACEHOLDER": "my-club-name",
+      "EMAIL": "Email address",
+      "EMAIL_PLACEHOLDER": "you@example.com",
+      "PASSWORD": "Password",
+      "FORGOT_PASSWORD": "Forgot password?",
+      "SUBMIT": "Login",
+      "LOGGING_IN": "Logging in..."
+    }
+  }
+}
