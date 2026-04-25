@@ -1,7 +1,10 @@
 <main class="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 relative min-h-screen">
     <div class="hero-glow"></div>
     <div class="w-full max-w-md">
-        <div class="text-center mb-8">
+        
+        <!-- Step 1: Clubit Identity -->
+        @if(currentStep() === 1) {
+        <div animate.enter="enter-animation" class="text-center mb-8">
             <div class="flex flex-col items-center justify-center gap-4 mb-8">
                 <img src="/logos/logo.svg" alt="Clubit Logo" class="h-20 w-auto drop-shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all hover:scale-105 duration-300" />
                 <h1 class="font-bold text-4xl tracking-tight text-white">Clubit</h1>
@@ -10,94 +13,118 @@
             <h2 class="text-xl font-extrabold tracking-tight sm:text-2xl mb-2">{{ 'AUTH.LOGIN.WELCOME' | translate }}</h2>
             <p class="text-bodyText">{{ 'AUTH.LOGIN.SUBTITLE' | translate }}</p>
         </div>
+        }
+
+        <!-- Step 2: School Identity -->
+        @if(currentStep() === 2) {
+        <div animate.enter="enter-animation" class="text-center mb-8">
+            <div class="flex flex-col items-center justify-center gap-4 mb-6">
+                @if(schoolInfo()?.logoUrl) {
+                    <img [src]="schoolInfo()?.logoUrl" [alt]="schoolInfo()?.name" 
+                         class="h-24 w-auto rounded-2xl shadow-[0_0_30px_rgba(59,130,246,0.3)] border border-white/10 transition-all duration-500" />
+                } @else {
+                    <div class="h-24 w-24 rounded-2xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white text-3xl font-bold shadow-xl">
+                        {{ schoolInfo()?.name?.charAt(0) }}
+                    </div>
+                }
+                <h1 class="font-bold text-3xl tracking-tight text-white">{{ schoolInfo()?.name }}</h1>
+            </div>
+            <p class="text-bodyText">Ingresa tus credenciales para continuar</p>
+        </div>
+        }
 
         <div class="glass-card rounded-2xl p-6 sm:p-8">
-            <button type="button"
-                class="w-full flex items-center justify-center gap-3 bg-white text-navy font-bold py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors mb-6">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                        fill="#4285F4"></path>
-                    <path
-                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                        fill="#34A853"></path>
-                    <path
-                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                        fill="#FBBC05"></path>
-                    <path
-                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                        fill="#EA4335"></path>
-                </svg>
-                {{ 'AUTH.LOGIN.GOOGLE_LOGIN' | translate }}
-            </button>
-
-            <div class="relative flex items-center py-2 mb-6">
-                <div class="flex-grow border-t border-slateBorder"></div>
-                <span class="flex-shrink-0 mx-4 text-sm text-bodyText">{{ 'AUTH.LOGIN.OR_CONTINUE' | translate }}</span>
-                <div class="flex-grow border-t border-slateBorder"></div>
+            
+            <!-- Error Message -->
+            @if(errorMessage()) {
+            <div animate.enter="enter-animation" class="bg-rose-500/10 border border-rose-500/20 text-rose-500 text-sm px-4 py-3 rounded-lg flex items-center gap-2 mb-6">
+                <span class="material-symbols-outlined text-lg">error</span>
+                {{errorMessage()}}
             </div>
+            }
 
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
-                <!-- Error Message -->
-                @if(errorMessage()) {
-                <div
-                    class="bg-rose-500/10 border border-rose-500/20 text-rose-500 text-sm px-4 py-3 rounded-lg flex items-center gap-2">
-                    <span class="material-symbols-outlined text-lg">error</span>
-                    {{errorMessage()}}
+            <form [formGroup]="loginForm" class="space-y-5">
+                
+                <!-- STEP 1 FIELDS: School Slug -->
+                @if(currentStep() === 1) {
+                <div animate.enter="enter-animation" class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-medium text-white mb-2" for="schoolSlug">{{ 'AUTH.LOGIN.ORG_CODE' | translate }}</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-bodyText text-lg">apartment</span>
+                            </div>
+                            <input formControlName="schoolSlug"
+                                class="block w-full pl-10 pr-3 py-3 border border-slateBorder rounded-lg bg-navy/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all"
+                                id="schoolSlug" name="schoolSlug" [placeholder]="'AUTH.LOGIN.ORG_PLACEHOLDER' | translate" required="" type="text" 
+                                (keyup.enter)="onNext()" />
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="button" (click)="onNext()" [disabled]="loginForm.get('schoolSlug')?.invalid || isLoading()"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.4)] text-sm font-bold text-white bg-primary hover:bg-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed items-center gap-2">
+                            @if(isLoading()) {
+                                <span class="material-symbols-outlined animate-spin text-lg">progress_activity</span>
+                                Verificando...
+                            } @else {
+                                Continuar
+                                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                            }
+                        </button>
+                    </div>
                 </div>
                 }
 
-                <div>
-                    <label class="block text-sm font-medium text-white mb-2" for="schoolSlug">{{ 'AUTH.LOGIN.ORG_CODE' | translate }}</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <span class="material-symbols-outlined text-bodyText text-lg">apartment</span>
+                <!-- STEP 2 FIELDS: Auth Credentials -->
+                @if(currentStep() === 2) {
+                <div animate.enter="enter-animation" class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-medium text-white mb-2" for="email">{{ 'AUTH.LOGIN.EMAIL' | translate }}</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-bodyText text-lg">mail</span>
+                            </div>
+                            <input formControlName="email"
+                                class="block w-full pl-10 pr-3 py-3 border border-slateBorder rounded-lg bg-navy/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all"
+                                id="email" name="email" [placeholder]="'AUTH.LOGIN.EMAIL_PLACEHOLDER' | translate" required="" type="email" />
                         </div>
-                        <input formControlName="schoolSlug"
-                            class="block w-full pl-10 pr-3 py-3 border border-slateBorder rounded-lg bg-navy/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all"
-                            id="schoolSlug" name="schoolSlug" [placeholder]="'AUTH.LOGIN.ORG_PLACEHOLDER' | translate" required="" type="text" />
                     </div>
-                </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-white mb-2" for="email">{{ 'AUTH.LOGIN.EMAIL' | translate }}</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <span class="material-symbols-outlined text-bodyText text-lg">mail</span>
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="block text-sm font-medium text-white" for="password">{{ 'AUTH.LOGIN.PASSWORD' | translate }}</label>
+                            <a class="text-sm font-medium text-primary hover:text-cyan transition-colors" href="#">{{ 'AUTH.LOGIN.FORGOT_PASSWORD' | translate }}</a>
                         </div>
-                        <input formControlName="email"
-                            class="block w-full pl-10 pr-3 py-3 border border-slateBorder rounded-lg bg-navy/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all"
-                            id="email" name="email" [placeholder]="'AUTH.LOGIN.EMAIL_PLACEHOLDER' | translate" required="" type="email" />
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <label class="block text-sm font-medium text-white" for="password">{{ 'AUTH.LOGIN.PASSWORD' | translate }}</label>
-                        <a class="text-sm font-medium text-primary hover:text-cyan transition-colors" href="#">{{ 'AUTH.LOGIN.FORGOT_PASSWORD' | translate }}</a>
-                    </div>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <span class="material-symbols-outlined text-bodyText text-lg">lock</span>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-bodyText text-lg">lock</span>
+                            </div>
+                            <input formControlName="password"
+                                class="block w-full pl-10 pr-3 py-3 border border-slateBorder rounded-lg bg-navy/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all"
+                                id="password" name="password" placeholder="••••••••" required="" type="password" (keyup.enter)="onSubmit()" />
                         </div>
-                        <input formControlName="password"
-                            class="block w-full pl-10 pr-3 py-3 border border-slateBorder rounded-lg bg-navy/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-all"
-                            id="password" name="password" placeholder="••••••••" required="" type="password" />
+                    </div>
+
+                    <div class="pt-2 flex flex-col gap-4">
+                        <button type="button" (click)="onSubmit()" [disabled]="loginForm.invalid || isLoading()"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.4)] text-sm font-bold text-white bg-primary hover:bg-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed items-center gap-2">
+                            @if(isLoading()) {
+                                <span class="material-symbols-outlined animate-spin text-lg">progress_activity</span>
+                                {{ 'AUTH.LOGIN.LOGGING_IN' | translate }}
+                            } @else {
+                                {{ 'AUTH.LOGIN.SUBMIT' | translate }}
+                            }
+                        </button>
+                        
+                        <button type="button" (click)="onBack()" class="text-sm text-bodyText hover:text-white transition-colors flex items-center justify-center gap-1 group">
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover:-translate-x-1">arrow_back</span>
+                            Cambiar academia
+                        </button>
                     </div>
                 </div>
+                }
 
-                <div class="pt-2">
-                    <button [disabled]="loginForm.invalid || isLoading()"
-                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.4)] text-sm font-bold text-white bg-primary hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-navy transition-all disabled:opacity-50 disabled:cursor-not-allowed items-center gap-2"
-                        type="submit">
-                        @if(isLoading()) {
-                        <span class="material-symbols-outlined animate-spin text-lg">progress_activity</span>
-                        {{ 'AUTH.LOGIN.LOGGING_IN' | translate }}
-                        } @else {
-                        {{ 'AUTH.LOGIN.SUBMIT' | translate }}
-                        }
-                    </button>
-                </div>
             </form>
         </div>
     </div>

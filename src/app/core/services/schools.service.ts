@@ -31,6 +31,10 @@ export class SchoolsService {
     return this.school$;
   }
 
+  getPublicInfo(slug: string): Observable<{ name: string, logoUrl: string, defaultLanguage: string }> {
+    return this.http.get<{ name: string, logoUrl: string, defaultLanguage: string }>(`${this.apiUrl}/public/${slug}`);
+  }
+
   /** Call this after updating school data to bust the cache */
   invalidateCache() {
     this.school$ = this.http.get<School>(this.apiUrl).pipe(shareReplay(1));
