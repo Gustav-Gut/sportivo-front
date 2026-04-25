@@ -14,5 +14,38 @@
       "SUBMIT": "Login",
       "LOGGING_IN": "Logging in..."
     }
+  },
+  "SIDEBAR": {
+    "OVERVIEW": "Overview",
+    "USERS": "Users Admin",
+    "LESSONS": "Lessons Admin",
+    "FINANCES": {
+      "TITLE": "Finances",
+      "DASHBOARD": "Dashboard",
+      "TRANSACTIONS": "Transactions",
+      "COLLECT": "Collect",
+      "HISTORY": "Transaction History",
+      "HISTORY_SUB": "View all past payments",
+      "DATA_SECTION": "Finances & Data"
+    },
+    "SCHOOL": {
+      "TITLE": "School",
+      "INFO": "Information",
+      "INFO_FULL": "School Information",
+      "SPORTS": "Sports Config",
+      "SPORTS_FULL": "Sports Associated",
+      "FACILITIES": "Facilities",
+      "FACILITIES_FULL": "Facilities Setup",
+      "PAYMENT_PLANS": "Payment Plans",
+      "PAYMENT_PLANS_FULL": "Config Payment Plans",
+      "SETUP_SECTION": "Settings & Setup"
+    },
+    "COMMUNITY_SECTION": "Community & Lessons",
+    "LESSONS_MANAGER": "Lessons Manager",
+    "DIRECTORY": "Directory & Members"
+  },
+  "COMMON": {
+    "LOGOUT": "Logout",
+    "EXIT": "EXIT ACCOUNT"
   }
 }

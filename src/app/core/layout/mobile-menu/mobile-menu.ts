@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { SchoolsService, School } from '../../services/schools.service';
@@ -8,7 +9,7 @@ import { SchoolsService, School } from '../../services/schools.service';
 @Component({
   selector: 'app-mobile-menu',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './mobile-menu.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
