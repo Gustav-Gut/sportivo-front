@@ -19,61 +19,62 @@
     "OVERVIEW": "Overview",
     "USERS": "Users Admin",
     "LESSONS": "Lessons Admin",
-    "FINANCES": {
-      "TITLE": "Finances",
-      "DASHBOARD": "Dashboard",
-      "TRANSACTIONS": "Transactions",
-      "COLLECT": "Collect",
-      "HISTORY": "Transaction History",
-      "HISTORY_SUB": "View all past payments",
-      "DATA_SECTION": "Finances & Data",
-      "RECORDS": {
-        "TITLE": "Financial Records",
-        "SUBTITLE": "View, search and manage all historical payments and pending invoices.",
-        "NEW_INVOICE": "New Invoice",
-        "ALL_TRANSACTIONS": "All Transactions"
-      },
-      "INVOICE": {
-        "CREATE_TITLE": "Create Invoice",
-        "CREATE_SUBTITLE": "Generate a new payment request",
-        "SECTION_DETAILS": "Invoice Details",
-        "SELECT_STUDENT": "Select Student",
-        "SEARCH_STUDENT": "Search student...",
-        "BILLING_CONCEPT": "Billing Concept",
-        "BILLING_CONCEPT_PLACEHOLDER": "e.g., July Tuition",
-        "AMOUNT": "Amount",
-        "DUE_DATE": "Due Date",
-        "PAYMENT_METHOD": "Default Payment Method",
-        "METHODS": {
-          "CASH": "Cash Payment",
-          "CARD": "Credit / Debit Card",
-          "TRANSFER": "Bank Transfer"
-        },
-        "CREATING": "Creating...",
-        "SUBMIT_BTN": "Create Invoice"
-      }
-    },
-    "SCHOOL": {
-      "TITLE": "School",
-      "INFO": "Information",
-      "INFO_FULL": "School Information",
-      "SPORTS": "Sports Config",
-      "SPORTS_FULL": "Sports Associated",
-      "FACILITIES": "Facilities",
-      "FACILITIES_FULL": "Facilities Setup",
-      "PAYMENT_PLANS": "Payment Plans",
-      "PAYMENT_PLANS_FULL": "Config Payment Plans",
-      "SETUP_SECTION": "Settings & Setup"
-    },
     "COMMUNITY_SECTION": "Community & Lessons",
     "LESSONS_MANAGER": "Lessons Manager",
     "DIRECTORY": "Directory & Members"
+  },
+  "FINANCES": {
+    "TITLE": "Finances",
+    "DASHBOARD": "Dashboard",
+    "TRANSACTIONS": "Transactions",
+    "COLLECT": "Collect",
+    "HISTORY": "Transaction History",
+    "HISTORY_SUB": "View all past payments",
+    "DATA_SECTION": "Finances & Data",
+    "RECORDS": {
+      "TITLE": "Financial Records",
+      "SUBTITLE": "View, search and manage all historical payments and pending invoices.",
+      "NEW_INVOICE": "New Invoice",
+      "ALL_TRANSACTIONS": "All Transactions"
+    },
+    "INVOICE": {
+      "CREATE_TITLE": "Create Invoice",
+      "CREATE_SUBTITLE": "Generate a new payment request",
+      "SECTION_DETAILS": "Invoice Details",
+      "SELECT_STUDENT": "Select Student",
+      "SEARCH_STUDENT": "Search student...",
+      "BILLING_CONCEPT": "Billing Concept",
+      "BILLING_CONCEPT_PLACEHOLDER": "e.g., July Tuition",
+      "AMOUNT": "Amount",
+      "DUE_DATE": "Due Date",
+      "PAYMENT_METHOD": "Default Payment Method",
+      "METHODS": {
+        "CASH": "Cash Payment",
+        "CARD": "Credit / Debit Card",
+        "TRANSFER": "Bank Transfer"
+      },
+      "CREATING": "Creating...",
+      "SUBMIT_BTN": "Create Invoice"
+    }
+  },
+  "SCHOOL": {
+    "TITLE": "School",
+    "INFO": "Information",
+    "INFO_FULL": "School Information",
+    "SPORTS": "Sports Config",
+    "SPORTS_FULL": "Sports Associated",
+    "FACILITIES": "Facilities",
+    "FACILITIES_FULL": "Facilities Setup",
+    "PAYMENT_PLANS": "Payment Plans",
+    "PAYMENT_PLANS_FULL": "Config Payment Plans",
+    "SETUP_SECTION": "Settings & Setup"
   },
   "COMMON": {
     "LOGOUT": "Logout",
     "EXIT": "EXIT ACCOUNT",
     "STATUS": {
       "PAID": "Paid",
+      "PENDING": "Pending",
       "PROCESSING": "Processing",
       "OVERDUE": "Overdue"
     },

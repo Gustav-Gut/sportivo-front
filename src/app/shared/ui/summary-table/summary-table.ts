@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Badge } from '../badge/badge';
+import { TranslateModule } from '@ngx-translate/core';
 
 export interface TableColumn {
   key: string;
@@ -11,7 +12,7 @@ export interface TableColumn {
 @Component({
   selector: 'app-summary-table',
   standalone: true,
-  imports: [CommonModule, Badge],
+  imports: [CommonModule, Badge, TranslateModule],
   templateUrl: './summary-table.html',
   styleUrls: ['./summary-table.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

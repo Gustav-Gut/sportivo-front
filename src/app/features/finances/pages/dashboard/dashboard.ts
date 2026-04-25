@@ -19,10 +19,10 @@ export class Dashboard {
   private translate = inject(TranslateService);
 
   paymentColumns: TableColumn[] = [
-    { key: 'member', label: this.translate.instant('COMMON.TABLE.MEMBER'), type: 'member' },
-    { key: 'date', label: this.translate.instant('COMMON.TABLE.DATE'), type: 'text' },
-    { key: 'amount', label: this.translate.instant('COMMON.TABLE.AMOUNT'), type: 'currency' },
-    { key: 'status', label: this.translate.instant('COMMON.TABLE.STATUS'), type: 'status' }
+    { key: 'member', label: 'COMMON.TABLE.MEMBER', type: 'member' },
+    { key: 'date', label: 'COMMON.TABLE.DATE', type: 'text' },
+    { key: 'amount', label: 'COMMON.TABLE.AMOUNT', type: 'currency' },
+    { key: 'status', label: 'COMMON.TABLE.STATUS', type: 'status' }
   ];
 
   recentPayments = [

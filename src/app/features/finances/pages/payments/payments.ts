@@ -25,11 +25,11 @@ export class Payments {
   }
 
   columns: AdvanceTableColumn[] = [
-    { key: 'invoiceId', label: this.translate.instant('COMMON.TABLE.INVOICE_ID'), type: 'text' },
-    { key: 'member', label: this.translate.instant('COMMON.TABLE.MEMBER'), type: 'member' },
-    { key: 'date', label: this.translate.instant('COMMON.TABLE.BILLING_DATE'), type: 'text' },
-    { key: 'amount', label: this.translate.instant('COMMON.TABLE.AMOUNT'), type: 'currency' },
-    { key: 'status', label: this.translate.instant('COMMON.TABLE.STATUS'), type: 'status' }
+    { key: 'invoiceId', label: 'COMMON.TABLE.INVOICE_ID', type: 'text' },
+    { key: 'member', label: 'COMMON.TABLE.MEMBER', type: 'member' },
+    { key: 'date', label: 'COMMON.TABLE.BILLING_DATE', type: 'text' },
+    { key: 'amount', label: 'COMMON.TABLE.AMOUNT', type: 'currency' },
+    { key: 'status', label: 'COMMON.TABLE.STATUS', type: 'status' }
   ];
 
   // Generate 55 dummy records for pagination testing

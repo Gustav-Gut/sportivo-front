@@ -19,61 +19,62 @@
     "OVERVIEW": "Resumen",
     "USERS": "Administrar Usuarios",
     "LESSONS": "Administrar Clases",
-    "FINANCES": {
-      "TITLE": "Finanzas",
-      "DASHBOARD": "Tablero",
-      "TRANSACTIONS": "Transacciones",
-      "COLLECT": "Cobrar",
-      "HISTORY": "Historial de Transacciones",
-      "HISTORY_SUB": "Ver todos los pagos pasados",
-      "DATA_SECTION": "Finanzas y Datos",
-      "RECORDS": {
-        "TITLE": "Registros Financieros",
-        "SUBTITLE": "Visualizá, buscá y gestioná todos los pagos históricos y facturas pendientes.",
-        "NEW_INVOICE": "Nueva Factura",
-        "ALL_TRANSACTIONS": "Todas las Transacciones"
-      },
-      "INVOICE": {
-        "CREATE_TITLE": "Crear Factura",
-        "CREATE_SUBTITLE": "Generá una nueva solicitud de pago",
-        "SECTION_DETAILS": "Detalles de la Factura",
-        "SELECT_STUDENT": "Seleccionar Estudiante",
-        "SEARCH_STUDENT": "Buscá un estudiante...",
-        "BILLING_CONCEPT": "Concepto de Cobro",
-        "BILLING_CONCEPT_PLACEHOLDER": "ej: Cuota Julio",
-        "AMOUNT": "Monto",
-        "DUE_DATE": "Fecha de Vencimiento",
-        "PAYMENT_METHOD": "Método de Pago por Defecto",
-        "METHODS": {
-          "CASH": "Pago en Efectivo",
-          "CARD": "Tarjeta de Crédito / Débito",
-          "TRANSFER": "Transferencia Bancaria"
-        },
-        "CREATING": "Creando...",
-        "SUBMIT_BTN": "Crear Factura"
-      }
-    },
-    "SCHOOL": {
-      "TITLE": "Escuela",
-      "INFO": "Información",
-      "INFO_FULL": "Información de la Escuela",
-      "SPORTS": "Configuración Deportes",
-      "SPORTS_FULL": "Deportes Asociados",
-      "FACILITIES": "Instalaciones",
-      "FACILITIES_FULL": "Configurar Instalaciones",
-      "PAYMENT_PLANS": "Planes de Pago",
-      "PAYMENT_PLANS_FULL": "Configurar Planes de Pago",
-      "SETUP_SECTION": "Ajustes y Configuración"
-    },
     "COMMUNITY_SECTION": "Comunidad y Clases",
     "LESSONS_MANAGER": "Gestor de Clases",
     "DIRECTORY": "Directorio y Miembros"
+  },
+  "FINANCES": {
+    "TITLE": "Finanzas",
+    "DASHBOARD": "Tablero",
+    "TRANSACTIONS": "Transacciones",
+    "COLLECT": "Cobrar",
+    "HISTORY": "Historial de Transacciones",
+    "HISTORY_SUB": "Ver todos los pagos pasados",
+    "DATA_SECTION": "Finanzas y Datos",
+    "RECORDS": {
+      "TITLE": "Registros Financieros",
+      "SUBTITLE": "Visualizá, buscá y gestioná todos los pagos históricos y facturas pendientes.",
+      "NEW_INVOICE": "Nueva Factura",
+      "ALL_TRANSACTIONS": "Todas las Transacciones"
+    },
+    "INVOICE": {
+      "CREATE_TITLE": "Crear Factura",
+      "CREATE_SUBTITLE": "Generá una nueva solicitud de pago",
+      "SECTION_DETAILS": "Detalles de la Factura",
+      "SELECT_STUDENT": "Seleccionar Estudiante",
+      "SEARCH_STUDENT": "Buscá un estudiante...",
+      "BILLING_CONCEPT": "Concepto de Cobro",
+      "BILLING_CONCEPT_PLACEHOLDER": "ej: Cuota Julio",
+      "AMOUNT": "Monto",
+      "DUE_DATE": "Fecha de Vencimiento",
+      "PAYMENT_METHOD": "Método de Pago por Defecto",
+      "METHODS": {
+        "CASH": "Pago en Efectivo",
+        "CARD": "Tarjeta de Crédito / Débito",
+        "TRANSFER": "Transferencia Bancaria"
+      },
+      "CREATING": "Creando...",
+      "SUBMIT_BTN": "Crear Factura"
+    }
+  },
+  "SCHOOL": {
+    "TITLE": "Escuela",
+    "INFO": "Información",
+    "INFO_FULL": "Información de la Escuela",
+    "SPORTS": "Configuración Deportes",
+    "SPORTS_FULL": "Deportes Asociados",
+    "FACILITIES": "Instalaciones",
+    "FACILITIES_FULL": "Configurar Instalaciones",
+    "PAYMENT_PLANS": "Planes de Pago",
+    "PAYMENT_PLANS_FULL": "Configurar Planes de Pago",
+    "SETUP_SECTION": "Ajustes y Configuración"
   },
   "COMMON": {
     "LOGOUT": "Cerrar sesión",
     "EXIT": "SALIR DE LA CUENTA",
     "STATUS": {
       "PAID": "Pagado",
+      "PENDING": "Pendiente",
       "PROCESSING": "Procesando",
       "OVERDUE": "Vencido"
     },

@@ -37,7 +37,7 @@
             <thead class="bg-slate-800/20">
                 <tr>
                     @for(col of columns; track col.key) {
-                    <th class="py-4 px-6 text-xs font-semibold text-slate-400 uppercase tracking-wider">{{col.label}}
+                    <th class="py-4 px-6 text-xs font-semibold text-slate-400 uppercase tracking-wider">{{col.label | translate}}
                     </th>
                     }
                 </tr>
