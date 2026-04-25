@@ -26,7 +26,32 @@
       "COLLECT": "Collect",
       "HISTORY": "Transaction History",
       "HISTORY_SUB": "View all past payments",
-      "DATA_SECTION": "Finances & Data"
+      "DATA_SECTION": "Finances & Data",
+      "RECORDS": {
+        "TITLE": "Financial Records",
+        "SUBTITLE": "View, search and manage all historical payments and pending invoices.",
+        "NEW_INVOICE": "New Invoice",
+        "ALL_TRANSACTIONS": "All Transactions"
+      },
+      "INVOICE": {
+        "CREATE_TITLE": "Create Invoice",
+        "CREATE_SUBTITLE": "Generate a new payment request",
+        "SECTION_DETAILS": "Invoice Details",
+        "SELECT_STUDENT": "Select Student",
+        "SEARCH_STUDENT": "Search student...",
+        "BILLING_CONCEPT": "Billing Concept",
+        "BILLING_CONCEPT_PLACEHOLDER": "e.g., July Tuition",
+        "AMOUNT": "Amount",
+        "DUE_DATE": "Due Date",
+        "PAYMENT_METHOD": "Default Payment Method",
+        "METHODS": {
+          "CASH": "Cash Payment",
+          "CARD": "Credit / Debit Card",
+          "TRANSFER": "Bank Transfer"
+        },
+        "CREATING": "Creating...",
+        "SUBMIT_BTN": "Create Invoice"
+      }
     },
     "SCHOOL": {
       "TITLE": "School",
@@ -55,8 +80,21 @@
     "TABLE": {
       "MEMBER": "Member",
       "DATE": "Date",
+      "BILLING_DATE": "Billing Date",
       "AMOUNT": "Amount",
-      "STATUS": "Status"
+      "STATUS": "Status",
+      "INVOICE_ID": "Invoice ID",
+      "SEARCH_PLACEHOLDER": "Search records...",
+      "ALL": "All",
+      "NO_RECORDS": "No records found matching your criteria.",
+      "PAGINATION": {
+        "SHOWING": "Showing",
+        "TO": "to",
+        "OF": "of",
+        "RESULTS": "results",
+        "PREV": "Prev",
+        "NEXT": "Next"
+      }
     }
   },
   "DASHBOARD": {

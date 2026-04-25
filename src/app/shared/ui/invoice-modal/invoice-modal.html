@@ -1,7 +1,7 @@
 <app-drawer
   [isOpen]="isOpen()"
-  title="Create Invoice"
-  subtitle="Generate a new payment request"
+  [title]="'FINANCES.INVOICE.CREATE_TITLE' | translate"
+  [subtitle]="'FINANCES.INVOICE.CREATE_SUBTITLE' | translate"
   icon="receipt_long"
   width="450px"
   (closed)="closeModal()">
@@ -10,7 +10,7 @@
     
     <app-drawer-section
       [number]="1"
-      title="Invoice Details"
+      [title]="'FINANCES.INVOICE.SECTION_DETAILS' | translate"
       [isOpen]="true"
       [isDone]="invoiceForm.valid"
       (toggle)="null">
@@ -18,14 +18,14 @@
       <!-- Select Student -->
       <div class="space-y-4">
         <div>
-          <label class="text-sm font-medium text-slate-300 block mb-2" for="studentId">Select Student <span class="text-red-400">*</span></label>
+          <label class="text-sm font-medium text-slate-300 block mb-2" for="studentId">{{ 'FINANCES.INVOICE.SELECT_STUDENT' | translate }} <span class="text-red-400">*</span></label>
           <div class="relative">
             <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">search</span>
             <select
               formControlName="studentId"
               class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary h-12 pl-12 pr-10 appearance-none transition-colors cursor-pointer"
               id="studentId">
-              <option value="" disabled selected>Search student...</option>
+              <option value="" disabled selected>{{ 'FINANCES.INVOICE.SEARCH_STUDENT' | translate }}</option>
               <option value="1">Alex Johnson</option>
               <option value="2">Maria Garcia</option>
               <option value="3">David Smith</option>
@@ -36,17 +36,17 @@
 
         <!-- Concept -->
         <div>
-          <label class="text-sm font-medium text-slate-300 block mb-2" for="concept">Billing Concept <span class="text-red-400">*</span></label>
+          <label class="text-sm font-medium text-slate-300 block mb-2" for="concept">{{ 'FINANCES.INVOICE.BILLING_CONCEPT' | translate }} <span class="text-red-400">*</span></label>
           <input
             formControlName="concept"
             class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-12 px-4 placeholder:text-slate-500 transition-colors"
-            id="concept" placeholder="e.g., July Tuition" type="text" />
+            [placeholder]="'FINANCES.INVOICE.BILLING_CONCEPT_PLACEHOLDER' | translate" type="text" />
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <!-- Amount -->
           <div>
-            <label class="text-sm font-medium text-slate-300 block mb-2" for="amount">Amount <span class="text-red-400">*</span></label>
+            <label class="text-sm font-medium text-slate-300 block mb-2" for="amount">{{ 'FINANCES.INVOICE.AMOUNT' | translate }} <span class="text-red-400">*</span></label>
             <div class="relative">
               <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">$</span>
               <input
@@ -57,7 +57,7 @@
           </div>
           <!-- Due Date -->
           <div>
-            <label class="text-sm font-medium text-slate-300 block mb-2" for="dueDate">Due Date <span class="text-red-400">*</span></label>
+            <label class="text-sm font-medium text-slate-300 block mb-2" for="dueDate">{{ 'FINANCES.INVOICE.DUE_DATE' | translate }} <span class="text-red-400">*</span></label>
             <input
               formControlName="dueDate"
               class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-12 px-4 transition-colors [color-scheme:dark] cursor-pointer"
@@ -67,15 +67,15 @@
 
         <!-- Payment Method -->
         <div>
-          <label class="text-sm font-medium text-slate-300 block mb-2" for="paymentMethod">Default Payment Method</label>
+          <label class="text-sm font-medium text-slate-300 block mb-2" for="paymentMethod">{{ 'FINANCES.INVOICE.PAYMENT_METHOD' | translate }}</label>
           <div class="relative">
             <select
               formControlName="paymentMethod"
               class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary h-12 pl-4 pr-10 appearance-none transition-colors cursor-pointer"
               id="paymentMethod">
-              <option value="cash">Cash Payment</option>
-              <option value="card">Credit / Debit Card</option>
-              <option value="transfer">Bank Transfer</option>
+              <option value="cash">{{ 'FINANCES.INVOICE.METHODS.CASH' | translate }}</option>
+              <option value="card">{{ 'FINANCES.INVOICE.METHODS.CARD' | translate }}</option>
+              <option value="transfer">{{ 'FINANCES.INVOICE.METHODS.TRANSFER' | translate }}</option>
             </select>
             <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
           </div>
@@ -96,9 +96,9 @@
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
-        <span>Creating...</span>
+        <span>{{ 'FINANCES.INVOICE.CREATING' | translate }}</span>
       } @else {
-        <span>Create Invoice</span>
+        <span>{{ 'FINANCES.INVOICE.SUBMIT_BTN' | translate }}</span>
         <span class="material-symbols-outlined text-sm">send</span>
       }
     </button>

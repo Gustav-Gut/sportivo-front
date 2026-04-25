@@ -1,15 +1,17 @@
-import { Component, input, output, inject } from '@angular/core';
+import { Component, input, output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { DrawerComponent } from '../drawer/drawer';
 import { DrawerSectionComponent } from '../drawer-section/drawer-section';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-invoice-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DrawerComponent, DrawerSectionComponent],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule, DrawerComponent, DrawerSectionComponent],
   templateUrl: './invoice-modal.html',
-  styleUrl: './invoice-modal.scss'
+  styleUrl: './invoice-modal.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceModal {
   private fb = inject(FormBuilder);

@@ -26,7 +26,32 @@
       "COLLECT": "Cobrar",
       "HISTORY": "Historial de Transacciones",
       "HISTORY_SUB": "Ver todos los pagos pasados",
-      "DATA_SECTION": "Finanzas y Datos"
+      "DATA_SECTION": "Finanzas y Datos",
+      "RECORDS": {
+        "TITLE": "Registros Financieros",
+        "SUBTITLE": "Visualizá, buscá y gestioná todos los pagos históricos y facturas pendientes.",
+        "NEW_INVOICE": "Nueva Factura",
+        "ALL_TRANSACTIONS": "Todas las Transacciones"
+      },
+      "INVOICE": {
+        "CREATE_TITLE": "Crear Factura",
+        "CREATE_SUBTITLE": "Generá una nueva solicitud de pago",
+        "SECTION_DETAILS": "Detalles de la Factura",
+        "SELECT_STUDENT": "Seleccionar Estudiante",
+        "SEARCH_STUDENT": "Buscá un estudiante...",
+        "BILLING_CONCEPT": "Concepto de Cobro",
+        "BILLING_CONCEPT_PLACEHOLDER": "ej: Cuota Julio",
+        "AMOUNT": "Monto",
+        "DUE_DATE": "Fecha de Vencimiento",
+        "PAYMENT_METHOD": "Método de Pago por Defecto",
+        "METHODS": {
+          "CASH": "Pago en Efectivo",
+          "CARD": "Tarjeta de Crédito / Débito",
+          "TRANSFER": "Transferencia Bancaria"
+        },
+        "CREATING": "Creando...",
+        "SUBMIT_BTN": "Crear Factura"
+      }
     },
     "SCHOOL": {
       "TITLE": "Escuela",
@@ -55,8 +80,21 @@
     "TABLE": {
       "MEMBER": "Miembro",
       "DATE": "Fecha",
+      "BILLING_DATE": "Fecha de Facturación",
       "AMOUNT": "Monto",
-      "STATUS": "Estado"
+      "STATUS": "Estado",
+      "INVOICE_ID": "ID Factura",
+      "SEARCH_PLACEHOLDER": "Buscá registros...",
+      "ALL": "Todos",
+      "NO_RECORDS": "No se encontraron registros que coincidan con tu búsqueda.",
+      "PAGINATION": {
+        "SHOWING": "Mostrando",
+        "TO": "a",
+        "OF": "de",
+        "RESULTS": "resultados",
+        "PREV": "Ant",
+        "NEXT": "Sig"
+      }
     }
   },
   "DASHBOARD": {

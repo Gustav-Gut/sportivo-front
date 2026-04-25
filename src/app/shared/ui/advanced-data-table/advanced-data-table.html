@@ -11,7 +11,7 @@
                 <span class="material-symbols-outlined text-slate-400 text-lg mr-2">search</span>
                 <input type="text" [(ngModel)]="searchText" (ngModelChange)="onSearchChange()"
                     class="bg-transparent border-none text-slate-100 placeholder:text-slate-500 text-sm focus:ring-0 w-full p-0 flex-1 focus:outline-none"
-                    placeholder="Search records...">
+                    [placeholder]="'COMMON.TABLE.SEARCH_PLACEHOLDER' | translate">
             </label>
 
             <!-- Filter Status Pills -->
@@ -23,7 +23,7 @@
                     class="px-3 text-xs font-semibold rounded-md transition-all border-none cursor-pointer h-full whitespace-nowrap"
                     [ngClass]="statusFilter === status ? 'bg-primary text-white shadow-[0_0_10px_rgba(59,131,247,0.3)]' : 'bg-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-700/50'"
                     (click)="selectStatus(status)">
-                    {{status}}
+                    {{ (status === 'All' ? 'COMMON.TABLE.ALL' : 'COMMON.STATUS.' + status.toUpperCase()) | translate }}
                 </button>
                 }
             </div>
@@ -48,7 +48,7 @@
                     <td [colSpan]="columns.length" class="py-12 text-center text-slate-500 text-sm">
                         <span
                             class="material-symbols-outlined text-4xl mb-2 opacity-50 relative block">search_off</span>
-                        No records found matching your criteria.
+                        {{ 'COMMON.TABLE.NO_RECORDS' | translate }}
                     </td>
                 </tr>
                 }
@@ -98,10 +98,10 @@
     <!-- Footer / Pagination -->
     <div class="px-6 py-4 border-t border-white/5 flex items-center justify-between bg-white/[0.02]">
         <span class="text-sm text-slate-400">
-            Showing <span class="text-white font-medium">{{paginatedData.length ? (currentPage - 1) * pageSize + 1 :
-                0}}</span> to
+            {{ 'COMMON.TABLE.PAGINATION.SHOWING' | translate }} <span class="text-white font-medium">{{paginatedData.length ? (currentPage - 1) * pageSize + 1 :
+                0}}</span> {{ 'COMMON.TABLE.PAGINATION.TO' | translate }}
             <span class="text-white font-medium">{{(currentPage - 1) * pageSize + paginatedData.length}}</span>
-            of <span class="text-white font-medium">{{filteredData.length}}</span> results
+            {{ 'COMMON.TABLE.PAGINATION.OF' | translate }} <span class="text-white font-medium">{{filteredData.length}}</span> {{ 'COMMON.TABLE.PAGINATION.RESULTS' | translate }}
         </span>
 
         <div class="flex gap-2">
@@ -109,12 +109,12 @@
                 class="h-9 px-3 rounded-lg border border-slate-700 bg-slate-800 text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
                 [disabled]="currentPage === 1" (click)="prevPage()">
                 <span class="material-symbols-outlined text-sm">chevron_left</span>
-                Prev
+                {{ 'COMMON.TABLE.PAGINATION.PREV' | translate }}
             </button>
             <button
                 class="h-9 px-3 rounded-lg border border-slate-700 bg-slate-800 text-sm font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
                 [disabled]="currentPage === totalPages || totalPages === 0" (click)="nextPage()">
-                Next
+                {{ 'COMMON.TABLE.PAGINATION.NEXT' | translate }}
                 <span class="material-symbols-outlined text-sm">chevron_right</span>
             </button>
         </div>

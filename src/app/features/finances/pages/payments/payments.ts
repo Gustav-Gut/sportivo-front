@@ -1,17 +1,19 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AdvancedDataTable, AdvanceTableColumn } from '../../../../shared/ui/advanced-data-table/advanced-data-table';
 import { InvoiceModal } from '../../../../shared/ui/invoice-modal/invoice-modal';
 
 @Component({
   selector: 'app-payments',
   standalone: true,
-  imports: [CommonModule, AdvancedDataTable, InvoiceModal],
+  imports: [CommonModule, AdvancedDataTable, InvoiceModal, TranslateModule],
   templateUrl: './payments.html',
   styleUrls: ['./payments.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Payments {
+  private translate = inject(TranslateService);
   isInvoiceModalOpen = false;
 
   openInvoiceModal() {
@@ -23,11 +25,11 @@ export class Payments {
   }
 
   columns: AdvanceTableColumn[] = [
-    { key: 'invoiceId', label: 'Invoice ID', type: 'text' },
-    { key: 'member', label: 'Member', type: 'member' },
-    { key: 'date', label: 'Billing Date', type: 'text' },
-    { key: 'amount', label: 'Amount', type: 'currency' },
-    { key: 'status', label: 'Status', type: 'status' }
+    { key: 'invoiceId', label: this.translate.instant('COMMON.TABLE.INVOICE_ID'), type: 'text' },
+    { key: 'member', label: this.translate.instant('COMMON.TABLE.MEMBER'), type: 'member' },
+    { key: 'date', label: this.translate.instant('COMMON.TABLE.BILLING_DATE'), type: 'text' },
+    { key: 'amount', label: this.translate.instant('COMMON.TABLE.AMOUNT'), type: 'currency' },
+    { key: 'status', label: this.translate.instant('COMMON.TABLE.STATUS'), type: 'status' }
   ];
 
   // Generate 55 dummy records for pagination testing

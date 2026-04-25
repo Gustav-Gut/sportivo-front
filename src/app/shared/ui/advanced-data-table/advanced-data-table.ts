@@ -16,10 +16,12 @@ export interface AdvanceTableColumn {
   actions?: TableAction[];
 }
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-advanced-data-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, Badge],
+  imports: [CommonModule, FormsModule, Badge, TranslateModule],
   templateUrl: './advanced-data-table.html',
   styleUrls: ['./advanced-data-table.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
