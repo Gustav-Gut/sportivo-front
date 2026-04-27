@@ -6,8 +6,8 @@
         <!-- Page Header -->
         <div class="mb-6 flex items-center justify-between">
           <div>
-            <h2 class="text-2xl font-bold text-white tracking-tight">Create New User</h2>
-            <p class="text-slate-400 text-sm mt-1">Add a new member to your school organization.</p>
+            <h2 class="text-2xl font-bold text-white tracking-tight">{{ (isEditMode() ? 'MODALS.USER.EDIT_TITLE' : 'MODALS.USER.NEW_TITLE') | translate }}</h2>
+            <p class="text-slate-400 text-sm mt-1">{{ (isEditMode() ? 'MODALS.USER.EDIT_SUBTITLE' : 'MODALS.USER.NEW_SUBTITLE') | translate }}</p>
           </div>
         </div>
 
@@ -19,7 +19,7 @@
           @if (errorMessage()) {
           <div class="mx-8 mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-3">
             <span class="material-symbols-outlined text-red-400">error</span>
-            <p class="text-red-400 text-sm font-medium">{{ errorMessage() }}</p>
+            <p class="text-red-400 text-sm font-medium">{{ errorMessage() | translate }}</p>
           </div>
           }
 
@@ -30,19 +30,19 @@
               <div class="space-y-3">
                 <h3
                   class="text-lg font-semibold text-slate-200 border-b border-slate-700/50 pb-2 flex items-center gap-2">
-                  <span class="material-symbols-outlined text-xl text-primary">badge</span> 1. Select User Role
+                  <span class="material-symbols-outlined text-xl text-primary">badge</span> 1. {{ 'USERS.DRAWER.SECTION_ROLE_TITLE' | translate }}
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="col-span-full">
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Primary Role</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_PRIMARY_ROLE' | translate }}</label>
                     <div class="relative">
                       <select (change)="onRoleChange($event)"
                         class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary h-12 pl-4 pr-10 appearance-none transition-colors">
-                        <option class="bg-slate-800" value="STUDENT">Student</option>
-                        <option class="bg-slate-800" value="COACH">Coach</option>
-                        <option class="bg-slate-800" value="TUTOR">Tutor / Parent</option>
-                        <option class="bg-slate-800" value="ADMIN">Administrator</option>
-                        <option class="bg-slate-800" value="SUPERADMIN">Super Admin</option>
+                        <option class="bg-slate-800" value="STUDENT">{{ 'USERS.DRAWER.ROLE_STUDENT' | translate }}</option>
+                        <option class="bg-slate-800" value="COACH">{{ 'USERS.DRAWER.ROLE_COACH' | translate }}</option>
+                        <option class="bg-slate-800" value="TUTOR">{{ 'USERS.DRAWER.ROLE_TUTOR' | translate }}</option>
+                        <option class="bg-slate-800" value="ADMIN">{{ 'USERS.DRAWER.ROLE_ADMIN' | translate }}</option>
+                        <option class="bg-slate-800" value="SUPERADMIN">{{ 'USERS.DRAWER.ROLE_SUPERADMIN' | translate }}</option>
                       </select>
                       <span
                         class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
@@ -55,13 +55,13 @@
               <div class="space-y-4">
                 <h3
                   class="text-lg font-semibold text-slate-200 border-b border-slate-700/50 pb-2 flex items-center gap-2">
-                  <span class="material-symbols-outlined text-xl text-primary">person</span> 2. General Information
+                  <span class="material-symbols-outlined text-xl text-primary">person</span> 2. {{ 'USERS.DRAWER.SECTION_INFO_TITLE' | translate }}
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                   <!-- First Name -->
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">First Name <span
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_FIRST_NAME' | translate }} <span
                         class="text-red-400">*</span></label>
                     <input type="text" formControlName="firstName"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
@@ -70,7 +70,7 @@
 
                   <!-- Last Name -->
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Last Name <span
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_LAST_NAME' | translate }} <span
                         class="text-red-400">*</span></label>
                     <input type="text" formControlName="lastName"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
@@ -79,7 +79,7 @@
 
                   <!-- RUT -->
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">RUT / ID <span
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_RUT' | translate }} <span
                         class="text-red-400">*</span></label>
                     <input type="text" formControlName="rut"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
@@ -88,7 +88,7 @@
 
                   <!-- Email -->
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Email Address <span
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_EMAIL' | translate }} <span
                         class="text-red-400">*</span></label>
                     <input type="email" formControlName="email"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
@@ -97,7 +97,7 @@
 
                   <!-- Phone -->
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Phone Number</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_PHONE' | translate }}</label>
                     <input type="text" formControlName="phone"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
                       placeholder="+56 9 1234 5678" />
@@ -105,8 +105,14 @@
 
                   <!-- Password -->
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Temporary Password <span
-                        class="text-red-400">*</span></label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">
+                      @if (isEditMode()) {
+                        {{ 'USERS.DRAWER.LABEL_PASSWORD_NEW' | translate }}
+                        <span class="ml-1 text-xs text-slate-500 font-normal">{{ 'USERS.DRAWER.LABEL_PASSWORD_HINT' | translate }}</span>
+                      } @else {
+                        {{ 'USERS.DRAWER.LABEL_PASSWORD_TEMP' | translate }} <span class="text-red-400">*</span>
+                      }
+                    </label>
                     <input type="password" formControlName="password"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
                       placeholder="••••••••" />
@@ -121,35 +127,35 @@
                 @if (selectedPrimaryRole() === 'STUDENT') {
                 <h3
                   class="text-lg font-semibold text-slate-200 border-b border-slate-700/50 pb-2 flex items-center gap-2 mt-4">
-                  <span class="material-symbols-outlined text-xl text-primary">sports_gymnastics</span> 3. Student
-                  Profile Details
+                  <span class="material-symbols-outlined text-xl text-primary">sports_gymnastics</span> 3. {{ 'USERS.DRAWER.ROLE_STUDENT' | translate }}
+                  {{ 'USERS.DRAWER.SECTION_DETAILS_TITLE' | translate }}
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Birth Date</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_BIRTH_DATE' | translate }}</label>
                     <input type="date" formControlName="student_birthDate"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 transition-colors [color-scheme:dark]" />
                   </div>
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Blood Type</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_BLOOD_TYPE' | translate }}</label>
                     <input type="text" formControlName="student_bloodType"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
                       placeholder="O+" />
                   </div>
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Weight (kg)</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_WEIGHT' | translate }}</label>
                     <input type="number" formControlName="student_weight"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
                       placeholder="65.5" step="0.1" />
                   </div>
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Height (cm)</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_HEIGHT' | translate }}</label>
                     <input type="number" formControlName="student_height"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
                       placeholder="175" step="1" />
                   </div>
                   <div class="col-span-full">
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Medical Notes</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_MEDICAL_NOTES' | translate }}</label>
                     <textarea formControlName="student_medicalNotes"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary p-4 placeholder:text-slate-500 transition-colors min-h-[100px]"
                       placeholder="Allergies, conditions, etc."></textarea>
@@ -161,7 +167,7 @@
                 @if (sport.schema.student && sport.schema.student.length > 0) {
                 <h4
                   class="text-sm font-semibold text-primary mt-6 mb-3 uppercase tracking-wider flex items-center gap-2">
-                  <span class="material-symbols-outlined text-lg">category</span> {{ sport.sportName }} Information
+                  <span class="material-symbols-outlined text-lg">category</span> {{ sport.sportName }}
                 </h4>
                 <div
                   class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-800/20 p-6 rounded-xl border border-slate-700/30">
@@ -184,23 +190,24 @@
                 @if (selectedPrimaryRole() === 'COACH') {
                 <h3
                   class="text-lg font-semibold text-slate-200 border-b border-slate-700/50 pb-2 flex items-center gap-2 mt-4">
-                  <span class="material-symbols-outlined text-xl text-primary">sports</span> 3. Coach Profile Details
+                  <span class="material-symbols-outlined text-xl text-primary">sports</span> 3. {{ 'USERS.DRAWER.ROLE_COACH' | translate }}
+                  {{ 'USERS.DRAWER.SECTION_DETAILS_TITLE' | translate }}
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Specialty</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_SPECIALTY' | translate }}</label>
                     <input type="text" formControlName="coach_specialty"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
                       placeholder="Tennis, Swimming, etc." />
                   </div>
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Years of Experience</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_EXPERIENCE' | translate }}</label>
                     <input type="number" formControlName="coach_yearsExperience"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
                       placeholder="5" />
                   </div>
                   <div class="col-span-full">
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Certifications</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_CERTIFICATIONS' | translate }}</label>
                     <textarea formControlName="coach_certifications"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary p-4 placeholder:text-slate-500 transition-colors min-h-[100px]"
                       placeholder="ITF Level 2, First Aid, etc."></textarea>
@@ -212,7 +219,7 @@
                 @if (sport.schema.coach && sport.schema.coach.length > 0) {
                 <h4
                   class="text-sm font-semibold text-primary mt-6 mb-3 uppercase tracking-wider flex items-center gap-2">
-                  <span class="material-symbols-outlined text-lg">military_tech</span> {{ sport.sportName }} Information
+                  <span class="material-symbols-outlined text-lg">military_tech</span> {{ sport.sportName }}
                 </h4>
                 <div
                   class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-800/20 p-6 rounded-xl border border-slate-700/30">
@@ -235,24 +242,24 @@
                 @if (selectedPrimaryRole() === 'TUTOR') {
                 <h3
                   class="text-lg font-semibold text-slate-200 border-b border-slate-700/50 pb-2 flex items-center gap-2 mt-4">
-                  <span class="material-symbols-outlined text-xl text-primary">family_restroom</span> 3. Tutor / Parent
-                  Profile Details
+                  <span class="material-symbols-outlined text-xl text-primary">family_restroom</span> 3. {{ 'USERS.DRAWER.ROLE_TUTOR' | translate }}
+                  {{ 'USERS.DRAWER.SECTION_DETAILS_TITLE' | translate }}
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Emergency Contact</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_EMERGENCY' | translate }}</label>
                     <input type="text" formControlName="tutor_emergencyContact"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
                       placeholder="+56 9 8765 4321" />
                   </div>
                   <div>
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Occupation</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_OCCUPATION' | translate }}</label>
                     <input type="text" formControlName="tutor_occupation"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
                       placeholder="Engineer, Doctor, etc." />
                   </div>
                   <div class="col-span-full">
-                    <label class="text-sm font-medium text-slate-300 block mb-2">Home Address</label>
+                    <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_ADDRESS' | translate }}</label>
                     <textarea formControlName="tutor_address"
                       class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary p-4 placeholder:text-slate-500 transition-colors min-h-[100px]"
                       placeholder="123 Main St, City"></textarea>
@@ -269,7 +276,7 @@
               class="px-8 py-5 border-t border-slate-700/50 bg-slate-900/30 flex items-center justify-end gap-4 rounded-b-xl">
               <button type="button" (click)="cancel()"
                 class="px-6 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-slate-100 hover:bg-slate-800/50 transition-colors cursor-pointer">
-                Cancel
+                {{ 'MODALS.CANCEL' | translate }}
               </button>
 
               <button type="submit" [disabled]="userForm.invalid || isSaving()"
@@ -283,10 +290,10 @@
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                   </path>
                 </svg>
-                <span>Saving User...</span>
+                <span>{{ (isEditMode() ? 'USERS.DRAWER.SAVING' : 'USERS.DRAWER.CREATING') | translate }}</span>
                 } @else {
-                <span>Create User</span>
-                <span class="material-symbols-outlined text-sm">person_add</span>
+                <span>{{ (isEditMode() ? 'MODALS.USER.SAVE_BTN' : 'MODALS.USER.CREATE_BTN') | translate }}</span>
+                <span class="material-symbols-outlined text-sm">{{ isEditMode() ? 'save' : 'person_add' }}</span>
                 }
 
               </button>

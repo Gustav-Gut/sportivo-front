@@ -7,11 +7,12 @@ import { UsersService } from '../../../../core/services/users.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { ConfirmService } from '../../../../core/services/confirm.service';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { TitleCasePipe } from '@angular/common';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lesson-details',
-  imports: [CommonModule, FormsModule, RouterLink, TitleCasePipe],
+  imports: [CommonModule, FormsModule, RouterLink, TranslateModule],
   templateUrl: './lesson-details.html',
   styleUrl: './lesson-details.scss'
 })

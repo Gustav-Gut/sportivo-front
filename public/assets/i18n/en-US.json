@@ -115,6 +115,15 @@
         "NEXT": "Next"
       }
     },
+    "DAYS": {
+      "MONDAY": "Monday",
+      "TUESDAY": "Tuesday",
+      "WEDNESDAY": "Wednesday",
+      "THURSDAY": "Thursday",
+      "FRIDAY": "Friday",
+      "SATURDAY": "Saturday",
+      "SUNDAY": "Sunday"
+    },
     "MONTHS": {
       "MAY": "May",
       "JUN": "Jun",
@@ -273,6 +282,58 @@
       "CONTINUE": "Continue",
       "SAVING": "Saving...",
       "CREATING": "Creating..."
+    }
+  },
+  "LESSONS": {
+    "TITLE": "Lessons Manager",
+    "SUBTITLE": "Design your lessons binding sports, locations, and coaches together.",
+    "NEW_LESSON": "New Lesson",
+    "LOADING": "Loading lessons...",
+    "ACTIVE_PROGRAM": "Active Program",
+    "TOTAL_COUNT": "Total: {{count}}",
+    "EMPTY_STATE": "No lessons created yet.",
+    "EMPTY_SUBTITLE": "Click \"New Lesson\" to get started.",
+    "CREATE_FIRST": "Create First Lesson",
+    "STUDENTS_BTN": "Students",
+    "DRAWER": {
+      "TITLE": "New Lesson",
+      "SUBTITLE": "Fill in the details below",
+      "SECTION_BASIC": "Basic Information",
+      "SECTION_DETAILS": "Sport, Coach & Location",
+      "SECTION_SCHEDULE": "Schedule",
+      "LABEL_NAME": "Lesson Name",
+      "LABEL_CAPACITY": "Max Capacity",
+      "LABEL_SPORT": "Sport",
+      "LABEL_COACH": "Coach",
+      "LABEL_LOCATION": "Facility (Location)",
+      "LABEL_DAY": "Day of Week",
+      "LABEL_START": "Start Time",
+      "LABEL_END": "End Time",
+      "PLACEHOLDER_NAME": "e.g. Tenis Iniciación",
+      "PLACEHOLDER_SPORT": "Select a Sport",
+      "PLACEHOLDER_COACH": "Select a Coach",
+      "PLACEHOLDER_LOCATION": "Select a Location",
+      "CONTINUE": "Continue",
+      "SAVING": "Saving...",
+      "CREATE_BTN": "Create Lesson"
+    },
+    "DETAILS": {
+      "ANY_LOCATION": "Any Location",
+      "CAPACITY_TITLE": "Capacity",
+      "ENROLLED_TITLE": "Enrolled Students",
+      "EMPTY_ENROLLED": "Class is currently empty",
+      "EMPTY_ENROLLED_SUB": "Use the search panel to enroll students.",
+      "ADD_STUDENTS_TITLE": "Add More Students",
+      "SEARCH_PLACEHOLDER": "Search by name or RUT (min 2 chars)...",
+      "SEARCH_INITIAL_TITLE": "Search Directory",
+      "SEARCH_INITIAL_SUB": "Start typing a student's name to see results here.",
+      "SEARCH_EMPTY_TITLE": "No matching students found",
+      "SEARCH_EMPTY_SUB": "(or they are already enrolled)",
+      "FULL_TITLE": "Class is Full",
+      "FULL_SUB": "This lesson has reached its maximum capacity of {{count}} students. Remove a student to open up a spot.",
+      "ENROLL_BTN": "Enroll",
+      "REMOVE_BTN": "Remove Student",
+      "LOADING_LAYOUT": "Loading lesson layout..."
     }
   }
 }

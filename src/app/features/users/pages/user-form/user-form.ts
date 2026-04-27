@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { UsersService } from '../../../../core/services/users.service';
 import { SportsService } from '../../../../core/services/sports.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './user-form.html',
   styleUrls: ['./user-form.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -18,8 +20,11 @@ export class UserForm implements OnInit {
   private usersService = inject(UsersService);
   private sportsService = inject(SportsService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private translate = inject(TranslateService);
 
   isSaving = signal(false);
+  isEditMode = signal(false);
   errorMessage = signal<string | null>(null);
   sportsSchema = signal<any[]>([]);
 
@@ -58,6 +63,11 @@ export class UserForm implements OnInit {
 
   ngOnInit() {
     this.loadSportsSchema();
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.isEditMode.set(true);
+      // Logic to load user would go here
+    }
   }
 
   private loadSportsSchema() {
@@ -174,7 +184,7 @@ export class UserForm implements OnInit {
       },
       error: (err) => {
         console.error('Error creating user:', err);
-        this.errorMessage.set(err.error?.message || 'Failed to create user. Please try again.');
+        this.errorMessage.set(err.error?.message || 'NOTIFICATIONS.USER_ADD_ERROR');
         this.isSaving.set(false);
       }
     });

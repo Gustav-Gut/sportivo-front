@@ -9,11 +9,12 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { DrawerComponent } from '../../../../shared/ui/drawer/drawer';
 import { DrawerSectionComponent } from '../../../../shared/ui/drawer-section/drawer-section';
 import { LoadingComponent } from '../../../../shared/ui/loading/loading';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, AdvancedDataTable, DrawerComponent, DrawerSectionComponent, LoadingComponent],
+  imports: [CommonModule, ReactiveFormsModule, AdvancedDataTable, DrawerComponent, DrawerSectionComponent, LoadingComponent, TranslateModule],
   templateUrl: './user-list.html',
   styleUrls: ['./user-list.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -24,6 +25,7 @@ export class UserList implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private toast = inject(ToastService);
+  private translate = inject(TranslateService);
 
   // ── Table ──────────────────────────────────────────────
   columns: AdvanceTableColumn[] = [

@@ -8,15 +8,16 @@ import { UsersService } from '../../../../core/services/users.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { ConfirmService } from '../../../../core/services/confirm.service';
 import { RouterLink } from '@angular/router';
-import { TitleCasePipe } from '@angular/common';
+
 import { DrawerComponent } from '../../../../shared/ui/drawer/drawer';
 import { DrawerSectionComponent } from '../../../../shared/ui/drawer-section/drawer-section';
 import { LoadingComponent } from '../../../../shared/ui/loading/loading';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lessons-admin',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TitleCasePipe, RouterLink, DrawerComponent, DrawerSectionComponent, LoadingComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, DrawerComponent, DrawerSectionComponent, LoadingComponent, TranslateModule],
   templateUrl: './lessons-admin.html',
   styleUrl: './lessons-admin.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

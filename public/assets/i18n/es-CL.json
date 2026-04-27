@@ -115,6 +115,15 @@
         "NEXT": "Siguiente"
       }
     },
+    "DAYS": {
+      "MONDAY": "Lunes",
+      "TUESDAY": "Martes",
+      "WEDNESDAY": "Miércoles",
+      "THURSDAY": "Jueves",
+      "FRIDAY": "Viernes",
+      "SATURDAY": "Sábado",
+      "SUNDAY": "Domingo"
+    },
     "MONTHS": {
       "MAY": "May",
       "JUN": "Jun",
@@ -273,6 +282,58 @@
       "CONTINUE": "Continuar",
       "SAVING": "Guardando...",
       "CREATING": "Creando..."
+    }
+  },
+  "LESSONS": {
+    "TITLE": "Gestor de Clases",
+    "SUBTITLE": "Diseña tus clases vinculando deportes, ubicaciones y entrenadores.",
+    "NEW_LESSON": "Nueva Clase",
+    "LOADING": "Cargando clases...",
+    "ACTIVE_PROGRAM": "Programa Activo",
+    "TOTAL_COUNT": "Total: {{count}}",
+    "EMPTY_STATE": "Aún no hay clases creadas.",
+    "EMPTY_SUBTITLE": "Haz clic en \"Nueva Clase\" para comenzar.",
+    "CREATE_FIRST": "Crear Primera Clase",
+    "STUDENTS_BTN": "Alumnos",
+    "DRAWER": {
+      "TITLE": "Nueva Clase",
+      "SUBTITLE": "Completa los detalles a continuación",
+      "SECTION_BASIC": "Información Básica",
+      "SECTION_DETAILS": "Deporte, Entrenador y Ubicación",
+      "SECTION_SCHEDULE": "Horario",
+      "LABEL_NAME": "Nombre de la Clase",
+      "LABEL_CAPACITY": "Capacidad Máxima",
+      "LABEL_SPORT": "Deporte",
+      "LABEL_COACH": "Entrenador",
+      "LABEL_LOCATION": "Instalación (Ubicación)",
+      "LABEL_DAY": "Día de la Semana",
+      "LABEL_START": "Hora de Inicio",
+      "LABEL_END": "Hora de Término",
+      "PLACEHOLDER_NAME": "ej. Tenis Iniciación",
+      "PLACEHOLDER_SPORT": "Selecciona un Deporte",
+      "PLACEHOLDER_COACH": "Selecciona un Entrenador",
+      "PLACEHOLDER_LOCATION": "Selecciona una Ubicación",
+      "CONTINUE": "Continuar",
+      "SAVING": "Guardando...",
+      "CREATE_BTN": "Crear Clase"
+    },
+    "DETAILS": {
+      "ANY_LOCATION": "Cualquier Ubicación",
+      "CAPACITY_TITLE": "Capacidad",
+      "ENROLLED_TITLE": "Alumnos Inscritos",
+      "EMPTY_ENROLLED": "La clase está vacía actualmente",
+      "EMPTY_ENROLLED_SUB": "Usa el panel de búsqueda para inscribir alumnos.",
+      "ADD_STUDENTS_TITLE": "Agregar más Alumnos",
+      "SEARCH_PLACEHOLDER": "Buscar por nombre o RUT (mín. 2 caracteres)...",
+      "SEARCH_INITIAL_TITLE": "Buscar en Directorio",
+      "SEARCH_INITIAL_SUB": "Comienza a escribir el nombre de un alumno para ver resultados aquí.",
+      "SEARCH_EMPTY_TITLE": "No se encontraron alumnos coincidentes",
+      "SEARCH_EMPTY_SUB": "(o ya están inscritos)",
+      "FULL_TITLE": "Clase Llena",
+      "FULL_SUB": "Esta clase ha alcanzado su capacidad máxima de {{count}} alumnos. Elimina a un alumno para liberar un cupo.",
+      "ENROLL_BTN": "Inscribir",
+      "REMOVE_BTN": "Eliminar Alumno",
+      "LOADING_LAYOUT": "Cargando diseño de la clase..."
     }
   }
 }
