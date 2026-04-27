@@ -39,7 +39,7 @@ export class SchoolFacilitiesComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (err) => {
-        this.toast.error('Failed to load facilities');
+        this.toast.error('NOTIFICATIONS.FACILITY_LOAD_ERROR');
         this.isLoading.set(false);
       }
     });
@@ -47,7 +47,7 @@ export class SchoolFacilitiesComponent implements OnInit {
 
   onCreate() {
     if (this.facilityForm.invalid) {
-      this.toast.warning('Please enter a valid facility name');
+      this.toast.warning('NOTIFICATIONS.FACILITY_NAME_ERROR');
       return;
     }
 
@@ -60,11 +60,11 @@ export class SchoolFacilitiesComponent implements OnInit {
         const addedFacility = { ...newFacility, _count: { lessons: 0 } };
         this.facilities.update(current => [...current, addedFacility]);
         this.facilityForm.reset();
-        this.toast.success('Facility added successfully');
+        this.toast.success('NOTIFICATIONS.FACILITY_ADD_SUCCESS');
         this.isSubmitting.set(false);
       },
       error: (err) => {
-        this.toast.error(err.error?.message || 'Failed to create facility');
+        this.toast.error('NOTIFICATIONS.FACILITY_ADD_ERROR');
         this.isSubmitting.set(false);
       }
     });
@@ -72,25 +72,25 @@ export class SchoolFacilitiesComponent implements OnInit {
 
   onDelete(facility: Facility) {
     if (facility._count?.lessons && facility._count.lessons > 0) {
-       this.toast.warning('Cannot delete facility with active classes assigned');
+       this.toast.warning('NOTIFICATIONS.FACILITY_DELETE_RESTRICT');
        return;
     }
 
     this.confirmService.ask({
-      title: 'Delete Facility?',
-      message: `Are you sure you want to delete "${facility.name}"? This action cannot be undone.`,
-      confirmText: 'Delete',
-      cancelText: 'Cancel',
+      title: 'MODALS.DELETE_FACILITY_TITLE',
+      message: 'MODALS.DELETE_FACILITY_MSG',
+      params: { name: facility.name },
+      confirmText: 'MODALS.DELETE',
       danger: true
     }).then((confirmed) => {
       if (confirmed) {
         this.facilitiesService.deleteFacility(facility.id).subscribe({
           next: () => {
             this.facilities.update(current => current.filter(f => f.id !== facility.id));
-            this.toast.success('Facility deleted');
+            this.toast.success('NOTIFICATIONS.FACILITY_DELETE_SUCCESS');
           },
           error: (err) => {
-            this.toast.error(err.error?.message || 'Failed to delete facility');
+            this.toast.error('NOTIFICATIONS.FACILITY_DELETE_ERROR');
           }
         });
       }

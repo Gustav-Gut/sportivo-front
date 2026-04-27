@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { LessonsService, Lesson } from '../../../../core/services/lessons.service';
 import { UsersService } from '../../../../core/services/users.service';
 import { ToastService } from '../../../../core/services/toast.service';
+import { ConfirmService } from '../../../../core/services/confirm.service';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { TitleCasePipe } from '@angular/common';
 
@@ -19,6 +20,7 @@ export class LessonDetails implements OnInit {
   private lessonsService = inject(LessonsService);
   private usersService = inject(UsersService);
   private toast = inject(ToastService);
+  private confirmService = inject(ConfirmService);
 
   lessonId = signal<string | null>(null);
   lesson = signal<Lesson | null>(null);
@@ -54,7 +56,7 @@ export class LessonDetails implements OnInit {
         const students = res.enrollments?.map((e: any) => e.student) || [];
         this.enrolledStudents.set(students);
       },
-      error: () => this.toast.error('Failed to load lesson details')
+      error: () => this.toast.error('NOTIFICATIONS.LESSON_DETAILS_ERROR')
     });
   }
 
@@ -82,7 +84,7 @@ export class LessonDetails implements OnInit {
         this.isSearching.set(false);
       },
       error: () => {
-        this.toast.error('Search failed');
+        this.toast.error('NOTIFICATIONS.SEARCH_ERROR');
         this.isSearching.set(false);
       }
     });
@@ -91,30 +93,38 @@ export class LessonDetails implements OnInit {
   enrollStudent(student: any) {
     this.lessonsService.enrollStudent(this.lessonId()!, student.id).subscribe({
       next: () => {
-        this.toast.success(`${student.firstName} enrolled successfully`);
+        this.toast.success('NOTIFICATIONS.ENROLL_SUCCESS', { name: student.firstName });
         this.enrolledStudents.update(current => [...current, student]);
         // Remove from search results
         this.searchResults.update(current => current.filter(s => s.id !== student.id));
       },
       error: (err: any) => {
-        this.toast.error(err.error?.message || 'Failed to enroll student');
+        this.toast.error('NOTIFICATIONS.ENROLL_ERROR');
       }
     });
   }
 
-  unenrollStudent(studentId: string, studentName: string) {
-    if (!confirm(`Are you sure you want to remove ${studentName} from this lesson?`)) return;
-
-    this.lessonsService.unenrollStudent(this.lessonId()!, studentId).subscribe({
-      next: () => {
-        this.toast.success('Student removed from lesson');
-        this.enrolledStudents.update(current => current.filter(s => s.id !== studentId));
-        // Refresh search if there is an active query so the removed student might reappear
-        if (this.searchQuery().length >= 2) {
-          this.searchSubject.next(this.searchQuery());
-        }
-      },
-      error: () => this.toast.error('Failed to remove student')
+  async unenrollStudent(studentId: string, studentName: string) {
+    const confirmed = await this.confirmService.ask({
+      title: 'MODALS.UNENROLL_TITLE',
+      message: 'MODALS.UNENROLL_MSG',
+      params: { name: studentName },
+      confirmText: 'MODALS.DELETE',
+      danger: true
     });
+
+    if (confirmed) {
+      this.lessonsService.unenrollStudent(this.lessonId()!, studentId).subscribe({
+        next: () => {
+          this.toast.success('NOTIFICATIONS.UNENROLL_SUCCESS');
+          this.enrolledStudents.update(current => current.filter(s => s.id !== studentId));
+          // Refresh search if there is an active query so the removed student might reappear
+          if (this.searchQuery().length >= 2) {
+            this.searchSubject.next(this.searchQuery());
+          }
+        },
+        error: () => this.toast.error('NOTIFICATIONS.UNENROLL_ERROR')
+      });
+    }
   }
 }

@@ -27,15 +27,15 @@ export class UserList implements OnInit {
 
   // ── Table ──────────────────────────────────────────────
   columns: AdvanceTableColumn[] = [
-    { key: 'rut', label: 'RUT', type: 'text' },
-    { key: 'member', label: 'User', type: 'member' },
-    { key: 'roles', label: 'Roles', type: 'status' },
-    { key: 'email', label: 'Email', type: 'text' },
-    { key: 'status', label: 'Status', type: 'status' },
+    { key: 'rut', label: 'COMMON.TABLE.RUT', type: 'text' },
+    { key: 'member', label: 'COMMON.TABLE.USER', type: 'member' },
+    { key: 'roles', label: 'COMMON.TABLE.ROLES', type: 'status' },
+    { key: 'email', label: 'COMMON.TABLE.EMAIL', type: 'text' },
+    { key: 'status', label: 'COMMON.TABLE.STATUS', type: 'status' },
     {
       key: 'actions', label: '', type: 'actions',
       actions: [
-        { label: 'Edit', icon: 'edit', callback: (row: any) => this.openDrawerForEdit(row.id) }
+        { label: 'COMMON.TABLE.EDIT', icon: 'edit', callback: (row: any) => this.openDrawerForEdit(row.id) }
       ]
     }
   ];
@@ -55,10 +55,10 @@ export class UserList implements OnInit {
   editingUser = signal<any | null>(null);
 
   get isEditMode() { return this.editingUser() !== null; }
-  get drawerTitle()    { return this.isEditMode ? 'Edit User'   : 'New User'; }
-  get drawerSubtitle() { return this.isEditMode ? 'Update the user\'s information' : 'Complete each section to create the account'; }
+  get drawerTitle()    { return this.isEditMode ? 'MODALS.USER.EDIT_TITLE'   : 'MODALS.USER.NEW_TITLE'; }
+  get drawerSubtitle() { return this.isEditMode ? 'MODALS.USER.EDIT_SUBTITLE' : 'MODALS.USER.NEW_SUBTITLE'; }
   get drawerIcon()     { return this.isEditMode ? 'edit'        : 'person_add'; }
-  get submitLabel()    { return this.isEditMode ? 'Save Changes' : 'Create User'; }
+  get submitLabel()    { return this.isEditMode ? 'MODALS.USER.SAVE_BTN' : 'MODALS.USER.CREATE_BTN'; }
   get submitIcon()     { return this.isEditMode ? 'save'         : 'person_add'; }
 
   // Accordion: which section is open (1, 2 or 3)
@@ -306,14 +306,14 @@ export class UserList implements OnInit {
   onSubmit() {
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
-      this.toast.warning('Please complete all required fields');
+      this.toast.warning('NOTIFICATIONS.USER_FORM_ERROR');
       return;
     }
 
     // Validate role-specific sport required fields
     const missingFields = this.validateRoleFields();
     if (missingFields.length > 0) {
-      this.toast.warning(`Required sport fields missing: ${missingFields.join(', ')}`);
+      this.toast.warning('NOTIFICATIONS.USER_SPORT_FIELDS_ERROR', { fields: missingFields.join(', ') });
       // Open section 3 so the user can see them
       this.openSection.set(3);
       return;
@@ -386,12 +386,12 @@ export class UserList implements OnInit {
     call$.subscribe({
       next: () => {
         this.isSaving.set(false);
-        this.toast.success(this.isEditMode ? 'User updated successfully' : 'User created successfully');
+        this.toast.success(this.isEditMode ? 'NOTIFICATIONS.USER_UPDATE_SUCCESS' : 'NOTIFICATIONS.USER_ADD_SUCCESS');
         this.closeDrawer();
         this.loadUsers();
       },
       error: (err) => {
-        this.errorMessage.set(err.error?.message || (this.isEditMode ? 'Failed to update user.' : 'Failed to create user.'));
+        this.errorMessage.set('NOTIFICATIONS.' + (this.isEditMode ? 'USER_UPDATE_ERROR' : 'USER_ADD_ERROR'));
         this.isSaving.set(false);
       }
     });
@@ -414,7 +414,7 @@ export class UserList implements OnInit {
           this.ensureSchemaAndReady(user);
         },
         error: () => {
-          this.toast.warning('Could not load user details');
+          this.toast.warning('NOTIFICATIONS.USER_LOAD_ERROR');
           this.closeDrawer();
         }
       });

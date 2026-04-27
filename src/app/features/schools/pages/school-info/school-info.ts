@@ -52,7 +52,7 @@ export class SchoolInfo implements OnInit {
       },
       error: (err) => {
         console.error('Error loading school:', err);
-        this.toastService.error('Failed to load school data.');
+        this.toastService.error('NOTIFICATIONS.SCHOOL_LOAD_ERROR');
         this.isLoading.set(false);
       }
     });
@@ -79,11 +79,11 @@ export class SchoolInfo implements OnInit {
       next: (updated) => {
         this.school.set(updated);
         this.isSaving.set(false);
-        this.toastService.success('School information updated successfully.');
+        this.toastService.success('NOTIFICATIONS.SCHOOL_UPDATE_SUCCESS');
       },
       error: (err) => {
         console.error('Error updating school:', err);
-        this.toastService.error(err.error?.message || 'Failed to update school. Please try again.');
+        this.toastService.error('NOTIFICATIONS.ERROR');
         this.isSaving.set(false);
       }
     });
@@ -95,7 +95,7 @@ export class SchoolInfo implements OnInit {
       const file = input.files[0];
       
       if (!file.type.startsWith('image/')) {
-        this.toastService.error('Please select a valid image file.');
+        this.toastService.error('NOTIFICATIONS.IMAGE_VALID_ERROR');
         return;
       }
 
@@ -103,12 +103,12 @@ export class SchoolInfo implements OnInit {
       this.schoolsService.uploadLogo(file).subscribe({
         next: (updatedSchool) => {
           this.school.set(updatedSchool);
-          this.isUploadingLogo.set(false);
-          this.toastService.success('Logo uploaded successfully.');
+          this.isUploadingLogo.set(true);
+          this.toastService.success('NOTIFICATIONS.LOGO_UPLOAD_SUCCESS');
         },
         error: (err) => {
           console.error('Error uploading logo:', err);
-          this.toastService.error('Failed to upload logo.');
+          this.toastService.error('NOTIFICATIONS.LOGO_UPLOAD_ERROR');
           this.isUploadingLogo.set(false);
         }
       });

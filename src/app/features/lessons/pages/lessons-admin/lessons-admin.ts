@@ -101,7 +101,7 @@ export class LessonsAdmin implements OnInit {
       
       this.isLoading.set(false);
     }).catch(err => {
-      this.toast.error('Failed to load lesson dependencies');
+      this.toast.error('NOTIFICATIONS.LESSON_LOAD_ERROR');
       this.isLoading.set(false);
     });
   }
@@ -109,7 +109,7 @@ export class LessonsAdmin implements OnInit {
   onCreate() {
     if (this.lessonForm.invalid) {
       this.lessonForm.markAllAsTouched();
-      this.toast.warning('Please complete all required fields correctly');
+      this.toast.warning('NOTIFICATIONS.LESSON_FORM_ERROR');
       return;
     }
 
@@ -128,12 +128,12 @@ export class LessonsAdmin implements OnInit {
 
         this.lessons.update(current => [enrichedLesson, ...current]);
         this.lessonForm.reset({ active: true, dayOfWeek: 'MONDAY', maxStudents: 20 });
-        this.toast.success('Lesson created successfully');
+        this.toast.success('NOTIFICATIONS.LESSON_ADD_SUCCESS');
         this.closeDrawer();
         this.isSubmitting.set(false);
       },
       error: (err) => {
-        this.toast.error(err.error?.message || 'Failed to create lesson');
+        this.toast.error('NOTIFICATIONS.LESSON_ADD_ERROR');
         this.isSubmitting.set(false);
       }
     });
@@ -141,25 +141,25 @@ export class LessonsAdmin implements OnInit {
 
   onDelete(lesson: Lesson) {
     if (lesson._count?.enrollments && lesson._count.enrollments > 0) {
-       this.toast.warning('Cannot delete a lesson with enrolled students');
+       this.toast.warning('NOTIFICATIONS.LESSON_DELETE_RESTRICT');
        return;
     }
 
     this.confirmService.ask({
-      title: 'Delete Lesson?',
-      message: `Are you sure you want to delete "${lesson.name}"? This action cannot be undone.`,
-      confirmText: 'Delete',
-      cancelText: 'Cancel',
+      title: 'MODALS.DELETE_LESSON_TITLE',
+      message: 'MODALS.DELETE_LESSON_MSG',
+      params: { name: lesson.name },
+      confirmText: 'MODALS.DELETE',
       danger: true
     }).then((confirmed) => {
       if (confirmed) {
         this.lessonsService.deleteLesson(lesson.id).subscribe({
           next: () => {
             this.lessons.update(current => current.filter(l => l.id !== lesson.id));
-            this.toast.success('Lesson deleted successfully');
+            this.toast.success('NOTIFICATIONS.LESSON_DELETE_SUCCESS');
           },
           error: (err) => {
-            this.toast.error(err.error?.message || 'Failed to delete lesson');
+            this.toast.error('NOTIFICATIONS.LESSON_DELETE_ERROR');
           }
         });
       }

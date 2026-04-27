@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 export interface ConfirmConfig {
   title: string;
   message: string;
+  params?: any;
   confirmText?: string;
   cancelText?: string;
   danger?: boolean;
@@ -15,20 +16,18 @@ export interface ConfirmConfig {
 export class ConfirmService {
   config = signal<ConfirmConfig | null>(null);
   
-  // A Subject to let the user "wait" for the promise resolution
   private resolveSubject = new Subject<boolean>();
 
   ask(config: ConfirmConfig): Promise<boolean> {
     const finalConfig = {
       ...config,
-      confirmText: config.confirmText || 'Confirm',
-      cancelText: config.cancelText || 'Cancel',
+      confirmText: config.confirmText || 'MODALS.CONFIRM',
+      cancelText: config.cancelText || 'MODALS.CANCEL',
       danger: config.danger ?? false
     };
 
     this.config.set(finalConfig);
     
-    // We return a Promise that will resolve when the modal emits
     return new Promise<boolean>((resolve) => {
       const subscription = this.resolveSubject.subscribe((result) => {
         subscription.unsubscribe();
@@ -38,7 +37,6 @@ export class ConfirmService {
     });
   }
 
-  // Called by the modal component when a user clicks a button
   respond(result: boolean) {
     if (this.config()) {
       this.resolveSubject.next(result);

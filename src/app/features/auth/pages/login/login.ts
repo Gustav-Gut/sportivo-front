@@ -50,12 +50,12 @@ export class Login {
             localStorage.setItem('user_lang', info.defaultLanguage);
             this.currentStep.set(2);
           } else {
-            this.errorMessage.set('School not found. Please check the code.');
+            this.errorMessage.set('NOTIFICATIONS.LOGIN_SCHOOL_NOT_FOUND');
           }
         },
         error: () => {
           this.isLoading.set(false);
-          this.errorMessage.set('Could not verify school code. Please try again.');
+          this.errorMessage.set('NOTIFICATIONS.LOGIN_VERIFY_ERROR');
         }
       });
     }
@@ -80,7 +80,7 @@ export class Login {
         },
         error: (err: HttpErrorResponse) => {
           this.isLoading.set(false);
-          this.errorMessage.set(err.error?.message || 'Login failed. Please verify your credentials.');
+          this.errorMessage.set('NOTIFICATIONS.LOGIN_FAILED');
         }
       });
     }

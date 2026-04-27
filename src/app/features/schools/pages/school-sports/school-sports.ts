@@ -68,11 +68,11 @@ export class SchoolSports implements OnInit {
         this.selectedNewSportId.set('');
         this.loadSports();
         this.isSaving.set(false);
-        this.toastService.success('Sport added successfully.');
+        this.toastService.success('NOTIFICATIONS.SPORT_ADD_SUCCESS');
       },
       error: (err) => {
         console.error('Error associating sport:', err);
-        this.toastService.error('Failed to add sport.');
+        this.toastService.error('NOTIFICATIONS.SPORT_ADD_ERROR');
         this.isSaving.set(false);
       }
     });
@@ -80,9 +80,10 @@ export class SchoolSports implements OnInit {
 
   async removeSport(schoolSportId: string, sportName: string) {
     const confirmed = await this.confirmService.ask({
-      title: 'Remove Sport',
-      message: `Are you sure you want to remove ${sportName} from your school? Historical data will not be deleted, but you won't be able to attach new records to this sport.`,
-      confirmText: 'Remove Sport',
+      title: 'MODALS.REMOVE_SPORT_TITLE',
+      message: 'MODALS.REMOVE_SPORT_MSG',
+      params: { name: sportName },
+      confirmText: 'MODALS.DELETE',
       danger: true
     });
 
@@ -91,11 +92,11 @@ export class SchoolSports implements OnInit {
     this.sportsService.dissociateSport(schoolSportId).subscribe({
       next: () => {
         this.loadSports();
-        this.toastService.success('Sport removed successfully.');
+        this.toastService.success('NOTIFICATIONS.SPORT_REMOVE_SUCCESS');
       },
       error: (err) => {
         console.error('Error removing sport:', err);
-        this.toastService.error('Failed to remove sport.');
+        this.toastService.error('NOTIFICATIONS.SPORT_REMOVE_ERROR');
       }
     });
   }
@@ -142,11 +143,11 @@ export class SchoolSports implements OnInit {
         this.editingFields.set({});
         this.loadSports();
         this.isSaving.set(false);
-        this.toastService.success('Sport configuration updated successfully.');
+        this.toastService.success('NOTIFICATIONS.SPORT_CONFIG_SUCCESS');
       },
       error: (err) => {
         console.error('Error updating sport config:', err);
-        this.toastService.error('Failed to update sport configuration.');
+        this.toastService.error('NOTIFICATIONS.SPORT_CONFIG_ERROR');
         this.isSaving.set(false);
       }
     });
