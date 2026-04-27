@@ -31,6 +31,10 @@ export class AdvancedDataTable implements OnChanges {
   @Input({ required: true }) data: any[] = [];
   @Input() pageSize: number = 10;
   @Input() title: string = 'Data Table';
+  
+  isArray(val: any): boolean {
+    return Array.isArray(val);
+  }
 
   // Internal State
   filteredData: any[] = [];

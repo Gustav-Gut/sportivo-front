@@ -82,7 +82,14 @@
       "PAID": "Pagado",
       "PENDING": "Pendiente",
       "PROCESSING": "Procesando",
-      "OVERDUE": "Vencido"
+      "OVERDUE": "Vencido",
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo",
+      "STUDENT": "Alumno",
+      "COACH": "Entrenador",
+      "TUTOR": "Tutor",
+      "ADMIN": "Admin",
+      "SUPERADMIN": "Super Admin"
     },
     "TABLE": {
       "MEMBER": "Miembro",
@@ -104,8 +111,8 @@
         "TO": "a",
         "OF": "de",
         "RESULTS": "resultados",
-        "PREV": "Ant",
-        "NEXT": "Sig"
+        "PREV": "Anterior",
+        "NEXT": "Siguiente"
       }
     },
     "MONTHS": {

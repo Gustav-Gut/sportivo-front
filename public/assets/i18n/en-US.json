@@ -82,7 +82,14 @@
       "PAID": "Paid",
       "PENDING": "Pending",
       "PROCESSING": "Processing",
-      "OVERDUE": "Overdue"
+      "OVERDUE": "Overdue",
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "STUDENT": "Student",
+      "COACH": "Coach",
+      "TUTOR": "Tutor",
+      "ADMIN": "Admin",
+      "SUPERADMIN": "Super Admin"
     },
     "TABLE": {
       "MEMBER": "Member",

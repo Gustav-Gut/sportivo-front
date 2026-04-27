@@ -118,7 +118,7 @@ export class UserList implements OnInit {
             name: `${user.firstName} ${user.lastName}`
           },
           email: user.email,
-          roles: Array.isArray(user.roles) ? user.roles.join(', ') : 'UNKNOWN',
+          roles: user.roles || [],
           status: user.active ? 'Active' : 'Inactive'
         }));
         this.usersData.set(mappedData);
