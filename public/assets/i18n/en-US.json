@@ -142,5 +142,21 @@
       "DAYS": "Days Overdue",
       "VIEW_ALL_BTN": "View All Overdue Accounts"
     }
+  },
+  "NOTIFICATIONS": {
+    "SUCCESS": "Operation successful",
+    "ERROR": "Something went wrong. Please try again.",
+    "SAVE_SUCCESS": "Information saved successfully",
+    "DELETE_SUCCESS": "Item deleted successfully",
+    "INVOICE_CREATED": "Invoice {{id}} created for {{name}}",
+    "REMINDERS_SENT": "{{count}} reminders have been sent"
+  },
+  "MODALS": {
+    "CONFIRM": "Confirm",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "SAVE": "Save Changes",
+    "TITLE_CONFIRM": "Are you sure?",
+    "SUBTITLE_CONFIRM": "This action cannot be undone."
   }
 }

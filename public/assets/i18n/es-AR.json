@@ -142,5 +142,21 @@
       "DAYS": "Días de Mora",
       "VIEW_ALL_BTN": "Ver Todas las Cuentas Vencidas"
     }
+  },
+  "NOTIFICATIONS": {
+    "SUCCESS": "Operación exitosa",
+    "ERROR": "Algo salió mal. Por favor intentá de nuevo.",
+    "SAVE_SUCCESS": "Información guardada correctamente",
+    "DELETE_SUCCESS": "Elemento eliminado correctamente",
+    "INVOICE_CREATED": "Factura {{id}} creada para {{name}}",
+    "REMINDERS_SENT": "Se enviaron {{count}} recordatorios"
+  },
+  "MODALS": {
+    "CONFIRM": "Confirmar",
+    "CANCEL": "Cancelar",
+    "DELETE": "Eliminar",
+    "SAVE": "Guardar Cambios",
+    "TITLE_CONFIRM": "¿Estás seguro?",
+    "SUBTITLE_CONFIRM": "Esta acción no se puede deshacer."
   }
 }

@@ -6,6 +6,7 @@ export interface Toast {
   id: string;
   type: ToastType;
   message: string;
+  params?: any;
   duration?: number;
 }
 
@@ -15,20 +16,20 @@ export interface Toast {
 export class ToastService {
   toasts = signal<Toast[]>([]);
 
-  success(message: string, duration = 4000) {
-    this.add({ type: 'success', message, duration });
+  success(message: string, params?: any, duration = 4000) {
+    this.add({ type: 'success', message, params, duration });
   }
 
-  error(message: string, duration = 5000) {
-    this.add({ type: 'error', message, duration });
+  error(message: string, params?: any, duration = 5000) {
+    this.add({ type: 'error', message, params, duration });
   }
 
-  info(message: string, duration = 4000) {
-    this.add({ type: 'info', message, duration });
+  info(message: string, params?: any, duration = 4000) {
+    this.add({ type: 'info', message, params, duration });
   }
 
-  warning(message: string, duration = 4000) {
-    this.add({ type: 'warning', message, duration });
+  warning(message: string, params?: any, duration = 4000) {
+    this.add({ type: 'warning', message, params, duration });
   }
 
   remove(id: string) {
