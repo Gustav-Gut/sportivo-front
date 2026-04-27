@@ -16,6 +16,8 @@
     }
   },
   "SIDEBAR": {
+    "WELCOME": "Welcome Options",
+    "WELCOME_SUB": "Where would you like to go?",
     "OVERVIEW": "Overview",
     "USERS": "Users Admin",
     "LESSONS": "Lessons Admin",

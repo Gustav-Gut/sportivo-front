@@ -16,6 +16,8 @@
     }
   },
   "SIDEBAR": {
+    "WELCOME": "Opciones de Bienvenida",
+    "WELCOME_SUB": "¿A dónde te gustaría ir?",
     "OVERVIEW": "Resumen",
     "USERS": "Administrar Usuarios",
     "LESSONS": "Administrar Clases",
