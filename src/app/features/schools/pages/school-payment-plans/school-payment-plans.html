@@ -1,1 +1,295 @@
-<p>school-payment-plans works!</p>
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root bg-background-dark">
+  <div class="layout-container flex h-full grow flex-col">
+    <div class="px-4 md:px-8 lg:px-12 flex flex-1 justify-center py-5">
+      <div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+        
+        <!-- Header & Actions -->
+        <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 relative">
+          <!-- Subtle background glow for header -->
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-[60px] pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 tracking-tight">Planes de Pago</h2>
+            <p class="text-slate-400 text-sm mt-1">Administra los planes de suscripción y vincula a tus estudiantes de forma automatizada.</p>
+          </div>
+          
+          <div class="flex items-center gap-3 w-full sm:w-auto relative z-10">
+            <button (click)="openPlanModal()" class="h-11 px-5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-white text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-none border border-slate-700 hover:border-slate-500 hover:shadow-lg">
+              <span class="material-symbols-outlined text-lg">add_circle</span>
+              <span>Nuevo Plan</span>
+            </button>
+            
+            <button (click)="openEnrollModal()" class="group relative h-11 px-6 rounded-xl bg-gradient-to-r from-primary to-blue-500 hover:to-blue-400 text-white text-sm font-bold shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300 flex items-center justify-center gap-2 flex-1 sm:flex-none overflow-hidden">
+              <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+              <span class="material-symbols-outlined text-lg relative z-10">school</span>
+              <span class="relative z-10">Inscribir Alumno</span>
+            </button>
+          </div>
+        </div>
+
+  <!-- Plans Configuration Card -->
+  <div class="w-full bg-slate-900/60 rounded-2xl border border-slate-700/50 shadow-2xl overflow-hidden backdrop-blur-md relative">
+    <!-- Card internal glow -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+    <div class="p-8 space-y-8 relative z-10">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-700/50 pb-5 gap-4">
+        <h3 class="text-xl font-bold text-slate-100 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center shadow-inner">
+            <span class="material-symbols-outlined text-primary">sell</span>
+          </div>
+          Planes Registrados
+        </h3>
+      </div>
+
+      <!-- Plans List -->
+      <div *ngIf="isLoadingPlans" class="flex justify-center py-16">
+        <div class="flex flex-col items-center gap-4">
+          <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
+          <p class="text-slate-400 text-sm font-medium animate-pulse">Cargando planes...</p>
+        </div>
+      </div>
+
+      <div *ngIf="!isLoadingPlans && plans.length === 0" class="flex flex-col items-center justify-center py-20 text-slate-500 bg-slate-800/20 rounded-2xl border border-slate-800 border-dashed">
+        <div class="relative w-20 h-20 flex items-center justify-center mb-4">
+          <div class="absolute inset-0 bg-primary/10 rounded-full animate-ping opacity-50"></div>
+          <div class="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center shadow-lg border border-slate-700 z-10">
+            <span class="material-symbols-outlined text-3xl text-slate-400">receipt_long</span>
+          </div>
+        </div>
+        <p class="text-lg font-semibold text-slate-300">No hay planes creados aún</p>
+        <p class="text-sm text-slate-500 mt-2 text-center max-w-sm">Crea tu primer plan de pago para empezar a inscribir alumnos de forma automatizada.</p>
+        <button (click)="openPlanModal()" class="mt-6 px-6 py-2.5 rounded-full bg-slate-800 text-primary text-sm font-bold border border-primary/20 hover:bg-primary hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.15)] hover:shadow-[0_0_25px_rgba(59,130,246,0.4)]">
+          Crear el primer plan
+        </button>
+      </div>
+
+      <div *ngIf="!isLoadingPlans && plans.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let plan of plans" class="group relative bg-slate-800/40 rounded-2xl border border-slate-700/50 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(59,130,246,0.3)] hover:border-primary/50 hover:bg-slate-800/60">
+          
+          <!-- Gradient Top Border Accent -->
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+          <div class="p-6 flex flex-col h-full relative z-10">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 shadow-inner flex items-center justify-center shrink-0 group-hover:from-primary/20 group-hover:to-blue-500/10 group-hover:border-primary/30 transition-all duration-300">
+                <span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors text-[28px]">workspace_premium</span>
+              </div>
+              
+              <div class="flex flex-col items-end gap-2">
+                <span class="inline-flex items-center justify-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border backdrop-blur-md" [ngClass]="plan.active ? 'text-green-400 bg-green-400/10 border-green-400/20 shadow-[0_0_10px_rgba(74,222,128,0.1)]' : 'text-slate-400 bg-slate-800/80 border-slate-700'">
+                  {{ plan.active ? 'Activo' : 'Inactivo' }}
+                </span>
+                
+                <button (click)="deletePlan(plan.id)" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition-colors opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100" title="Eliminar Plan">
+                  <span class="material-symbols-outlined text-[18px]">delete</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-6 flex-1">
+              <h4 class="text-xl font-bold text-slate-100 mb-1 leading-tight group-hover:text-white transition-colors" [title]="plan.name">{{ plan.name }}</h4>
+              <p class="text-sm text-slate-400 line-clamp-2 leading-relaxed" [title]="plan.description">{{ plan.description || 'Suscripción recurrente sin descripción.' }}</p>
+            </div>
+
+            <div class="mt-auto">
+              <div class="flex items-baseline gap-1.5 mb-2">
+                <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300 group-hover:from-white group-hover:to-primary transition-all duration-300">{{ plan.price | currency:'CLP':'symbol-narrow':'1.0-0' }}</span>
+                <span class="text-sm font-medium text-slate-500">/ {{ plan.durationMonths === 1 ? 'mes' : plan.durationMonths + ' meses' }}</span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DRAWER: NUEVO PLAN ================= -->
+<app-drawer
+  [isOpen]="showPlanModal"
+  title="Crear Plan de Pago"
+  subtitle="Define un nuevo plan de suscripción para la escuela."
+  icon="add_circle"
+  width="500px"
+  (closed)="closePlanModal()">
+  
+  <form id="planForm" [formGroup]="planForm" (ngSubmit)="savePlan()" class="px-4 py-4 flex flex-col gap-5">
+    <app-drawer-section
+      [number]="1"
+      title="Detalles del Plan"
+      [isOpen]="true"
+      [isDone]="false"
+      (toggle)="$event">
+      
+      <div class="space-y-4">
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-2">Nombre del Plan</label>
+          <input type="text" formControlName="name" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors" placeholder="Ej: Plan Mensual Básico">
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-2">Descripción</label>
+          <textarea formControlName="description" rows="2" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary p-4 placeholder:text-slate-500 transition-colors min-h-[80px]" placeholder="Incluye 2 clases semanales..."></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-medium text-slate-300 block mb-2">Precio (CLP)</label>
+            <input type="number" formControlName="price" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+          </div>
+          <div>
+            <label class="text-sm font-medium text-slate-300 block mb-2">Duración (Meses)</label>
+            <input type="number" formControlName="durationMonths" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+          </div>
+        </div>
+      </div>
+    </app-drawer-section>
+  </form>
+
+  <ng-container drawer-footer>
+    <button type="submit" form="planForm" [disabled]="planForm.invalid"
+      class="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all cursor-pointer shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+      <span>Guardar Plan</span>
+      <span class="material-symbols-outlined text-sm">save</span>
+    </button>
+  </ng-container>
+</app-drawer>
+
+<!-- ================= DRAWER: INSCRIBIR ALUMNO ================= -->
+<app-drawer
+  [isOpen]="showEnrollModal"
+  title="Inscribir Alumno y Generar Suscripción"
+  subtitle="Asocia un alumno a un plan de pago."
+  icon="school"
+  width="600px"
+  (closed)="closeEnrollModal()">
+  
+  <form id="enrollForm" [formGroup]="enrollForm" (ngSubmit)="submitEnrollment()" class="px-4 py-4 flex flex-col gap-5">
+    
+    <app-drawer-section
+      [number]="1"
+      title="Configuración de la Suscripción"
+      [isOpen]="true"
+      [isDone]="false"
+      (toggle)="$event">
+      
+      <div class="space-y-4">
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-2">Seleccionar Plan de Pago <span class="text-red-400">*</span></label>
+          <div class="relative">
+            <select formControlName="planId" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 pl-4 pr-10 appearance-none cursor-pointer">
+              <option value="" class="bg-slate-800">Selecciona un plan...</option>
+              <option *ngFor="let plan of plans" [value]="plan.id" class="bg-slate-800">{{ plan.name }} - {{ plan.price | currency:'CLP':'symbol-narrow':'1.0-0' }} / {{ plan.durationMonths }} mes(es)</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-3">¿El estudiante es mayor de edad?</label>
+          <div class="flex gap-4">
+            <label class="flex items-center gap-2 cursor-pointer bg-slate-800/30 border border-slate-700/50 rounded-lg px-4 py-2 hover:bg-slate-800/60 transition-colors">
+              <input type="radio" formControlName="isAdult" [value]="true" class="text-primary focus:ring-primary bg-slate-900 border-slate-700">
+              <span class="text-sm text-slate-200">Sí, es adulto</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer bg-slate-800/30 border border-slate-700/50 rounded-lg px-4 py-2 hover:bg-slate-800/60 transition-colors">
+              <input type="radio" formControlName="isAdult" [value]="false" class="text-primary focus:ring-primary bg-slate-900 border-slate-700">
+              <span class="text-sm text-slate-200">No, es menor de edad</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </app-drawer-section>
+
+    <app-drawer-section
+      [number]="2"
+      title="Datos del Estudiante"
+      [isOpen]="true"
+      [isDone]="false"
+      (toggle)="$event">
+      
+      <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2">
+          <label class="text-sm font-medium text-slate-300 block mb-2">RUT <span class="text-red-400">*</span></label>
+          <input type="text" formControlName="studentRut" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors" placeholder="12345678-9">
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-2">Nombres <span class="text-red-400">*</span></label>
+          <input type="text" formControlName="studentFirstName" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-2">Apellidos <span class="text-red-400">*</span></label>
+          <input type="text" formControlName="studentLastName" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+        </div>
+        <div class="col-span-2">
+          <label class="text-sm font-medium text-slate-300 block mb-2">Email {{ isAdult ? '*' : '(Opcional)' }}</label>
+          <input type="email" formControlName="studentEmail" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+        </div>
+        <div class="col-span-2">
+          <label class="text-sm font-medium text-slate-300 block mb-2">Teléfono</label>
+          <input type="text" formControlName="studentPhone" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+        </div>
+      </div>
+    </app-drawer-section>
+
+    <!-- DATOS DEL APODERADO -->
+    <app-drawer-section
+      *ngIf="!isAdult"
+      [number]="3"
+      title="Datos del Apoderado"
+      subtitle="Responsable de Pago"
+      [isOpen]="true"
+      [isDone]="false"
+      (toggle)="$event">
+      
+      <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2">
+          <label class="text-sm font-medium text-slate-300 block mb-2">RUT <span class="text-red-400">*</span></label>
+          <input type="text" formControlName="tutorRut" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-2">Nombres <span class="text-red-400">*</span></label>
+          <input type="text" formControlName="tutorFirstName" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-2">Apellidos <span class="text-red-400">*</span></label>
+          <input type="text" formControlName="tutorLastName" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+        </div>
+        <div class="col-span-2">
+          <label class="text-sm font-medium text-slate-300 block mb-2">Email <span class="text-red-400">*</span> <span class="text-xs text-slate-500 font-normal">(Recibirá comprobantes)</span></label>
+          <input type="email" formControlName="tutorEmail" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-2">Teléfono</label>
+          <input type="text" formControlName="tutorPhone" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors">
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-300 block mb-2">Relación</label>
+          <div class="relative">
+            <select formControlName="relationType" class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 pl-4 pr-10 appearance-none cursor-pointer">
+              <option value="Padre/Madre" class="bg-slate-800">Padre/Madre</option>
+              <option value="Abuelo/a" class="bg-slate-800">Abuelo/a</option>
+              <option value="Tutor Legal" class="bg-slate-800">Tutor Legal</option>
+              <option value="Otro" class="bg-slate-800">Otro</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+          </div>
+        </div>
+      </div>
+    </app-drawer-section>
+
+  </form>
+
+  <ng-container drawer-footer>
+    <button type="submit" form="enrollForm" [disabled]="enrollForm.invalid"
+      class="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all cursor-pointer shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+      <span>Crear Suscripción</span>
+      <span class="material-symbols-outlined text-sm">payment</span>
+    </button>
+  </ng-container>
+</app-drawer>
