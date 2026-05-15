@@ -173,7 +173,6 @@
     "ERROR": "Something went wrong. Please try again.",
     "SAVE_SUCCESS": "Information saved successfully",
     "DELETE_SUCCESS": "Item deleted successfully",
-    "INVOICE_CREATED": "Invoice {{id}} created for {{name}}",
     "REMINDERS_SENT": "{{count}} reminders have been sent",
     "SCHOOL_UPDATE_SUCCESS": "School information updated successfully",
     "SCHOOL_LOAD_ERROR": "Failed to load school data",
