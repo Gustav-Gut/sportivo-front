@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,8 +13,32 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Sidebar {
+  authService = inject(AuthService);
+  private router = inject(Router);
+
   isCollapsed = signal<boolean>(false);
-  expandedMenu = signal<string | null>('school'); // Default open
+  expandedMenu = signal<string | null>('school');
+  isUserMenuOpen = signal<boolean>(false);
+
+  getInitials(): string {
+    const user = this.authService.currentUser();
+    if (!user) return '?';
+    const first = user.firstName?.charAt(0) ?? '';
+    const last = user.lastName?.charAt(0) ?? '';
+    return (first + last).toUpperCase();
+  }
+
+  toggleUserMenu(): void {
+    if (this.isCollapsed()) return;
+    this.isUserMenuOpen.update(v => !v);
+  }
+
+  logout(): void {
+    this.isUserMenuOpen.set(false);
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/auth/login']);
+    });
+  }
 
   toggleSidebar() {
     this.isCollapsed.update(val => !val);

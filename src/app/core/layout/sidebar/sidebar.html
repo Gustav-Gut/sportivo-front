@@ -103,20 +103,44 @@
     </nav>
 
     <!-- Footer / User Profile -->
-    <div class="p-4 border-t border-white/5 mt-auto">
-        <div
-            class="flex items-center gap-3 cursor-pointer p-2 rounded-xl hover:bg-slate-800/50 transition-colors overflow-hidden">
-            <div class="w-8 h-8 rounded-full shrink-0 border border-primary/30 shadow-sm bg-gradient-to-br from-primary/80 to-primary/40 flex items-center justify-center">
-              <span class="text-xs font-bold text-white">AU</span>
+    <div class="mt-auto">
+
+        <!-- User Dropdown Menu (aparece encima del footer) -->
+        @if (isUserMenuOpen() && !isCollapsed()) {
+        <div class="mx-3 mb-2 bg-slate-800 border border-slate-700/50 rounded-xl overflow-hidden shadow-xl">
+            <div class="p-3 border-b border-slate-700/50">
+                <p class="text-xs font-medium text-slate-200 truncate">{{ authService.currentUser()?.email }}</p>
             </div>
-            <div class="flex flex-col min-w-0 transition-opacity duration-300" [class.opacity-0]="isCollapsed()">
-                <p class="text-sm font-semibold text-white truncate">Admin User</p>
-                <p class="text-xs text-slate-400 truncate">admin&#64;clubit.com</p>
+            <button (click)="logout()"
+                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-sm">logout</span>
+                <span>{{ 'COMMON.LOGOUT' | translate }}</span>
+            </button>
+        </div>
+        }
+
+        <div class="p-4 border-t border-white/5">
+            <div (click)="toggleUserMenu()"
+                class="flex items-center gap-3 cursor-pointer p-2 rounded-xl hover:bg-slate-800/50 transition-colors overflow-hidden"
+                [class.bg-slate-800]="isUserMenuOpen()">
+                <div class="w-8 h-8 rounded-full shrink-0 border border-primary/30 shadow-sm bg-gradient-to-br from-primary/80 to-primary/40 flex items-center justify-center">
+                  <span class="text-xs font-bold text-white">{{ getInitials() }}</span>
+                </div>
+                <div class="flex flex-col min-w-0 transition-opacity duration-300" [class.opacity-0]="isCollapsed()">
+                    @if (authService.currentUser()?.firstName) {
+                        <p class="text-sm font-semibold text-white truncate">{{ authService.currentUser()!.firstName }} {{ authService.currentUser()!.lastName }}</p>
+                        @if (authService.currentUser()!.roles?.length) {
+                        <p class="text-xs text-primary/70 capitalize">{{ authService.currentUser()!.roles[0].toLowerCase() }}</p>
+                        }
+                    } @else {
+                        <p class="text-sm font-semibold text-white truncate">{{ authService.currentUser()?.email }}</p>
+                    }
+                </div>
+                @if (!isCollapsed()) {
+                <span class="material-symbols-outlined text-slate-400 ml-auto text-sm transition-transform duration-200"
+                    [class.rotate-180]="isUserMenuOpen()">expand_more</span>
+                }
             </div>
-            @if(!isCollapsed()) {
-            <span
-                class="material-symbols-outlined text-slate-400 ml-auto text-sm transition-opacity duration-300">expand_more</span>
-            }
         </div>
     </div>
 </aside>
