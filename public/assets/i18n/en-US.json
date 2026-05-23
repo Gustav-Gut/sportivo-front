@@ -124,6 +124,19 @@
       "PLACEHOLDER_KEY_COACH": "e.g. years_exp",
       "PLACEHOLDER_DISPLAY_COACH": "e.g. Years of Experience",
       "SAVE_BTN": "Save Configuration"
+    },
+    "FACILITIES_PAGE": {
+      "TITLE": "Facilities Management",
+      "SUBTITLE": "Manage the courts, fields, and rooms available for scheduling classes.",
+      "LOADING": "Loading facilities data...",
+      "REGISTERED_LOCATIONS": "Registered Locations",
+      "PLACEHOLDER_NAME": "e.g. Main Court, Pool A",
+      "ADD_BTN": "Add",
+      "EMPTY_TITLE": "No facilities created yet.",
+      "EMPTY_SUBTITLE": "Use the input above to add courts or fields to your school.",
+      "ADDED": "Added",
+      "DELETE_TITLE": "Delete Facility",
+      "ACTIVE_CLASSES": "Active Classes"
     }
   },
   "COMMON": {

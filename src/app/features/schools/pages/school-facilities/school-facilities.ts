@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { FacilitiesService, Facility } from '../../../../core/services/facilities.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { ConfirmService } from '../../../../core/services/confirm.service';
@@ -8,7 +9,7 @@ import { ConfirmService } from '../../../../core/services/confirm.service';
 @Component({
   selector: 'app-school-facilities',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './school-facilities.html',
   styleUrls: ['./school-facilities.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

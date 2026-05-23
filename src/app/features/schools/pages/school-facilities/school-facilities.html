@@ -6,9 +6,8 @@
         <!-- Page Header -->
         <div class="mb-6 flex items-center justify-between">
           <div>
-            <h2 class="text-2xl font-bold text-white tracking-tight">Facilities Management</h2>
-            <p class="text-slate-400 text-sm mt-1">Manage the courts, fields, and rooms available for scheduling classes.
-            </p>
+            <h2 class="text-2xl font-bold text-white tracking-tight">{{ 'SCHOOL.FACILITIES_PAGE.TITLE' | translate }}</h2>
+            <p class="text-slate-400 text-sm mt-1">{{ 'SCHOOL.FACILITIES_PAGE.SUBTITLE' | translate }}</p>
           </div>
         </div>
 
@@ -22,7 +21,7 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
               </path>
             </svg>
-            <span>Loading facilities data...</span>
+            <span>{{ 'SCHOOL.FACILITIES_PAGE.LOADING' | translate }}</span>
           </div>
         </div>
         } @else {
@@ -35,7 +34,7 @@
             <div
               class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-700/50 pb-4 gap-4">
               <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
-                <span class="material-symbols-outlined text-xl text-primary">location_on</span> Registered Locations
+                <span class="material-symbols-outlined text-xl text-primary">location_on</span> {{ 'SCHOOL.FACILITIES_PAGE.REGISTERED_LOCATIONS' | translate }}
               </h3>
 
               <!-- Add Facility Form Inline -->
@@ -43,7 +42,7 @@
                 <div class="relative w-full sm:w-64">
                   <input type="text" formControlName="name"
                     class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-10 px-3 text-sm placeholder:text-slate-500 transition-colors"
-                    placeholder="e.g. Main Court, Pool A" />
+                    [placeholder]="'SCHOOL.FACILITIES_PAGE.PLACEHOLDER_NAME' | translate" />
                 </div>
                 <button type="submit" [disabled]="facilityForm.invalid || isSubmitting()"
                   class="h-10 px-4 w-full sm:w-auto rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all cursor-pointer shadow-lg shadow-primary/20 flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
@@ -54,7 +53,7 @@
                     </svg>
                   } @else {
                     <span class="material-symbols-outlined text-sm">add</span>
-                    Add
+                    {{ 'SCHOOL.FACILITIES_PAGE.ADD_BTN' | translate }}
                   }
                 </button>
               </form>
@@ -63,9 +62,8 @@
             @if (facilities().length === 0) {
             <div class="flex flex-col items-center justify-center py-12 text-slate-500">
               <span class="material-symbols-outlined text-5xl mb-3 text-slate-600">location_off</span>
-              <p class="text-sm font-medium">No facilities created yet.</p>
-              <p class="text-xs text-slate-600 mt-1">Use the input above to add courts or fields to your school.
-              </p>
+              <p class="text-sm font-medium">{{ 'SCHOOL.FACILITIES_PAGE.EMPTY_TITLE' | translate }}</p>
+              <p class="text-xs text-slate-600 mt-1">{{ 'SCHOOL.FACILITIES_PAGE.EMPTY_SUBTITLE' | translate }}</p>
             </div>
             } @else {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -81,14 +79,14 @@
                     <div class="overflow-hidden">
                       <h4 class="text-sm font-semibold text-slate-200 truncate" [title]="facility.name">{{ facility.name }}</h4>
                       <p class="text-xs text-slate-500 mt-0.5">
-                        Added {{ facility.createdAt | date:'shortDate' }}
+                        {{ 'SCHOOL.FACILITIES_PAGE.ADDED' | translate }} {{ facility.createdAt | date:'shortDate' }}
                       </p>
                     </div>
                   </div>
 
                   <div class="flex items-center gap-2 shrink-0">
                     <button (click)="onDelete(facility)"
-                      class="p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer flex items-center justify-center" title="Delete Facility">
+                      class="p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer flex items-center justify-center" [title]="'SCHOOL.FACILITIES_PAGE.DELETE_TITLE' | translate">
                       <span class="material-symbols-outlined text-sm">delete</span>
                     </button>
                   </div>
@@ -97,7 +95,7 @@
                 <!-- Footer Summary -->
                 <div class="px-6 py-3 bg-slate-900/30 border-t border-slate-700/30 flex items-center justify-between">
                   <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-[14px]">event_available</span> Active Classes
+                    <span class="material-symbols-outlined text-[14px]">event_available</span> {{ 'SCHOOL.FACILITIES_PAGE.ACTIVE_CLASSES' | translate }}
                   </p>
                   <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-md border border-primary/20">
                     {{ facility._count?.lessons || 0 }}

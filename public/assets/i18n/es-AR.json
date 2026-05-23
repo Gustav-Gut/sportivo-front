@@ -124,6 +124,19 @@
       "PLACEHOLDER_KEY_COACH": "ej. años_exp",
       "PLACEHOLDER_DISPLAY_COACH": "ej. Años de Experiencia",
       "SAVE_BTN": "Guardar Configuración"
+    },
+    "FACILITIES_PAGE": {
+      "TITLE": "Gestión de Instalaciones",
+      "SUBTITLE": "Administrá las canchas, campos y salones disponibles para agendar clases.",
+      "LOADING": "Cargando instalaciones...",
+      "REGISTERED_LOCATIONS": "Ubicaciones Registradas",
+      "PLACEHOLDER_NAME": "ej. Cancha Principal, Pileta A",
+      "ADD_BTN": "Agregar",
+      "EMPTY_TITLE": "Aún no hay instalaciones creadas.",
+      "EMPTY_SUBTITLE": "Usá el campo de arriba para agregar canchas o instalaciones a tu escuela.",
+      "ADDED": "Agregado",
+      "DELETE_TITLE": "Eliminar Instalación",
+      "ACTIVE_CLASSES": "Clases Activas"
     }
   },
   "COMMON": {
