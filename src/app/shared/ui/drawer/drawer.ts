@@ -1,6 +1,6 @@
 import {
   Component, ChangeDetectionStrategy, Input, Output,
-  EventEmitter, HostListener, OnChanges, SimpleChanges, signal
+  EventEmitter, HostListener
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -38,7 +38,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./drawer.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DrawerComponent implements OnChanges {
+export class DrawerComponent {
   /** Controls visibility */
   @Input() isOpen = false;
 
@@ -57,32 +57,13 @@ export class DrawerComponent implements OnChanges {
   /** Emitted when the user closes the drawer (backdrop click or × button) */
   @Output() closed = new EventEmitter<void>();
 
-  /** Internal: true while the exit animation is playing */
-  isClosing = signal(false);
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['isOpen'] && !changes['isOpen'].firstChange) {
-      const prev = changes['isOpen'].previousValue;
-      const curr = changes['isOpen'].currentValue;
-      // When parent sets isOpen false, play the exit animation first
-      if (prev === true && curr === false) {
-        this.isClosing.set(true);
-        setTimeout(() => this.isClosing.set(false), 290);
-      }
-    }
-  }
-
   close() {
-    this.isClosing.set(true);
-    setTimeout(() => {
-      this.isClosing.set(false);
-      this.closed.emit();
-    }, 290);
+    this.closed.emit();
   }
 
   /** Close on Escape key */
   @HostListener('document:keydown.escape')
   onEscape() {
-    if (this.isOpen && !this.isClosing()) this.close();
+    if (this.isOpen) this.close();
   }
 }
