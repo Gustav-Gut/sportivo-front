@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { SportsService } from '../../../../core/services/sports.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { ConfirmService } from '../../../../core/services/confirm.service';
@@ -8,7 +9,7 @@ import { ConfirmService } from '../../../../core/services/confirm.service';
 @Component({
   selector: 'app-school-sports',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './school-sports.html',
   styleUrls: ['./school-sports.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

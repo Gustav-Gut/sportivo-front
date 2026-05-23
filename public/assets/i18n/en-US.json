@@ -97,6 +97,33 @@
       "LOGO_CHANGE": "Change",
       "LOGO_UPLOADING": "Uploading logo, please wait...",
       "LOGO_INSTRUCTIONS": "Click the placeholder image to upload or replace your school logo."
+    },
+    "SPORTS_PAGE": {
+      "TITLE": "Sports Configuration",
+      "SUBTITLE": "Manage the sports offered by your school and configure custom fields.",
+      "LOADING": "Loading sports data...",
+      "ASSOCIATED_SPORTS": "Associated Sports",
+      "ALL_ADDED": "All sports added",
+      "SELECT_PLACEHOLDER": "Select a sport to add...",
+      "ADD_BTN": "Add",
+      "EMPTY_TITLE": "No sports associated yet.",
+      "EMPTY_SUBTITLE": "Select a sport from the dropdown above to add it to your school.",
+      "CUSTOM_FIELDS": "{{count}} custom fields configured",
+      "CUSTOMIZE_BTN": "Customize Fields",
+      "STUDENT_FIELDS": "Student Fields",
+      "COACH_FIELDS": "Coach Fields",
+      "ADD_FIELD": "Add Field",
+      "LABEL_KEY": "Key (Internal Name)",
+      "PLACEHOLDER_KEY_STUDENT": "e.g. height_cm",
+      "LABEL_DISPLAY": "Display Label",
+      "PLACEHOLDER_DISPLAY_STUDENT": "e.g. Height (cm)",
+      "LABEL_TYPE": "Data Type",
+      "TYPE_TEXT": "Text",
+      "TYPE_NUMBER": "Number",
+      "LABEL_REQUIRED": "Required",
+      "PLACEHOLDER_KEY_COACH": "e.g. years_exp",
+      "PLACEHOLDER_DISPLAY_COACH": "e.g. Years of Experience",
+      "SAVE_BTN": "Save Configuration"
     }
   },
   "COMMON": {

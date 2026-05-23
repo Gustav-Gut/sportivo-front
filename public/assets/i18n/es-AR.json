@@ -97,6 +97,33 @@
       "LOGO_CHANGE": "Cambiar",
       "LOGO_UPLOADING": "Subiendo logo, por favor esperá...",
       "LOGO_INSTRUCTIONS": "Hacé clic en la imagen para subir o reemplazar el logo de tu escuela."
+    },
+    "SPORTS_PAGE": {
+      "TITLE": "Configuración de Deportes",
+      "SUBTITLE": "Administrá los deportes ofrecidos por tu escuela y configurá campos personalizados.",
+      "LOADING": "Cargando datos de deportes...",
+      "ASSOCIATED_SPORTS": "Deportes Asociados",
+      "ALL_ADDED": "Todos los deportes añadidos",
+      "SELECT_PLACEHOLDER": "Seleccioná un deporte para agregar...",
+      "ADD_BTN": "Agregar",
+      "EMPTY_TITLE": "No hay deportes asociados aún.",
+      "EMPTY_SUBTITLE": "Seleccioná un deporte del selector de arriba para agregarlo a tu escuela.",
+      "CUSTOM_FIELDS": "{{count}} campos personalizados configurados",
+      "CUSTOMIZE_BTN": "Personalizar Campos",
+      "STUDENT_FIELDS": "Campos del Alumno",
+      "COACH_FIELDS": "Campos del Entrenador",
+      "ADD_FIELD": "Agregar Campo",
+      "LABEL_KEY": "Clave (Nombre Interno)",
+      "PLACEHOLDER_KEY_STUDENT": "ej. altura_cm",
+      "LABEL_DISPLAY": "Etiqueta de Visualización",
+      "PLACEHOLDER_DISPLAY_STUDENT": "ej. Altura (cm)",
+      "LABEL_TYPE": "Tipo de Dato",
+      "TYPE_TEXT": "Texto",
+      "TYPE_NUMBER": "Número",
+      "LABEL_REQUIRED": "Obligatorio",
+      "PLACEHOLDER_KEY_COACH": "ej. años_exp",
+      "PLACEHOLDER_DISPLAY_COACH": "ej. Años de Experiencia",
+      "SAVE_BTN": "Guardar Configuración"
     }
   },
   "COMMON": {
