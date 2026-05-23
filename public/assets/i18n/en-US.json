@@ -73,7 +73,31 @@
     "FACILITIES_FULL": "Facilities Setup",
     "PAYMENT_PLANS": "Payment Plans",
     "PAYMENT_PLANS_FULL": "Config Payment Plans",
-    "SETUP_SECTION": "Settings & Setup"
+    "SETUP_SECTION": "Settings & Setup",
+    "INFO_PAGE": {
+      "SUBTITLE": "Manage your school's branding and contact details.",
+      "LOADING": "Loading school data...",
+      "GENERAL_DETAILS": "General Details",
+      "LABEL_NAME": "School Name",
+      "PLACEHOLDER_NAME": "My School",
+      "LABEL_SLUG": "Slug (URL Identifier)",
+      "LABEL_ADDRESS": "Address",
+      "PLACEHOLDER_ADDRESS": "123 Main St, City",
+      "LABEL_EMAIL": "Contact Email",
+      "PLACEHOLDER_EMAIL": "contact@school.edu",
+      "LABEL_PHONE": "Phone Number",
+      "PLACEHOLDER_PHONE": "+1 234 567 8900",
+      "LABEL_WEBSITE": "Website",
+      "PLACEHOLDER_WEBSITE": "https://www.school.edu",
+      "LABEL_DESCRIPTION": "School Description",
+      "PLACEHOLDER_DESCRIPTION": "A brief description of your school...",
+      "LABEL_CREATED_AT": "Created At",
+      "LABEL_LOGO": "School Logo",
+      "LOGO_HINT": "Recommended format: PNG or WebP, transparent background, 400x400px.",
+      "LOGO_CHANGE": "Change",
+      "LOGO_UPLOADING": "Uploading logo, please wait...",
+      "LOGO_INSTRUCTIONS": "Click the placeholder image to upload or replace your school logo."
+    }
   },
   "COMMON": {
     "LOGOUT": "Logout",
@@ -132,7 +156,8 @@
       "SEP": "Sep",
       "OCT": "Oct"
     },
-    "DAYS_OVERDUE": "{{count}} Days"
+    "DAYS_OVERDUE": "{{count}} Days",
+    "SAVING": "Saving..."
   },
   "DASHBOARD": {
     "STATS": {

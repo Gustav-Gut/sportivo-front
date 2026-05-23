@@ -73,7 +73,31 @@
     "FACILITIES_FULL": "Configurar Instalaciones",
     "PAYMENT_PLANS": "Planes de Pago",
     "PAYMENT_PLANS_FULL": "Configurar Planes de Pago",
-    "SETUP_SECTION": "Ajustes y Configuración"
+    "SETUP_SECTION": "Ajustes y Configuración",
+    "INFO_PAGE": {
+      "SUBTITLE": "Administrá el branding y los datos de contacto de tu escuela.",
+      "LOADING": "Cargando datos de la escuela...",
+      "GENERAL_DETAILS": "Datos Generales",
+      "LABEL_NAME": "Nombre de la Escuela",
+      "PLACEHOLDER_NAME": "Mi Escuela",
+      "LABEL_SLUG": "Slug (Identificador URL)",
+      "LABEL_ADDRESS": "Dirección",
+      "PLACEHOLDER_ADDRESS": "Av. Principal 123, Ciudad",
+      "LABEL_EMAIL": "Correo de Contacto",
+      "PLACEHOLDER_EMAIL": "contacto@escuela.com.ar",
+      "LABEL_PHONE": "Teléfono",
+      "PLACEHOLDER_PHONE": "+54 9 11 1234 5678",
+      "LABEL_WEBSITE": "Sitio Web",
+      "PLACEHOLDER_WEBSITE": "https://www.escuela.com.ar",
+      "LABEL_DESCRIPTION": "Descripción de la Escuela",
+      "PLACEHOLDER_DESCRIPTION": "Una breve descripción de tu escuela...",
+      "LABEL_CREATED_AT": "Fecha de Creación",
+      "LABEL_LOGO": "Logo de la Escuela",
+      "LOGO_HINT": "Formato recomendado: PNG o WebP, fondo transparente, 400x400px.",
+      "LOGO_CHANGE": "Cambiar",
+      "LOGO_UPLOADING": "Subiendo logo, por favor esperá...",
+      "LOGO_INSTRUCTIONS": "Hacé clic en la imagen para subir o reemplazar el logo de tu escuela."
+    }
   },
   "COMMON": {
     "LOGOUT": "Cerrar sesión",
@@ -132,7 +156,8 @@
       "SEP": "Sep",
       "OCT": "Oct"
     },
-    "DAYS_OVERDUE": "{{count}} Días"
+    "DAYS_OVERDUE": "{{count}} Días",
+    "SAVING": "Guardando..."
   },
   "DASHBOARD": {
     "STATS": {

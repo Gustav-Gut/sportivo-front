@@ -6,8 +6,8 @@
         <!-- Page Header -->
         <div class="mb-6 flex items-center justify-between">
           <div>
-            <h2 class="text-2xl font-bold text-white tracking-tight">School Information</h2>
-            <p class="text-slate-400 text-sm mt-1">Manage your school's branding and contact details.</p>
+            <h2 class="text-2xl font-bold text-white tracking-tight">{{ 'SCHOOL.INFO_FULL' | translate }}</h2>
+            <p class="text-slate-400 text-sm mt-1">{{ 'SCHOOL.INFO_PAGE.SUBTITLE' | translate }}</p>
           </div>
         </div>
 
@@ -21,7 +21,7 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
               </path>
             </svg>
-            <span>Loading school data...</span>
+            <span>{{ 'SCHOOL.INFO_PAGE.LOADING' | translate }}</span>
           </div>
         </div>
         } @else {
@@ -33,24 +33,24 @@
             <div class="p-8 space-y-6">
               <h3
                 class="text-lg font-semibold text-slate-200 border-b border-slate-700/50 pb-2 flex items-center gap-2">
-                <span class="material-symbols-outlined text-xl text-primary">apartment</span> General Details
+                <span class="material-symbols-outlined text-xl text-primary">apartment</span> {{ 'SCHOOL.INFO_PAGE.GENERAL_DETAILS' | translate }}
               </h3>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 <!-- Name -->
                 <div>
-                  <label class="text-sm font-medium text-slate-300 block mb-2">School Name <span
+                  <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'SCHOOL.INFO_PAGE.LABEL_NAME' | translate }} <span
                       class="text-red-400">*</span></label>
                   <input type="text" formControlName="name"
                     class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                    placeholder="My School" />
+                    [placeholder]="'SCHOOL.INFO_PAGE.PLACEHOLDER_NAME' | translate" />
                 </div>
 
                 <!-- Slug (Read-only) -->
                 <div>
                   <label class="text-sm font-medium text-slate-300 block mb-2 flex items-center gap-1.5">
-                    Slug (URL Identifier)
+                    {{ 'SCHOOL.INFO_PAGE.LABEL_SLUG' | translate }}
                     <span class="material-symbols-outlined text-sm text-slate-500">lock</span>
                   </label>
                   <div
@@ -61,47 +61,47 @@
 
                 <!-- Address -->
                 <div class="col-span-full">
-                  <label class="text-sm font-medium text-slate-300 block mb-2">Address</label>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'SCHOOL.INFO_PAGE.LABEL_ADDRESS' | translate }}</label>
                   <input type="text" formControlName="address"
                     class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                    placeholder="123 Main St, City" />
+                    [placeholder]="'SCHOOL.INFO_PAGE.PLACEHOLDER_ADDRESS' | translate" />
                 </div>
 
                 <!-- Email -->
                 <div>
-                  <label class="text-sm font-medium text-slate-300 block mb-2">Contact Email</label>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'SCHOOL.INFO_PAGE.LABEL_EMAIL' | translate }}</label>
                   <input type="email" formControlName="email"
                     class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                    placeholder="contact@school.edu" />
+                    [placeholder]="'SCHOOL.INFO_PAGE.PLACEHOLDER_EMAIL' | translate" />
                 </div>
 
                 <!-- Phone -->
                 <div>
-                  <label class="text-sm font-medium text-slate-300 block mb-2">Phone Number</label>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'SCHOOL.INFO_PAGE.LABEL_PHONE' | translate }}</label>
                   <input type="tel" formControlName="phone"
                     class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                    placeholder="+1 234 567 8900" />
+                    [placeholder]="'SCHOOL.INFO_PAGE.PLACEHOLDER_PHONE' | translate" />
                 </div>
 
                 <!-- Website -->
                 <div>
-                  <label class="text-sm font-medium text-slate-300 block mb-2">Website</label>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'SCHOOL.INFO_PAGE.LABEL_WEBSITE' | translate }}</label>
                   <input type="url" formControlName="website"
                     class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                    placeholder="https://www.school.edu" />
+                    [placeholder]="'SCHOOL.INFO_PAGE.PLACEHOLDER_WEBSITE' | translate" />
                 </div>
 
                 <!-- Description -->
                 <div class="col-span-full">
-                  <label class="text-sm font-medium text-slate-300 block mb-2">School Description</label>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'SCHOOL.INFO_PAGE.LABEL_DESCRIPTION' | translate }}</label>
                   <textarea formControlName="description" rows="3"
                     class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary px-4 py-3 placeholder:text-slate-500 transition-colors"
-                    placeholder="A brief description of your school..."></textarea>
+                    [placeholder]="'SCHOOL.INFO_PAGE.PLACEHOLDER_DESCRIPTION' | translate"></textarea>
                 </div>
 
                 <!-- Created At (Read-only) -->
                 <div>
-                  <label class="text-sm font-medium text-slate-300 block mb-2">Created At</label>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'SCHOOL.INFO_PAGE.LABEL_CREATED_AT' | translate }}</label>
                   <div
                     class="w-full bg-slate-800/30 border border-slate-700/30 text-slate-500 rounded-lg h-11 px-4 flex items-center cursor-not-allowed select-none">
                     <span class="material-symbols-outlined text-sm mr-2">calendar_month</span>
@@ -113,18 +113,18 @@
 
                 <!-- Status (Read-only) -->
                 <div>
-                  <label class="text-sm font-medium text-slate-300 block mb-2">Status</label>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'COMMON.TABLE.STATUS' | translate }}</label>
                   <div
                     class="w-full bg-slate-800/30 border border-slate-700/30 rounded-lg h-11 px-4 flex items-center cursor-not-allowed select-none">
                     @if (school()!.active) {
                     <span class="inline-flex items-center gap-1.5 text-emerald-400 text-sm font-medium">
                       <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                      Active
+                      {{ 'COMMON.STATUS.ACTIVE' | translate }}
                     </span>
                     } @else {
                     <span class="inline-flex items-center gap-1.5 text-red-400 text-sm font-medium">
                       <span class="w-2 h-2 rounded-full bg-red-400"></span>
-                      Inactive
+                      {{ 'COMMON.STATUS.INACTIVE' | translate }}
                     </span>
                     }
                   </div>
@@ -132,8 +132,8 @@
 
                 <!-- Logo Component Add-on -->
                 <div class="col-span-full border-t border-slate-700/50 pt-6 mt-2">
-                  <label class="text-sm font-medium text-slate-300 block mb-2">School Logo</label>
-                  <p class="text-xs text-slate-500 mb-4">Recommended format: PNG or WebP, transparent background, 400x400px.</p>
+                  <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'SCHOOL.INFO_PAGE.LABEL_LOGO' | translate }}</label>
+                  <p class="text-xs text-slate-500 mb-4">{{ 'SCHOOL.INFO_PAGE.LOGO_HINT' | translate }}</p>
 
                   <div class="flex items-center gap-6">
                     <div class="relative w-24 h-24 rounded-xl bg-slate-800 border border-slate-700 overflow-hidden flex items-center justify-center shrink-0 group">
@@ -145,7 +145,7 @@
                       
                       <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer pointer-events-none">
                         <span class="material-symbols-outlined text-white mb-1">edit</span>
-                        <span class="text-[10px] font-medium text-white uppercase tracking-wider">Change</span>
+                        <span class="text-[10px] font-medium text-white uppercase tracking-wider">{{ 'SCHOOL.INFO_PAGE.LOGO_CHANGE' | translate }}</span>
                       </div>
 
                       <input type="file" accept="image/*" (change)="onLogoSelected($event)" [disabled]="isUploadingLogo()"
@@ -159,10 +159,10 @@
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                           </svg>
-                          <span class="text-sm font-medium">Uploading logo, please wait...</span>
+                          <span class="text-sm font-medium">{{ 'SCHOOL.INFO_PAGE.LOGO_UPLOADING' | translate }}</span>
                         </div>
                       } @else {
-                        <p class="text-sm text-slate-400">Click the placeholder image to upload or replace your school logo.</p>
+                        <p class="text-sm text-slate-400">{{ 'SCHOOL.INFO_PAGE.LOGO_INSTRUCTIONS' | translate }}</p>
                       }
                     </div>
                   </div>
@@ -185,10 +185,10 @@
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                   </path>
                 </svg>
-                <span>Saving...</span>
+                <span>{{ 'COMMON.SAVING' | translate }}</span>
                 } @else {
                 <span class="material-symbols-outlined text-sm">save</span>
-                <span>Save Changes</span>
+                <span>{{ 'MODALS.SAVE' | translate }}</span>
                 }
 
               </button>

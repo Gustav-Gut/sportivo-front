@@ -1,13 +1,14 @@
 import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { SchoolsService, School } from '../../../../core/services/schools.service';
 import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-school-info',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './school-info.html',
   styleUrls: ['./school-info.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
