@@ -1,0 +1,10 @@
+<h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2"
+    [class.border-b]="bordered()"
+    [class.border-slate-700/50]="bordered()"
+    [class.pb-2]="bordered()">
+  <span class="material-symbols-outlined text-xl text-primary">{{ icon() }}</span>
+  @if (number() !== null) {
+    <span>{{ number() }}.</span>
+  }
+  <span>{{ title() }}</span>
+</h3>

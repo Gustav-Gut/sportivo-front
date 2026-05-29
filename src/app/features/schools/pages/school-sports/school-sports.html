@@ -1,78 +1,60 @@
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root bg-background-dark">
-  <div class="layout-container flex h-full grow flex-col">
-    <div class="px-4 md:px-8 lg:px-12 flex flex-1 justify-center py-5">
-      <div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+<app-page-layout>
 
-        <!-- Page Header -->
-        <div class="mb-6 flex items-center justify-between">
-          <div>
-            <h2 class="text-2xl font-bold text-white tracking-tight">{{ 'SCHOOL.SPORTS_PAGE.TITLE' | translate }}</h2>
-            <p class="text-slate-400 text-sm mt-1">{{ 'SCHOOL.SPORTS_PAGE.SUBTITLE' | translate }}</p>
-          </div>
-        </div>
+  <app-page-header
+    [title]="'SCHOOL.SPORTS_PAGE.TITLE' | translate"
+    [subtitle]="'SCHOOL.SPORTS_PAGE.SUBTITLE' | translate">
+  </app-page-header>
 
-        @if (isLoading()) {
-        <div class="flex justify-center p-12 text-slate-400">
-          <div class="flex flex-col items-center gap-3">
-            <svg class="animate-spin h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-              </path>
-            </svg>
-            <span>{{ 'SCHOOL.SPORTS_PAGE.LOADING' | translate }}</span>
+  @if (isLoading()) {
+    <app-loading [message]="'SCHOOL.SPORTS_PAGE.LOADING' | translate" />
+  } @else {
+
+    <app-section-card>
+      <div class="p-8 space-y-6">
+
+        <app-inline-quick-add
+          [open]="showAddForm()"
+          [label]="(showAddForm() ? 'MODALS.CANCEL' : 'SCHOOL.SPORTS_PAGE.ADD_BTN') | translate"
+          [submitDisabled]="!selectedNewSportId() || isSaving() || availableSports().length === 0"
+          [isSubmitting]="isSaving()"
+          (toggle)="toggleAddForm()"
+          (submit)="onAddSport()">
+
+          <app-section-header header
+            icon="sports_score"
+            [title]="'SCHOOL.SPORTS_PAGE.ASSOCIATED_SPORTS' | translate"
+            [bordered]="false">
+          </app-section-header>
+
+          <div class="relative">
+            <select [(ngModel)]="selectedNewSportId" [ngModelOptions]="{standalone: true}"
+              class="form-input pr-20 appearance-none"
+              [disabled]="availableSports().length === 0 || isSaving()">
+              <option value="" disabled selected>
+                @if (availableSports().length === 0) {
+                  {{ 'SCHOOL.SPORTS_PAGE.ALL_ADDED' | translate }}
+                } @else {
+                  {{ 'SCHOOL.SPORTS_PAGE.SELECT_PLACEHOLDER' | translate }}
+                }
+              </option>
+              @for (sport of availableSports(); track sport.id) {
+                <option class="bg-slate-800" [value]="sport.id">{{ sport.name }}</option>
+              }
+            </select>
+            <span class="material-symbols-outlined absolute right-14 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
           </div>
-        </div>
+
+        </app-inline-quick-add>
+
+        @if (sportsSchema().length === 0) {
+          <app-empty-state
+            icon="sports"
+            [title]="'SCHOOL.SPORTS_PAGE.EMPTY_TITLE' | translate"
+            [subtitle]="'SCHOOL.SPORTS_PAGE.EMPTY_SUBTITLE' | translate">
+          </app-empty-state>
         } @else {
-
-        <!-- Sports Configuration Card -->
-        <div
-          class="w-full bg-slate-900/50 rounded-xl border border-slate-700/50 shadow-2xl overflow-hidden backdrop-blur-sm">
-          <div class="p-8 space-y-6">
-            <div
-              class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-700/50 pb-4 gap-4">
-              <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
-                <span class="material-symbols-outlined text-xl text-primary">sports_score</span> {{ 'SCHOOL.SPORTS_PAGE.ASSOCIATED_SPORTS' | translate }}
-              </h3>
-
-              <!-- Add Sport Selector -->
-              <div class="flex items-center gap-2 w-full sm:w-auto">
-                <div class="relative w-full sm:w-64">
-                  <select [(ngModel)]="selectedNewSportId" [ngModelOptions]="{standalone: true}"
-                    class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-10 pl-3 pr-8 text-sm appearance-none transition-colors"
-                    [disabled]="availableSports().length === 0 || isSaving()">
-                    <option value="" disabled selected>
-                      @if (availableSports().length === 0) {
-                      {{ 'SCHOOL.SPORTS_PAGE.ALL_ADDED' | translate }}
-                      } @else {
-                      {{ 'SCHOOL.SPORTS_PAGE.SELECT_PLACEHOLDER' | translate }}
-                      }
-                    </option>
-                    @for (sport of availableSports(); track sport.id) {
-                    <option class="bg-slate-800" [value]="sport.id">{{ sport.name }}</option>
-                    }
-                  </select>
-                  <span
-                    class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm">expand_more</span>
-                </div>
-                <button (click)="onAddSport()" [disabled]="!selectedNewSportId() || isSaving()"
-                  class="h-10 px-4 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all cursor-pointer shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                  <span class="material-symbols-outlined text-sm">add</span>
-                  {{ 'SCHOOL.SPORTS_PAGE.ADD_BTN' | translate }}
-                </button>
-              </div>
-            </div>
-
-            @if (sportsSchema().length === 0) {
-            <div class="flex flex-col items-center justify-center py-12 text-slate-500">
-              <span class="material-symbols-outlined text-5xl mb-3 text-slate-600">sports</span>
-              <p class="text-sm font-medium">{{ 'SCHOOL.SPORTS_PAGE.EMPTY_TITLE' | translate }}</p>
-              <p class="text-xs text-slate-600 mt-1">{{ 'SCHOOL.SPORTS_PAGE.EMPTY_SUBTITLE' | translate }}</p>
-            </div>
-            } @else {
-            <div class="space-y-4">
-              @for (sport of sportsSchema(); track sport.id) {
+          <div class="space-y-4">
+            @for (sport of sportsSchema(); track sport.id) {
               <div class="bg-slate-800/30 rounded-xl border border-slate-700/30 overflow-hidden">
 
                 <!-- Sport Header -->
@@ -90,224 +72,208 @@
                   </div>
 
                   @if (editingSportId() !== sport.id) {
-                  <div class="flex items-center gap-2">
-                    <button (click)="startEditingSport(sport)"
-                      class="px-4 py-2 rounded-lg text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 transition-colors cursor-pointer flex items-center gap-1.5">
-                      <span class="material-symbols-outlined text-sm">edit</span>
-                      {{ 'SCHOOL.SPORTS_PAGE.CUSTOMIZE_BTN' | translate }}
-                    </button>
-                    <button (click)="removeSport(sport.id, sport.sportName)"
-                      class="p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer flex items-center justify-center">
-                      <span class="material-symbols-outlined text-sm">delete</span>
-                    </button>
-                  </div>
+                    <div class="flex items-center gap-2">
+                      <button (click)="startEditingSport(sport)"
+                        class="px-4 py-2 rounded-lg text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 transition-colors cursor-pointer flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-sm">edit</span>
+                        {{ 'SCHOOL.SPORTS_PAGE.CUSTOMIZE_BTN' | translate }}
+                      </button>
+                      <button (click)="removeSport(sport.id, sport.sportName)"
+                        class="p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer flex items-center justify-center">
+                        <span class="material-symbols-outlined text-sm">delete</span>
+                      </button>
+                    </div>
                   }
                 </div>
 
                 <!-- View Mode: Field Summary -->
                 @if (editingSportId() !== sport.id) {
-                <div class="px-6 pb-4 space-y-3">
+                  <div class="px-6 pb-4 space-y-3">
 
-                  <!-- Student Fields -->
-                  @if (sport.schema.student && sport.schema.student.length > 0) {
-                  <div>
-                    <p
-                      class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                      <span class="material-symbols-outlined text-xs">sports_gymnastics</span> {{ 'SCHOOL.SPORTS_PAGE.STUDENT_FIELDS' | translate }}
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                      @for (field of sport.schema.student; track field.key) {
-                      <span
-                        class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-700/50 text-slate-300 border border-slate-600/30">
-                        {{ field.label }}
-                        @if (field.required) {
-                        <span class="text-red-400 text-[10px]">*</span>
-                        }
-                      </span>
-                      }
-                    </div>
+                    @if (sport.schema.student && sport.schema.student.length > 0) {
+                      <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                          <span class="material-symbols-outlined text-xs">sports_gymnastics</span>
+                          {{ 'SCHOOL.SPORTS_PAGE.STUDENT_FIELDS' | translate }}
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                          @for (field of sport.schema.student; track field.key) {
+                            <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-700/50 text-slate-300 border border-slate-600/30">
+                              {{ field.label }}
+                              @if (field.required) {
+                                <span class="text-red-400 text-[10px]">*</span>
+                              }
+                            </span>
+                          }
+                        </div>
+                      </div>
+                    }
+
+                    @if (sport.schema.coach && sport.schema.coach.length > 0) {
+                      <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                          <span class="material-symbols-outlined text-xs">sports</span>
+                          {{ 'SCHOOL.SPORTS_PAGE.COACH_FIELDS' | translate }}
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                          @for (field of sport.schema.coach; track field.key) {
+                            <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-700/50 text-slate-300 border border-slate-600/30">
+                              {{ field.label }}
+                              @if (field.required) {
+                                <span class="text-red-400 text-[10px]">*</span>
+                              }
+                            </span>
+                          }
+                        </div>
+                      </div>
+                    }
+
                   </div>
-                  }
-
-                  <!-- Coach Fields -->
-                  @if (sport.schema.coach && sport.schema.coach.length > 0) {
-                  <div>
-                    <p
-                      class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                      <span class="material-symbols-outlined text-xs">sports</span> {{ 'SCHOOL.SPORTS_PAGE.COACH_FIELDS' | translate }}
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                      @for (field of sport.schema.coach; track field.key) {
-                      <span
-                        class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-700/50 text-slate-300 border border-slate-600/30">
-                        {{ field.label }}
-                        @if (field.required) {
-                        <span class="text-red-400 text-[10px]">*</span>
-                        }
-                      </span>
-                      }
-                    </div>
-                  </div>
-                  }
-
-                </div>
                 }
 
                 <!-- Edit Mode -->
                 @if (editingSportId() === sport.id) {
-                <div class="px-6 pb-6 space-y-6 border-t border-slate-700/30 pt-4">
+                  <div class="px-6 pb-6 space-y-6 border-t border-slate-700/30 pt-4">
 
-                  <!-- Edit Student Fields -->
-                  <div class="space-y-3">
-                    <div class="flex items-center justify-between">
-                      <p class="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-1.5">
-                        <span class="material-symbols-outlined text-sm">sports_gymnastics</span> Student Fields
-                      </p>
-                      <button (click)="addField('student')" type="button"
-                        class="text-xs font-medium text-primary hover:text-primary/80 cursor-pointer flex items-center gap-1 transition-colors">
-                        <span class="material-symbols-outlined text-sm">add</span> {{ 'SCHOOL.SPORTS_PAGE.ADD_FIELD' | translate }}
-                      </button>
-                    </div>
-
-                    @for (field of getEditingStudentFields(); track $index) {
-                    <div
-                      class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end bg-slate-800/20 p-4 rounded-lg border border-slate-700/20">
-                      <div class="col-span-1 md:col-span-3">
-                        <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_KEY' | translate }}</label>
-                        <input type="text" [(ngModel)]="field.key" [ngModelOptions]="{standalone: true}"
-                          class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-9 px-3 text-sm placeholder:text-slate-500 transition-colors"
-                          [placeholder]="'SCHOOL.SPORTS_PAGE.PLACEHOLDER_KEY_STUDENT' | translate" />
-                      </div>
-                      <div class="col-span-1 md:col-span-3">
-                        <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_DISPLAY' | translate }}</label>
-                        <input type="text" [(ngModel)]="field.label" [ngModelOptions]="{standalone: true}"
-                          class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-9 px-3 text-sm placeholder:text-slate-500 transition-colors"
-                          [placeholder]="'SCHOOL.SPORTS_PAGE.PLACEHOLDER_DISPLAY_STUDENT' | translate" />
-                      </div>
-                      <div class="col-span-1 md:col-span-2">
-                        <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_TYPE' | translate }}</label>
-                        <div class="relative">
-                          <select [(ngModel)]="field.type" [ngModelOptions]="{standalone: true}"
-                            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-9 pl-3 pr-8 text-sm appearance-none transition-colors">
-                            <option class="bg-slate-800" value="text">{{ 'SCHOOL.SPORTS_PAGE.TYPE_TEXT' | translate }}</option>
-                            <option class="bg-slate-800" value="number">{{ 'SCHOOL.SPORTS_PAGE.TYPE_NUMBER' | translate }}</option>
-                          </select>
-                          <span
-                            class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm">expand_more</span>
-                        </div>
-                      </div>
-                      <div class="col-span-1 md:col-span-2 flex items-center gap-2 h-9 md:mt-auto">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                          <input type="checkbox" [(ngModel)]="field.required" [ngModelOptions]="{standalone: true}"
-                            class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-primary focus:ring-primary cursor-pointer" />
-                          <span class="text-xs text-slate-400">{{ 'SCHOOL.SPORTS_PAGE.LABEL_REQUIRED' | translate }}</span>
-                        </label>
-                      </div>
-                      <div class="col-span-1 md:col-span-2 flex justify-end h-9 md:mt-auto">
-                        <button (click)="removeField('student', $index)" type="button"
-                          class="p-1.5 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer w-full md:w-auto flex justify-center">
-                          <span class="material-symbols-outlined text-lg">delete</span>
+                    <!-- Edit Student Fields -->
+                    <div class="space-y-3">
+                      <div class="flex items-center justify-between">
+                        <p class="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-1.5">
+                          <span class="material-symbols-outlined text-sm">sports_gymnastics</span>
+                          {{ 'SCHOOL.SPORTS_PAGE.STUDENT_FIELDS' | translate }}
+                        </p>
+                        <button (click)="addField('student')" type="button"
+                          class="text-xs font-medium text-primary hover:text-primary/80 cursor-pointer flex items-center gap-1 transition-colors">
+                          <span class="material-symbols-outlined text-sm">add</span> {{ 'SCHOOL.SPORTS_PAGE.ADD_FIELD' | translate }}
                         </button>
                       </div>
-                    </div>
-                    }
-                  </div>
 
-                  <!-- Edit Coach Fields -->
-                  <div class="space-y-3 pt-2">
-                    <div class="flex items-center justify-between">
-                      <p class="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-1.5">
-                        <span class="material-symbols-outlined text-sm">sports</span> Coach Fields
-                      </p>
-                      <button (click)="addField('coach')" type="button"
-                        class="text-xs font-medium text-primary hover:text-primary/80 cursor-pointer flex items-center gap-1 transition-colors">
-                        <span class="material-symbols-outlined text-sm">add</span> {{ 'SCHOOL.SPORTS_PAGE.ADD_FIELD' | translate }}
-                      </button>
-                    </div>
-
-                    @for (field of getEditingCoachFields(); track $index) {
-                    <div
-                      class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end bg-slate-800/20 p-4 rounded-lg border border-slate-700/20">
-                      <div class="col-span-1 md:col-span-3">
-                        <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_KEY' | translate }}</label>
-                        <input type="text" [(ngModel)]="field.key" [ngModelOptions]="{standalone: true}"
-                          class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-9 px-3 text-sm placeholder:text-slate-500 transition-colors"
-                          [placeholder]="'SCHOOL.SPORTS_PAGE.PLACEHOLDER_KEY_COACH' | translate" />
-                      </div>
-                      <div class="col-span-1 md:col-span-3">
-                        <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_DISPLAY' | translate }}</label>
-                        <input type="text" [(ngModel)]="field.label" [ngModelOptions]="{standalone: true}"
-                          class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-9 px-3 text-sm placeholder:text-slate-500 transition-colors"
-                          [placeholder]="'SCHOOL.SPORTS_PAGE.PLACEHOLDER_DISPLAY_COACH' | translate" />
-                      </div>
-                      <div class="col-span-1 md:col-span-2">
-                        <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_TYPE' | translate }}</label>
-                        <div class="relative">
-                          <select [(ngModel)]="field.type" [ngModelOptions]="{standalone: true}"
-                            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-9 pl-3 pr-8 text-sm appearance-none transition-colors">
-                            <option class="bg-slate-800" value="text">{{ 'SCHOOL.SPORTS_PAGE.TYPE_TEXT' | translate }}</option>
-                            <option class="bg-slate-800" value="number">{{ 'SCHOOL.SPORTS_PAGE.TYPE_NUMBER' | translate }}</option>
-                          </select>
-                          <span
-                            class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm">expand_more</span>
+                      @for (field of getEditingStudentFields(); track $index) {
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end bg-slate-800/20 p-4 rounded-lg border border-slate-700/20">
+                          <div class="col-span-1 md:col-span-3">
+                            <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_KEY' | translate }}</label>
+                            <input type="text" [(ngModel)]="field.key" [ngModelOptions]="{standalone: true}"
+                              class="form-input-xs"
+                              [placeholder]="'SCHOOL.SPORTS_PAGE.PLACEHOLDER_KEY_STUDENT' | translate" />
+                          </div>
+                          <div class="col-span-1 md:col-span-3">
+                            <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_DISPLAY' | translate }}</label>
+                            <input type="text" [(ngModel)]="field.label" [ngModelOptions]="{standalone: true}"
+                              class="form-input-xs"
+                              [placeholder]="'SCHOOL.SPORTS_PAGE.PLACEHOLDER_DISPLAY_STUDENT' | translate" />
+                          </div>
+                          <div class="col-span-1 md:col-span-2">
+                            <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_TYPE' | translate }}</label>
+                            <div class="relative">
+                              <select [(ngModel)]="field.type" [ngModelOptions]="{standalone: true}"
+                                class="form-input-xs pr-8 appearance-none">
+                                <option class="bg-slate-800" value="text">{{ 'SCHOOL.SPORTS_PAGE.TYPE_TEXT' | translate }}</option>
+                                <option class="bg-slate-800" value="number">{{ 'SCHOOL.SPORTS_PAGE.TYPE_NUMBER' | translate }}</option>
+                              </select>
+                              <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm">expand_more</span>
+                            </div>
+                          </div>
+                          <div class="col-span-1 md:col-span-2 flex items-center gap-2 h-9 md:mt-auto">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                              <input type="checkbox" [(ngModel)]="field.required" [ngModelOptions]="{standalone: true}"
+                                class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-primary focus:ring-primary cursor-pointer" />
+                              <span class="text-xs text-slate-400">{{ 'SCHOOL.SPORTS_PAGE.LABEL_REQUIRED' | translate }}</span>
+                            </label>
+                          </div>
+                          <div class="col-span-1 md:col-span-2 flex justify-end h-9 md:mt-auto">
+                            <button (click)="removeField('student', $index)" type="button"
+                              class="p-1.5 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer w-full md:w-auto flex justify-center">
+                              <span class="material-symbols-outlined text-lg">delete</span>
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-span-1 md:col-span-2 flex items-center gap-2 h-9 md:mt-auto">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                          <input type="checkbox" [(ngModel)]="field.required" [ngModelOptions]="{standalone: true}"
-                            class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-primary focus:ring-primary cursor-pointer" />
-                          <span class="text-xs text-slate-400">{{ 'SCHOOL.SPORTS_PAGE.LABEL_REQUIRED' | translate }}</span>
-                        </label>
-                      </div>
-                      <div class="col-span-1 md:col-span-2 flex justify-end h-9 md:mt-auto">
-                        <button (click)="removeField('coach', $index)" type="button"
-                          class="p-1.5 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer w-full md:w-auto flex justify-center">
-                          <span class="material-symbols-outlined text-lg">delete</span>
-                        </button>
-                      </div>
-                    </div>
-                    }
-                  </div>
-
-                  <!-- Edit Actions -->
-                  <div class="flex items-center justify-end gap-3 pt-6">
-                    <button (click)="cancelEditingSport()" type="button"
-                      class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-slate-100 hover:bg-slate-800/50 transition-colors cursor-pointer">
-                      {{ 'MODALS.CANCEL' | translate }}
-                    </button>
-                    <button (click)="saveSportConfig(sport.id)" type="button" [disabled]="isSaving()"
-                      class="px-5 py-2 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all cursor-pointer shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
-                      @if (isSaving()) {
-                      <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                        </circle>
-                        <path class="opacity-75" fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                        </path>
-                      </svg>
-                      <span>{{ 'COMMON.SAVING' | translate }}</span>
-                      } @else {
-                      <span class="material-symbols-outlined text-sm">save</span>
-                      <span>{{ 'SCHOOL.SPORTS_PAGE.SAVE_BTN' | translate }}</span>
                       }
-                    </button>
-                  </div>
+                    </div>
 
-                </div>
+                    <!-- Edit Coach Fields -->
+                    <div class="space-y-3 pt-2">
+                      <div class="flex items-center justify-between">
+                        <p class="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-1.5">
+                          <span class="material-symbols-outlined text-sm">sports</span>
+                          {{ 'SCHOOL.SPORTS_PAGE.COACH_FIELDS' | translate }}
+                        </p>
+                        <button (click)="addField('coach')" type="button"
+                          class="text-xs font-medium text-primary hover:text-primary/80 cursor-pointer flex items-center gap-1 transition-colors">
+                          <span class="material-symbols-outlined text-sm">add</span> {{ 'SCHOOL.SPORTS_PAGE.ADD_FIELD' | translate }}
+                        </button>
+                      </div>
+
+                      @for (field of getEditingCoachFields(); track $index) {
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end bg-slate-800/20 p-4 rounded-lg border border-slate-700/20">
+                          <div class="col-span-1 md:col-span-3">
+                            <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_KEY' | translate }}</label>
+                            <input type="text" [(ngModel)]="field.key" [ngModelOptions]="{standalone: true}"
+                              class="form-input-xs"
+                              [placeholder]="'SCHOOL.SPORTS_PAGE.PLACEHOLDER_KEY_COACH' | translate" />
+                          </div>
+                          <div class="col-span-1 md:col-span-3">
+                            <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_DISPLAY' | translate }}</label>
+                            <input type="text" [(ngModel)]="field.label" [ngModelOptions]="{standalone: true}"
+                              class="form-input-xs"
+                              [placeholder]="'SCHOOL.SPORTS_PAGE.PLACEHOLDER_DISPLAY_COACH' | translate" />
+                          </div>
+                          <div class="col-span-1 md:col-span-2">
+                            <label class="text-xs text-slate-400 block mb-1">{{ 'SCHOOL.SPORTS_PAGE.LABEL_TYPE' | translate }}</label>
+                            <div class="relative">
+                              <select [(ngModel)]="field.type" [ngModelOptions]="{standalone: true}"
+                                class="form-input-xs pr-8 appearance-none">
+                                <option class="bg-slate-800" value="text">{{ 'SCHOOL.SPORTS_PAGE.TYPE_TEXT' | translate }}</option>
+                                <option class="bg-slate-800" value="number">{{ 'SCHOOL.SPORTS_PAGE.TYPE_NUMBER' | translate }}</option>
+                              </select>
+                              <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm">expand_more</span>
+                            </div>
+                          </div>
+                          <div class="col-span-1 md:col-span-2 flex items-center gap-2 h-9 md:mt-auto">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                              <input type="checkbox" [(ngModel)]="field.required" [ngModelOptions]="{standalone: true}"
+                                class="w-4 h-4 rounded border-slate-600 bg-slate-800 text-primary focus:ring-primary cursor-pointer" />
+                              <span class="text-xs text-slate-400">{{ 'SCHOOL.SPORTS_PAGE.LABEL_REQUIRED' | translate }}</span>
+                            </label>
+                          </div>
+                          <div class="col-span-1 md:col-span-2 flex justify-end h-9 md:mt-auto">
+                            <button (click)="removeField('coach', $index)" type="button"
+                              class="p-1.5 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer w-full md:w-auto flex justify-center">
+                              <span class="material-symbols-outlined text-lg">delete</span>
+                            </button>
+                          </div>
+                        </div>
+                      }
+                    </div>
+
+                    <!-- Edit Actions -->
+                    <div class="flex items-center justify-end gap-3 pt-6">
+                      <button (click)="cancelEditingSport()" type="button"
+                        class="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-slate-100 hover:bg-slate-800/50 transition-colors cursor-pointer">
+                        {{ 'MODALS.CANCEL' | translate }}
+                      </button>
+                      <button (click)="saveSportConfig(sport.id)" type="button" [disabled]="isSaving()"
+                        class="px-5 py-2 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all cursor-pointer shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                        @if (isSaving()) {
+                          <app-spinner size="sm" class="text-white" />
+                          <span>{{ 'COMMON.SAVING' | translate }}</span>
+                        } @else {
+                          <span class="material-symbols-outlined text-sm">save</span>
+                          <span>{{ 'SCHOOL.SPORTS_PAGE.SAVE_BTN' | translate }}</span>
+                        }
+                      </button>
+                    </div>
+
+                  </div>
                 }
 
               </div>
-              }
-            </div>
             }
-
           </div>
-        </div>
-
         }
 
       </div>
-    </div>
-  </div>
-</div>
+    </app-section-card>
+
+  }
+
+</app-page-layout>

@@ -1,32 +1,27 @@
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root bg-background-dark">
-  <div class="layout-container flex h-full grow flex-col">
-    <div class="px-4 md:px-8 lg:px-12 flex flex-1 justify-center py-5">
-      <div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+<app-page-layout>
 
-        <!-- Page Header -->
-        <div class="mb-6 flex items-center justify-between">
-          <div>
-            <h2 class="text-2xl font-bold text-white tracking-tight">{{ 'USERS.TITLE' | translate }}</h2>
-            <p class="text-slate-400 text-sm mt-1">{{ 'USERS.SUBTITLE' | translate }}</p>
-          </div>
-          <button (click)="openDrawer()"
-            class="h-10 px-5 rounded-lg bg-primary hover:bg-primary/90 text-white text-sm font-bold shadow-lg shadow-primary/20 transition-colors flex items-center gap-2 cursor-pointer shrink-0">
-            <span class="material-symbols-outlined text-lg">person_add</span>
-            {{ 'USERS.NEW_USER' | translate }}
-          </button>
-        </div>
+  <app-page-header
+    [title]="'USERS.TITLE' | translate"
+    [subtitle]="'USERS.SUBTITLE' | translate">
+    <button actions (click)="openDrawer()"
+      class="h-10 px-5 rounded-lg bg-primary hover:bg-primary/90 text-white text-sm font-bold shadow-lg shadow-primary/20 transition-colors flex items-center gap-2 cursor-pointer shrink-0">
+      <span class="material-symbols-outlined text-lg">person_add</span>
+      {{ 'USERS.NEW_USER' | translate }}
+    </button>
+  </app-page-header>
 
-        @if (isLoading()) {
-          <app-loading [message]="'USERS.LOADING' | translate"></app-loading>
-        } @else {
-          <app-advanced-data-table [title]="'USERS.TABLE_TITLE' | translate" [columns]="columns" [data]="usersData()" [pageSize]="10">
-          </app-advanced-data-table>
-        }
+  @if (isLoading()) {
+    <app-loading [message]="'USERS.LOADING' | translate" />
+  } @else {
+    <app-advanced-data-table
+      [title]="'USERS.TABLE_TITLE' | translate"
+      [columns]="columns"
+      [data]="usersData()"
+      [pageSize]="10">
+    </app-advanced-data-table>
+  }
 
-      </div>
-    </div>
-  </div>
-</div>
+</app-page-layout>
 
 <!-- Slide-over Drawer -->
 <app-drawer
@@ -34,15 +29,12 @@
   [title]="drawerTitle | translate"
   [subtitle]="drawerSubtitle | translate"
   [icon]="drawerIcon"
-  width="560px"
   (closed)="closeDrawer()">
 
   @if (isFormReady()) {
-    <!-- Error banner -->
     @if (errorMessage()) {
-      <div class="mx-6 mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2">
-        <span class="material-symbols-outlined text-red-400 text-lg">error</span>
-        <p class="text-red-400 text-sm">{{ errorMessage() | translate }}</p>
+      <div class="mx-6 mt-4">
+        <app-alert variant="error" [message]="errorMessage()! | translate" />
       </div>
     }
 
@@ -57,11 +49,10 @@
         [isDone]="!!section1Done()"
         (toggle)="toggleSection(1)">
 
-        <div>
-          <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_PRIMARY_ROLE' | translate }}</label>
+        <app-form-field [label]="'USERS.DRAWER.LABEL_PRIMARY_ROLE' | translate">
           <div class="relative">
             <select (change)="onRoleChange($event)"
-              class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 pl-4 pr-10 appearance-none cursor-pointer">
+              class="form-input pl-4 pr-10 appearance-none cursor-pointer">
               <option class="bg-slate-800" value="STUDENT" [selected]="selectedPrimaryRole() === 'STUDENT'">{{ 'USERS.DRAWER.ROLE_STUDENT' | translate }}</option>
               <option class="bg-slate-800" value="COACH" [selected]="selectedPrimaryRole() === 'COACH'">{{ 'USERS.DRAWER.ROLE_COACH' | translate }}</option>
               <option class="bg-slate-800" value="TUTOR" [selected]="selectedPrimaryRole() === 'TUTOR'">{{ 'USERS.DRAWER.ROLE_TUTOR' | translate }}</option>
@@ -70,7 +61,8 @@
             </select>
             <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
           </div>
-        </div>
+        </app-form-field>
+
         <div class="flex justify-end">
           <button type="button" (click)="toggleSection(2)"
             class="px-4 py-2 rounded-lg text-sm font-medium text-primary bg-primary/10 hover:bg-primary hover:text-white transition-all border border-primary/30 flex items-center gap-1.5 cursor-pointer">
@@ -90,50 +82,40 @@
         (toggle)="toggleSection(2)">
 
         <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_FIRST_NAME' | translate }} <span class="text-red-400">*</span></label>
-            <input type="text" formControlName="firstName"
-              class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-              placeholder="John" />
-          </div>
-          <div>
-            <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_LAST_NAME' | translate }} <span class="text-red-400">*</span></label>
-            <input type="text" formControlName="lastName"
-              class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-              placeholder="Doe" />
-          </div>
-          <div>
-            <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_RUT' | translate }} <span class="text-red-400">*</span></label>
-            <input type="text" formControlName="rut"
-              class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-              placeholder="12345678-9" />
-          </div>
-          <div>
-            <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_PHONE' | translate }}</label>
-            <input type="text" formControlName="phone"
-              class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-              placeholder="+56 9 1234 5678" />
-          </div>
+
+          <app-form-field [label]="'USERS.DRAWER.LABEL_FIRST_NAME' | translate" [required]="true">
+            <input type="text" formControlName="firstName" class="form-input" placeholder="John" />
+          </app-form-field>
+
+          <app-form-field [label]="'USERS.DRAWER.LABEL_LAST_NAME' | translate" [required]="true">
+            <input type="text" formControlName="lastName" class="form-input" placeholder="Doe" />
+          </app-form-field>
+
+          <app-form-field [label]="'USERS.DRAWER.LABEL_RUT' | translate" [required]="true">
+            <input type="text" formControlName="rut" class="form-input" placeholder="12345678-9" />
+          </app-form-field>
+
+          <app-form-field [label]="'USERS.DRAWER.LABEL_PHONE' | translate">
+            <input type="text" formControlName="phone" class="form-input" placeholder="+56 9 1234 5678" />
+          </app-form-field>
+
           <div class="col-span-2">
-            <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_EMAIL' | translate }} <span class="text-red-400">*</span></label>
-            <input type="email" formControlName="email"
-              class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-              placeholder="john.doe@example.com" />
+            <app-form-field [label]="'USERS.DRAWER.LABEL_EMAIL' | translate" [required]="true">
+              <input type="email" formControlName="email" class="form-input" placeholder="john.doe@example.com" />
+            </app-form-field>
           </div>
+
           <div class="col-span-2">
-            <label class="text-sm font-medium text-slate-300 block mb-2">
-              @if (isEditMode) {
-                {{ 'USERS.DRAWER.LABEL_PASSWORD_NEW' | translate }}
-                <span class="ml-1 text-xs text-slate-500 font-normal">{{ 'USERS.DRAWER.LABEL_PASSWORD_HINT' | translate }}</span>
-              } @else {
-                {{ 'USERS.DRAWER.LABEL_PASSWORD_TEMP' | translate }} <span class="text-red-400">*</span>
-              }
-            </label>
-            <input type="password" formControlName="password"
-              class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-              placeholder="••••••••" />
+            <app-form-field
+              [label]="(isEditMode ? 'USERS.DRAWER.LABEL_PASSWORD_NEW' : 'USERS.DRAWER.LABEL_PASSWORD_TEMP') | translate"
+              [required]="!isEditMode"
+              [hint]="isEditMode ? ('USERS.DRAWER.LABEL_PASSWORD_HINT' | translate) : ''">
+              <input type="password" formControlName="password" class="form-input" placeholder="••••••••" />
+            </app-form-field>
           </div>
+
         </div>
+
         <div class="flex justify-end">
           <button type="button" (click)="toggleSection(3)"
             class="px-4 py-2 rounded-lg text-sm font-medium text-primary bg-primary/10 hover:bg-primary hover:text-white transition-all border border-primary/30 flex items-center gap-1.5 cursor-pointer">
@@ -154,36 +136,33 @@
         <!-- Student profile -->
         @if (selectedPrimaryRole() === 'STUDENT') {
           <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_BIRTH_DATE' | translate }}</label>
-              <input type="date" formControlName="student_birthDate"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 transition-colors [color-scheme:dark]" />
-            </div>
-            <div>
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_BLOOD_TYPE' | translate }}</label>
-              <input type="text" formControlName="student_bloodType"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                placeholder="O+" />
-            </div>
-            <div>
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_WEIGHT' | translate }}</label>
-              <input type="number" formControlName="student_weight"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                placeholder="65.5" step="0.1" />
-            </div>
-            <div>
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_HEIGHT' | translate }}</label>
-              <input type="number" formControlName="student_height"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                placeholder="175" step="1" />
-            </div>
+
+            <app-form-field [label]="'USERS.DRAWER.LABEL_BIRTH_DATE' | translate">
+              <input type="date" formControlName="student_birthDate" class="form-input [color-scheme:dark]" />
+            </app-form-field>
+
+            <app-form-field [label]="'USERS.DRAWER.LABEL_BLOOD_TYPE' | translate">
+              <input type="text" formControlName="student_bloodType" class="form-input" placeholder="O+" />
+            </app-form-field>
+
+            <app-form-field [label]="'USERS.DRAWER.LABEL_WEIGHT' | translate">
+              <input type="number" formControlName="student_weight" class="form-input" placeholder="65.5" step="0.1" />
+            </app-form-field>
+
+            <app-form-field [label]="'USERS.DRAWER.LABEL_HEIGHT' | translate">
+              <input type="number" formControlName="student_height" class="form-input" placeholder="175" step="1" />
+            </app-form-field>
+
             <div class="col-span-2">
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_MEDICAL_NOTES' | translate }}</label>
-              <textarea formControlName="student_medicalNotes"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary p-4 placeholder:text-slate-500 transition-colors min-h-[80px]"
-                placeholder="Allergies, conditions, etc."></textarea>
+              <app-form-field [label]="'USERS.DRAWER.LABEL_MEDICAL_NOTES' | translate">
+                <textarea formControlName="student_medicalNotes"
+                  class="form-textarea min-h-[80px]"
+                  placeholder="Allergies, conditions, etc."></textarea>
+              </app-form-field>
             </div>
+
           </div>
+
           @for (sport of sportsSchema(); track sport.id) {
             @if (sport.schema.student && sport.schema.student.length > 0) {
               <div class="pt-2">
@@ -192,15 +171,12 @@
                 </p>
                 <div class="grid grid-cols-2 gap-4 bg-slate-800/20 p-4 rounded-xl border border-slate-700/30">
                   @for (field of sport.schema.student; track field.key) {
-                    <div>
-                      <label class="text-sm font-medium text-slate-300 block mb-2">
-                        {{ field.label }} @if (field.required) { <span class="text-red-400">*</span> }
-                      </label>
+                    <app-form-field [label]="field.label" [required]="field.required">
                       <input [type]="field.type === 'number' ? 'number' : 'text'"
                         [formControlName]="'sport_' + sport.sportName.toLowerCase() + '_student_' + field.key"
                         [placeholder]="field.label"
-                        class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors" />
-                    </div>
+                        class="form-input" />
+                    </app-form-field>
                   }
                 </div>
               </div>
@@ -211,25 +187,25 @@
         <!-- Coach profile -->
         @if (selectedPrimaryRole() === 'COACH') {
           <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_SPECIALTY' | translate }}</label>
-              <input type="text" formControlName="coach_specialty"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                placeholder="Tennis, Swimming…" />
-            </div>
-            <div>
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_EXPERIENCE' | translate }}</label>
-              <input type="number" formControlName="coach_yearsExperience"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                placeholder="5" />
-            </div>
+
+            <app-form-field [label]="'USERS.DRAWER.LABEL_SPECIALTY' | translate">
+              <input type="text" formControlName="coach_specialty" class="form-input" placeholder="Tennis, Swimming…" />
+            </app-form-field>
+
+            <app-form-field [label]="'USERS.DRAWER.LABEL_EXPERIENCE' | translate">
+              <input type="number" formControlName="coach_yearsExperience" class="form-input" placeholder="5" />
+            </app-form-field>
+
             <div class="col-span-2">
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_CERTIFICATIONS' | translate }}</label>
-              <textarea formControlName="coach_certifications"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary p-4 placeholder:text-slate-500 transition-colors min-h-[80px]"
-                placeholder="ITF Level 2, First Aid…"></textarea>
+              <app-form-field [label]="'USERS.DRAWER.LABEL_CERTIFICATIONS' | translate">
+                <textarea formControlName="coach_certifications"
+                  class="form-textarea min-h-[80px]"
+                  placeholder="ITF Level 2, First Aid…"></textarea>
+              </app-form-field>
             </div>
+
           </div>
+
           @for (sport of sportsSchema(); track sport.id) {
             @if (sport.schema.coach && sport.schema.coach.length > 0) {
               <div class="pt-2">
@@ -238,15 +214,12 @@
                 </p>
                 <div class="grid grid-cols-2 gap-4 bg-slate-800/20 p-4 rounded-xl border border-slate-700/30">
                   @for (field of sport.schema.coach; track field.key) {
-                    <div>
-                      <label class="text-sm font-medium text-slate-300 block mb-2">
-                        {{ field.label }} @if (field.required) { <span class="text-red-400">*</span> }
-                      </label>
+                    <app-form-field [label]="field.label" [required]="field.required">
                       <input [type]="field.type === 'number' ? 'number' : 'text'"
                         [formControlName]="'sport_' + sport.sportName.toLowerCase() + '_coach_' + field.key"
                         [placeholder]="field.label"
-                        class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors" />
-                    </div>
+                        class="form-input" />
+                    </app-form-field>
                   }
                 </div>
               </div>
@@ -257,24 +230,23 @@
         <!-- Tutor profile -->
         @if (selectedPrimaryRole() === 'TUTOR') {
           <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_EMERGENCY' | translate }}</label>
-              <input type="text" formControlName="tutor_emergencyContact"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                placeholder="+56 9 8765 4321" />
-            </div>
-            <div>
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_OCCUPATION' | translate }}</label>
-              <input type="text" formControlName="tutor_occupation"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-                placeholder="Engineer, Doctor…" />
-            </div>
+
+            <app-form-field [label]="'USERS.DRAWER.LABEL_EMERGENCY' | translate">
+              <input type="text" formControlName="tutor_emergencyContact" class="form-input" placeholder="+56 9 8765 4321" />
+            </app-form-field>
+
+            <app-form-field [label]="'USERS.DRAWER.LABEL_OCCUPATION' | translate">
+              <input type="text" formControlName="tutor_occupation" class="form-input" placeholder="Engineer, Doctor…" />
+            </app-form-field>
+
             <div class="col-span-2">
-              <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'USERS.DRAWER.LABEL_ADDRESS' | translate }}</label>
-              <textarea formControlName="tutor_address"
-                class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary p-4 placeholder:text-slate-500 transition-colors min-h-[80px]"
-                placeholder="123 Main St, City"></textarea>
+              <app-form-field [label]="'USERS.DRAWER.LABEL_ADDRESS' | translate">
+                <textarea formControlName="tutor_address"
+                  class="form-textarea min-h-[80px]"
+                  placeholder="123 Main St, City"></textarea>
+              </app-form-field>
             </div>
+
           </div>
         }
 
@@ -291,7 +263,7 @@
     </form>
   } @else {
     <div class="h-full flex flex-col items-center justify-center -mt-12">
-      <app-loading [message]="'USERS.DRAWER.PREPARING' | translate"></app-loading>
+      <app-loading [message]="'USERS.DRAWER.PREPARING' | translate" />
     </div>
   }
 
@@ -301,10 +273,7 @@
       <button type="submit" form="userForm" [disabled]="userForm.invalid || isSaving()"
         class="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all cursor-pointer shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
         @if (isSaving()) {
-          <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
+          <app-spinner size="sm" class="text-white" />
           <span>{{ (isEditMode ? 'USERS.DRAWER.SAVING' : 'USERS.DRAWER.CREATING') | translate }}</span>
         } @else {
           <span>{{ submitLabel | translate }}</span>

@@ -4,11 +4,32 @@ import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule, Validators } 
 import { TranslateModule } from '@ngx-translate/core';
 import { SchoolsService, School } from '../../../../core/services/schools.service';
 import { ToastService } from '../../../../core/services/toast.service';
+import { PageLayoutComponent } from '../../../../shared/ui/page-layout/page-layout';
+import { PageHeaderComponent } from '../../../../shared/ui/page-header/page-header';
+import { LoadingComponent } from '../../../../shared/ui/loading/loading';
+import { SpinnerComponent } from '../../../../shared/ui/spinner/spinner';
+import { SectionCardComponent } from '../../../../shared/ui/section-card/section-card';
+import { StatusBadgeComponent } from '../../../../shared/ui/status-badge/status-badge';
+import { SectionHeaderComponent } from '../../../../shared/ui/section-header/section-header';
+import { FormFieldComponent } from '../../../../shared/ui/form-field/form-field';
 
 @Component({
   selector: 'app-school-info',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    PageLayoutComponent,
+    PageHeaderComponent,
+    LoadingComponent,
+    SpinnerComponent,
+    SectionCardComponent,
+    StatusBadgeComponent,
+    SectionHeaderComponent,
+    FormFieldComponent,
+  ],
   templateUrl: './school-info.html',
   styleUrls: ['./school-info.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

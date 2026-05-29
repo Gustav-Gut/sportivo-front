@@ -125,6 +125,60 @@
       "PLACEHOLDER_DISPLAY_COACH": "ej. Años de Experiencia",
       "SAVE_BTN": "Guardar Configuración"
     },
+    "PAYMENT_PLANS_PAGE": {
+      "TITLE": "Planes de Pago",
+      "SUBTITLE": "Administrá los planes de suscripción y vinculá a tus estudiantes de forma automatizada.",
+      "NEW_PLAN_BTN": "Nuevo Plan",
+      "ENROLL_BTN": "Inscribir Alumno",
+      "REGISTERED_PLANS": "Planes Registrados",
+      "LOADING": "Cargando planes...",
+      "EMPTY_TITLE": "Aún no hay planes creados",
+      "EMPTY_SUBTITLE": "Creá tu primer plan de pago para empezar a inscribir alumnos de forma automatizada.",
+      "CREATE_FIRST": "Crear el primer plan",
+      "DELETE_PLAN_TITLE": "Eliminar Plan",
+      "DEFAULT_DESCRIPTION": "Suscripción recurrente sin descripción.",
+      "PER_MONTH": "/ mes",
+      "PER_MONTHS": "/ {{count}} meses",
+      "PLAN_DRAWER": {
+        "TITLE": "Crear Plan de Pago",
+        "SUBTITLE": "Definí un nuevo plan de suscripción para la escuela.",
+        "SECTION_DETAILS": "Detalles del Plan",
+        "LABEL_NAME": "Nombre del Plan",
+        "PLACEHOLDER_NAME": "Ej: Plan Mensual Básico",
+        "LABEL_DESCRIPTION": "Descripción",
+        "PLACEHOLDER_DESCRIPTION": "Incluye 2 clases semanales...",
+        "LABEL_PRICE": "Precio (CLP)",
+        "LABEL_DURATION": "Duración (Meses)",
+        "SAVE_BTN": "Guardar Plan"
+      },
+      "ENROLL_DRAWER": {
+        "TITLE": "Inscribir Alumno y Generar Suscripción",
+        "SUBTITLE": "Asociá un alumno a un plan de pago.",
+        "SECTION_CONFIG": "Configuración de la Suscripción",
+        "LABEL_PLAN": "Seleccionar Plan de Pago",
+        "PLACEHOLDER_PLAN": "Seleccioná un plan...",
+        "PLAN_OPTION": "{{name}} - {{price}} / {{months}} mes(es)",
+        "LABEL_IS_ADULT": "¿El estudiante es mayor de edad?",
+        "IS_ADULT_YES": "Sí, es adulto",
+        "IS_ADULT_NO": "No, es menor de edad",
+        "SECTION_STUDENT": "Datos del Estudiante",
+        "LABEL_RUT": "RUT",
+        "LABEL_FIRST_NAME": "Nombres",
+        "LABEL_LAST_NAME": "Apellidos",
+        "LABEL_EMAIL": "Email",
+        "OPTIONAL_HINT": "(Opcional)",
+        "LABEL_PHONE": "Teléfono",
+        "SECTION_TUTOR": "Datos del Apoderado",
+        "SECTION_TUTOR_SUBTITLE": "Responsable de Pago",
+        "TUTOR_EMAIL_HINT": "(Recibirá comprobantes)",
+        "LABEL_RELATION": "Relación",
+        "RELATION_PARENT": "Padre/Madre",
+        "RELATION_GRANDPARENT": "Abuelo/a",
+        "RELATION_LEGAL": "Tutor Legal",
+        "RELATION_OTHER": "Otro",
+        "SUBMIT_BTN": "Crear Suscripción"
+      }
+    },
     "FACILITIES_PAGE": {
       "TITLE": "Gestión de Instalaciones",
       "SUBTITLE": "Administrá las canchas, campos y salones disponibles para agendar clases.",
@@ -281,7 +335,14 @@
     "LOGIN_SCHOOL_NOT_FOUND": "Escuela no encontrada. Por favor revisá el código.",
     "LOGIN_VERIFY_ERROR": "No se pudo verificar el código de la escuela. Por favor intentá de nuevo.",
     "LOGIN_FAILED": "Error al iniciar sesión. Por favor verificá tus credenciales.",
-    "INVOICE_CREATED": "Factura {{id}} creada correctamente para {{name}}"
+    "INVOICE_CREATED": "Factura {{id}} creada correctamente para {{name}}",
+    "PLAN_LOAD_ERROR": "Error al cargar los planes de pago",
+    "PLAN_CREATE_SUCCESS": "Plan creado exitosamente",
+    "PLAN_CREATE_ERROR": "Error al crear el plan",
+    "PLAN_DELETE_SUCCESS": "Plan eliminado correctamente",
+    "PLAN_DELETE_ERROR": "No se pudo eliminar el plan",
+    "ENROLL_PLAN_SUCCESS": "Alumno inscripto exitosamente",
+    "ENROLL_PLAN_ERROR": "Error al inscribir al alumno"
   },
   "MODALS": {
     "CONFIRM": "Confirmar",
@@ -298,6 +359,11 @@
     "DELETE_LESSON_MSG": "¿Estás seguro de que querés eliminar \"{{name}}\"? Esta acción no se puede deshacer.",
     "UNENROLL_TITLE": "Eliminar Alumno",
     "UNENROLL_MSG": "¿Estás seguro de que querés eliminar a {{name}} de esta clase?",
+    "DELETE_PLAN_TITLE": "¿Eliminar Plan?",
+    "DELETE_PLAN_MSG": "¿Seguro que querés eliminar este plan? Esta acción no se puede deshacer.",
+    "OPEN_PAYMENT_LINK_TITLE": "Suscripción Generada",
+    "OPEN_PAYMENT_LINK_MSG": "¿Querés abrir el link de MercadoPago asociado?",
+    "OPEN_LINK_BTN": "Abrir Link",
     "USER": {
       "NEW_TITLE": "Nuevo Usuario",
       "NEW_SUBTITLE": "Completá cada sección para crear la cuenta",
@@ -398,7 +464,15 @@
       "FULL_SUB": "Esta clase alcanzó su capacidad máxima de {{count}} alumnos. Eliminá a un alumno para liberar un cupo.",
       "ENROLL_BTN": "Inscribir",
       "REMOVE_BTN": "Eliminar Alumno",
-      "LOADING_LAYOUT": "Cargando diseño de la clase..."
+      "LOADING_LAYOUT": "Cargando diseño de la clase...",
+      "BACK_BTN": "Volver",
+      "OPEN_ENROLL_BTN": "Inscribir Alumno",
+      "ENROLL_FIRST_BTN": "Inscribir primer alumno",
+      "ADD_DRAWER_TITLE": "Inscribir Alumnos",
+      "TAB_ENROLLED": "Inscriptos",
+      "TAB_ADD": "Agregar",
+      "SPOTS_AVAILABLE": "{{available}} de {{total}} cupos disponibles",
+      "CLASS_FULL_HINT": "La clase alcanzó su capacidad máxima"
     }
   }
 }

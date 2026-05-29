@@ -1,0 +1,10 @@
+<label class="form-label">
+  {{ label() }}
+  @if (required()) {
+    <span class="text-red-400">*</span>
+  }
+  @if (hint()) {
+    <span class="ml-1 text-xs text-slate-500 font-normal">{{ hint() }}</span>
+  }
+</label>
+<ng-content></ng-content>

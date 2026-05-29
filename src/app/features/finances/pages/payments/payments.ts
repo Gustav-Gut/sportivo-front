@@ -1,27 +1,71 @@
-import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AdvancedDataTable, AdvanceTableColumn } from '../../../../shared/ui/advanced-data-table/advanced-data-table';
-import { InvoiceModal } from '../../../../shared/ui/invoice-modal/invoice-modal';
+import { DrawerComponent } from '../../../../shared/ui/drawer/drawer';
+import { DrawerSectionComponent } from '../../../../shared/ui/drawer-section/drawer-section';
+import { PageLayoutComponent } from '../../../../shared/ui/page-layout/page-layout';
+import { PageHeaderComponent } from '../../../../shared/ui/page-header/page-header';
+import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-payments',
   standalone: true,
-  imports: [CommonModule, AdvancedDataTable, InvoiceModal, TranslateModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    AdvancedDataTable,
+    DrawerComponent,
+    DrawerSectionComponent,
+    PageLayoutComponent,
+    PageHeaderComponent,
+  ],
   templateUrl: './payments.html',
   styleUrls: ['./payments.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Payments implements OnInit {
   private translate = inject(TranslateService);
-  isInvoiceModalOpen = false;
+  private fb = inject(FormBuilder);
+  private toastService = inject(ToastService);
 
-  openInvoiceModal() {
-    this.isInvoiceModalOpen = true;
+  showDrawer = signal(false);
+  isSubmitting = false;
+  openSection = signal<number>(1);
+
+  invoiceForm = this.fb.group({
+    studentId: ['', Validators.required],
+    concept: ['', Validators.required],
+    amount: [null, [Validators.required, Validators.min(0.01)]],
+    dueDate: ['', Validators.required],
+    paymentMethod: ['card', Validators.required]
+  });
+
+  openDrawer() { this.showDrawer.set(true); }
+
+  closeDrawer() {
+    this.invoiceForm.reset({ paymentMethod: 'card' });
+    this.openSection.set(1);
+    this.showDrawer.set(false);
   }
 
-  closeInvoiceModal() {
-    this.isInvoiceModalOpen = false;
+  toggleSection(n: number) {
+    this.openSection.set(this.openSection() === n ? 0 : n);
+  }
+
+  onSubmit() {
+    if (this.invoiceForm.invalid) return;
+    this.isSubmitting = true;
+    setTimeout(() => {
+      this.toastService.success('NOTIFICATIONS.INVOICE_CREATED', {
+        id: `INV-${Math.floor(Math.random() * 9000) + 1000}`,
+        name: 'Selected Student'
+      });
+      this.isSubmitting = false;
+      this.closeDrawer();
+    }, 800);
   }
 
   columns: AdvanceTableColumn[] = [

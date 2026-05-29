@@ -1,0 +1,33 @@
+<div class="p-4 rounded-lg flex items-center gap-3"
+     [class.bg-red-500/10]="variant() === 'error'"
+     [class.border]="true"
+     [class.border-red-500/20]="variant() === 'error'"
+     [class.bg-amber-500/10]="variant() === 'warning'"
+     [class.border-amber-500/20]="variant() === 'warning'"
+     [class.bg-emerald-500/10]="variant() === 'success'"
+     [class.border-emerald-500/20]="variant() === 'success'"
+     [class.bg-blue-500/10]="variant() === 'info'"
+     [class.border-blue-500/20]="variant() === 'info'">
+
+  <span class="material-symbols-outlined"
+        [class.text-red-400]="variant() === 'error'"
+        [class.text-amber-400]="variant() === 'warning'"
+        [class.text-emerald-400]="variant() === 'success'"
+        [class.text-blue-400]="variant() === 'info'">{{ icon }}</span>
+
+  @if (message()) {
+    <p class="text-sm font-medium"
+       [class.text-red-400]="variant() === 'error'"
+       [class.text-amber-400]="variant() === 'warning'"
+       [class.text-emerald-400]="variant() === 'success'"
+       [class.text-blue-400]="variant() === 'info'">{{ message() }}</p>
+  } @else {
+    <div class="text-sm font-medium"
+         [class.text-red-400]="variant() === 'error'"
+         [class.text-amber-400]="variant() === 'warning'"
+         [class.text-emerald-400]="variant() === 'success'"
+         [class.text-blue-400]="variant() === 'info'">
+      <ng-content></ng-content>
+    </div>
+  }
+</div>

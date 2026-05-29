@@ -1,0 +1,31 @@
+<div class="flex flex-col items-center justify-center text-slate-500"
+     [class.py-8]="size() === 'sm' && !framed()"
+     [class.py-12]="size() === 'md' && !framed()"
+     [class.py-20]="size() === 'lg' && !framed()"
+     [class.py-24]="framed()"
+     [class.bg-slate-800/10]="framed()"
+     [class.rounded-xl]="framed()"
+     [class.border]="framed()"
+     [class.border-dashed]="framed()"
+     [class.border-slate-700]="framed()">
+
+  <span class="material-symbols-outlined mb-3 text-slate-600"
+        [class.text-4xl]="size() === 'sm'"
+        [class.text-5xl]="size() === 'md'"
+        [class.text-6xl]="size() === 'lg'">{{ icon() }}</span>
+
+  <p class="text-sm font-medium"
+     [class.text-slate-300]="framed()"
+     [class.text-slate-400]="!framed() && size() !== 'md'"
+     [class.text-slate-500]="!framed() && size() === 'md'">{{ title() }}</p>
+
+  @if (subtitle()) {
+    <p class="text-xs mt-1"
+       [class.text-slate-500]="framed() || size() !== 'md'"
+       [class.text-slate-600]="!framed() && size() === 'md'"
+       [class.text-center]="framed() || size() === 'lg'"
+       [class.max-w-sm]="framed() || size() === 'lg'">{{ subtitle() }}</p>
+  }
+
+  <ng-content select="[action]"></ng-content>
+</div>

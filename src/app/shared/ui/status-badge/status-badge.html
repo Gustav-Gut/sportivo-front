@@ -1,0 +1,14 @@
+<span class="inline-flex items-center gap-1.5 text-sm font-medium"
+      [class.text-emerald-400]="variant() === 'success'"
+      [class.text-red-400]="variant() === 'danger'"
+      [class.text-amber-400]="variant() === 'warning'"
+      [class.text-blue-400]="variant() === 'info'"
+      [class.text-slate-400]="variant() === 'neutral'">
+  <span class="w-2 h-2 rounded-full shrink-0"
+        [class.bg-emerald-400]="variant() === 'success'"
+        [class.bg-red-400]="variant() === 'danger'"
+        [class.bg-amber-400]="variant() === 'warning'"
+        [class.bg-blue-400]="variant() === 'info'"
+        [class.bg-slate-400]="variant() === 'neutral'"></span>
+  {{ label() }}
+</span>

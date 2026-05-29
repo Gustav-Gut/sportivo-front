@@ -30,6 +30,9 @@ import { CommonModule } from '@angular/common';
  * </app-drawer>
  * ---------------------------------------------------------------
  */
+const DRAWER_SIZES = { md: '520px', lg: '600px', xl: '720px' } as const;
+type DrawerSize = keyof typeof DRAWER_SIZES;
+
 @Component({
   selector: 'app-drawer',
   standalone: true,
@@ -51,8 +54,10 @@ export class DrawerComponent {
   /** Material Symbols icon name shown in the header badge */
   @Input() icon = 'edit';
 
-  /** Drawer width on desktop (md+). Default: 520px */
-  @Input() width = '520px';
+  /** Drawer width on desktop: 'md' (520px) | 'lg' (600px) | 'xl' (720px) */
+  @Input() size: DrawerSize = 'md';
+
+  get drawerWidth() { return DRAWER_SIZES[this.size]; }
 
   /** Emitted when the user closes the drawer (backdrop click or × button) */
   @Output() closed = new EventEmitter<void>();

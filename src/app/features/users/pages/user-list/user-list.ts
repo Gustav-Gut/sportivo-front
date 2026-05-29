@@ -10,11 +10,29 @@ import { DrawerComponent } from '../../../../shared/ui/drawer/drawer';
 import { DrawerSectionComponent } from '../../../../shared/ui/drawer-section/drawer-section';
 import { LoadingComponent } from '../../../../shared/ui/loading/loading';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { PageLayoutComponent } from '../../../../shared/ui/page-layout/page-layout';
+import { PageHeaderComponent } from '../../../../shared/ui/page-header/page-header';
+import { SpinnerComponent } from '../../../../shared/ui/spinner/spinner';
+import { FormFieldComponent } from '../../../../shared/ui/form-field/form-field';
+import { AlertComponent } from '../../../../shared/ui/alert/alert';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, AdvancedDataTable, DrawerComponent, DrawerSectionComponent, LoadingComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    AdvancedDataTable,
+    DrawerComponent,
+    DrawerSectionComponent,
+    LoadingComponent,
+    TranslateModule,
+    PageLayoutComponent,
+    PageHeaderComponent,
+    SpinnerComponent,
+    FormFieldComponent,
+    AlertComponent,
+  ],
   templateUrl: './user-list.html',
   styleUrls: ['./user-list.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

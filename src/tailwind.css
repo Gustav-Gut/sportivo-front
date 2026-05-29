@@ -57,3 +57,40 @@
         @apply border border-slateBorder backdrop-blur-xl shadow-2xl;
     }
 }
+
+/* --- Form Utilities ---
+ * Standardized form classes to avoid repeated Tailwind chains.
+ * Use `.form-input` (h-11) for standard size, `.form-input-sm` (h-10)
+ * for inline header forms, `.form-input-xs` (h-9) for compact grid editors.
+ */
+@layer components {
+    .form-label {
+        @apply text-sm font-medium text-slate-300 block mb-2;
+    }
+
+    .form-input,
+    .form-input-sm,
+    .form-input-xs {
+        @apply w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary placeholder:text-slate-500 transition-colors;
+    }
+
+    .form-input {
+        @apply h-11 px-4;
+    }
+
+    .form-input-sm {
+        @apply h-10 px-3 text-sm;
+    }
+
+    .form-input-xs {
+        @apply h-9 px-3 text-sm;
+    }
+
+    .form-textarea {
+        @apply w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary placeholder:text-slate-500 transition-colors px-4 py-3;
+    }
+
+    .form-readonly {
+        @apply w-full bg-slate-800/30 border border-slate-700/30 text-slate-500 rounded-lg h-11 px-4 flex items-center cursor-not-allowed select-none;
+    }
+}

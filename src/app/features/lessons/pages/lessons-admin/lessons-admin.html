@@ -1,110 +1,103 @@
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root bg-background-dark">
-  <div class="layout-container flex h-full grow flex-col">
-    <div class="px-4 md:px-8 lg:px-12 flex flex-1 justify-center py-5">
-      <div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+<app-page-layout>
 
-        <!-- Page Header -->
-        <div class="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <h2 class="text-2xl font-bold text-white tracking-tight">{{ 'LESSONS.TITLE' | translate }}</h2>
-            <p class="text-slate-400 text-sm mt-1">{{ 'LESSONS.SUBTITLE' | translate }}</p>
-          </div>
-          <button (click)="openDrawer()"
-            class="h-10 px-5 rounded-lg bg-primary hover:bg-primary/90 text-white text-sm font-bold shadow-lg shadow-primary/20 transition-colors flex items-center gap-2 cursor-pointer shrink-0">
-            <span class="material-symbols-outlined text-lg">add</span>
-            {{ 'LESSONS.NEW_LESSON' | translate }}
-          </button>
+  <app-page-header
+    [title]="'LESSONS.TITLE' | translate"
+    [subtitle]="'LESSONS.SUBTITLE' | translate">
+    <button actions (click)="openDrawer()"
+      class="h-10 px-5 rounded-lg bg-primary hover:bg-primary/90 text-white text-sm font-bold shadow-lg shadow-primary/20 transition-colors flex items-center gap-2 cursor-pointer shrink-0">
+      <span class="material-symbols-outlined text-lg">add</span>
+      {{ 'LESSONS.NEW_LESSON' | translate }}
+    </button>
+  </app-page-header>
+
+  @if (isLoading()) {
+    <app-loading [message]="'LESSONS.LOADING' | translate" />
+  } @else {
+
+    <app-section-card>
+      <div class="p-8 space-y-6">
+
+        <div class="flex items-center justify-between border-b border-slate-700/50 pb-4">
+          <app-section-header
+            icon="view_list"
+            [title]="'LESSONS.ACTIVE_PROGRAM' | translate"
+            [bordered]="false">
+          </app-section-header>
+          <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-semibold tracking-wider text-slate-300 border border-slate-700 shadow-inner">
+            {{ 'LESSONS.TOTAL_COUNT' | translate:{ count: lessons().length } }}
+          </span>
         </div>
 
-        @if (isLoading()) {
-          <app-loading [message]="'LESSONS.LOADING' | translate"></app-loading>
+        @if (lessons().length === 0) {
+          <app-empty-state
+            icon="event_busy"
+            [title]="'LESSONS.EMPTY_STATE' | translate"
+            [subtitle]="'LESSONS.EMPTY_SUBTITLE' | translate"
+            [framed]="true">
+            <button action (click)="openDrawer()"
+              class="mt-6 h-10 px-5 rounded-lg bg-primary/10 hover:bg-primary text-primary hover:text-white text-sm font-bold border border-primary/30 transition-all flex items-center gap-2 cursor-pointer">
+              <span class="material-symbols-outlined text-lg">add</span>
+              {{ 'LESSONS.CREATE_FIRST' | translate }}
+            </button>
+          </app-empty-state>
         } @else {
-
-          <div class="w-full bg-slate-900/50 rounded-xl border border-slate-700/50 shadow-2xl overflow-hidden backdrop-blur-sm">
-            <div class="p-8 space-y-6">
-
-              <div class="flex items-center justify-between border-b border-slate-700/50 pb-4">
-                <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
-                  <span class="material-symbols-outlined text-xl text-primary">view_list</span>
-                  {{ 'LESSONS.ACTIVE_PROGRAM' | translate }}
-                </h3>
-                <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-semibold tracking-wider text-slate-300 border border-slate-700 shadow-inner">
-                  {{ 'LESSONS.TOTAL_COUNT' | translate:{ count: lessons().length } }}
-                </span>
-              </div>
-
-              @if (lessons().length === 0) {
-                <div class="flex flex-col items-center justify-center py-24 text-slate-500 bg-slate-800/10 rounded-xl border border-dashed border-slate-700">
-                  <span class="material-symbols-outlined text-5xl mb-3 text-slate-600">event_busy</span>
-                  <p class="text-sm font-medium text-slate-300">{{ 'LESSONS.EMPTY_STATE' | translate }}</p>
-                  <p class="text-xs mt-1 text-center max-w-sm text-slate-500">{{ 'LESSONS.EMPTY_SUBTITLE' | translate }}</p>
-                  <button (click)="openDrawer()"
-                    class="mt-6 h-10 px-5 rounded-lg bg-primary/10 hover:bg-primary text-primary hover:text-white text-sm font-bold border border-primary/30 transition-all flex items-center gap-2 cursor-pointer">
-                    <span class="material-symbols-outlined text-lg">add</span>
-                    {{ 'LESSONS.CREATE_FIRST' | translate }}
-                  </button>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            @for (lesson of lessons(); track lesson.id) {
+              <div class="bg-slate-800/40 rounded-xl border border-slate-700/50 overflow-hidden hover:bg-slate-800/80 hover:border-slate-600 transition-all group flex flex-col shadow-sm">
+                <div class="px-5 py-4 border-b border-slate-700/30 flex items-start gap-4">
+                  <div class="flex items-center gap-3 w-full overflow-hidden">
+                    <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                      <span class="material-symbols-outlined text-primary">category</span>
+                    </div>
+                    <div class="w-full truncate pr-2">
+                      <h4 class="text-sm font-semibold text-slate-200 truncate" [title]="lesson.name">{{ lesson.name }}</h4>
+                      <p class="text-[11px] text-slate-400 font-medium truncate uppercase tracking-tight mt-0.5">{{ lesson.schoolSport?.sport?.name || 'Unknown' }}</p>
+                    </div>
+                  </div>
                 </div>
-              } @else {
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                  @for (lesson of lessons(); track lesson.id) {
-                    <div class="bg-slate-800/40 rounded-xl border border-slate-700/50 overflow-hidden hover:bg-slate-800/80 hover:border-slate-600 transition-all group flex flex-col shadow-sm">
-                      <div class="px-5 py-4 border-b border-slate-700/30 flex items-start gap-4">
-                        <div class="flex items-center gap-3 w-full overflow-hidden">
-                          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
-                            <span class="material-symbols-outlined text-primary">category</span>
-                          </div>
-                          <div class="w-full truncate pr-2">
-                            <h4 class="text-sm font-semibold text-slate-200 truncate" [title]="lesson.name">{{ lesson.name }}</h4>
-                            <p class="text-[11px] text-slate-400 font-medium truncate uppercase tracking-tight mt-0.5">{{ lesson.schoolSport?.sport?.name || 'Unknown' }}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="px-5 py-3 space-y-2">
-                        <div class="flex items-center gap-2 text-slate-300">
-                          <span class="material-symbols-outlined text-[15px] text-slate-500">schedule</span>
-                          <span class="text-xs font-semibold">{{ 'COMMON.DAYS.' + lesson.dayOfWeek.toUpperCase() | translate }} — {{ lesson.startTime }} - {{ lesson.endTime }}</span>
-                        </div>
-                        @if (lesson.coach) {
-                          <div class="flex items-center gap-2 text-slate-400">
-                            <span class="material-symbols-outlined text-[15px] text-slate-500">person</span>
-                            <span class="text-xs">{{ lesson.coach.firstName }} {{ lesson.coach.lastName }}</span>
-                          </div>
-                        }
-                      </div>
-                      <div class="mt-auto px-5 py-3 bg-slate-900/40 border-t border-slate-700/30 flex justify-between items-center text-xs">
-                        <div class="flex items-center gap-1.5 bg-slate-800 px-2.5 py-1.5 rounded-md border border-slate-700">
-                          <span class="material-symbols-outlined text-[14px] text-slate-400">group</span>
-                          <span [class.text-green-400]="lesson._count?.enrollments! < lesson.maxStudents"
-                                [class.text-amber-400]="lesson._count?.enrollments! >= lesson.maxStudents"
-                                class="font-bold font-mono">{{ lesson._count?.enrollments || 0 }}</span>
-                          <span class="text-slate-500 font-mono">/ {{ lesson.maxStudents }}</span>
-                        </div>
-                        <div class="flex items-center gap-2 shrink-0">
-                          <button [routerLink]="['/lessons', lesson.id]"
-                            class="h-8 px-4 rounded-lg flex items-center justify-center gap-1.5 text-xs font-bold text-primary bg-primary/10 hover:bg-primary hover:text-white transition-all border border-primary/20">
-                            <span class="material-symbols-outlined text-[16px]">groups</span>
-                            {{ 'LESSONS.STUDENTS_BTN' | translate }}
-                          </button>
-                          <button (click)="onDelete(lesson)"
-                            class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition-colors bg-slate-800/50">
-                            <span class="material-symbols-outlined text-[18px]">delete</span>
-                          </button>
-                        </div>
-                      </div>
+                <div class="px-5 py-3 space-y-2">
+                  <div class="flex items-center gap-2 text-slate-300">
+                    <span class="material-symbols-outlined text-[15px] text-slate-500">schedule</span>
+                    <span class="text-xs font-semibold">{{ 'COMMON.DAYS.' + lesson.dayOfWeek.toUpperCase() | translate }} — {{ lesson.startTime }} - {{ lesson.endTime }}</span>
+                  </div>
+                  @if (lesson.coach) {
+                    <div class="flex items-center gap-2 text-slate-400">
+                      <span class="material-symbols-outlined text-[15px] text-slate-500">person</span>
+                      <span class="text-xs">{{ lesson.coach.firstName }} {{ lesson.coach.lastName }}</span>
                     </div>
                   }
                 </div>
-              }
-
-            </div>
+                <div class="mt-auto px-5 py-3 bg-slate-900/40 border-t border-slate-700/30 flex justify-between items-center text-xs">
+                  <div class="flex items-center gap-1.5 bg-slate-800 px-2.5 py-1.5 rounded-md border border-slate-700">
+                    <span class="material-symbols-outlined text-[14px] text-slate-400">group</span>
+                    <span [class.text-green-400]="lesson._count?.enrollments! < lesson.maxStudents"
+                          [class.text-amber-400]="lesson._count?.enrollments! >= lesson.maxStudents"
+                          class="font-bold font-mono">{{ lesson._count?.enrollments || 0 }}</span>
+                    <span class="text-slate-500 font-mono">/ {{ lesson.maxStudents }}</span>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <button (click)="openManageDrawer(lesson)"
+                      class="h-8 px-4 rounded-lg flex items-center justify-center gap-1.5 text-xs font-bold text-primary bg-primary/10 hover:bg-primary hover:text-white transition-all border border-primary/20 cursor-pointer">
+                      <span class="material-symbols-outlined text-[16px]">groups</span>
+                      {{ 'LESSONS.STUDENTS_BTN' | translate }}
+                    </button>
+                    <button (click)="onDelete(lesson)"
+                      class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-400/10 transition-colors bg-slate-800/50">
+                      <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            }
           </div>
-
         }
 
       </div>
-    </div>
-  </div>
-</div>
+    </app-section-card>
+
+  }
+
+</app-page-layout>
 
 <!-- Slide-over Drawer with accordion sections -->
 <app-drawer
@@ -112,7 +105,6 @@
   [title]="'LESSONS.DRAWER.TITLE' | translate"
   [subtitle]="'LESSONS.DRAWER.SUBTITLE' | translate"
   icon="add_box"
-  width="480px"
   (closed)="closeDrawer()">
 
   <form id="lessonForm" [formGroup]="lessonForm" (ngSubmit)="onCreate()" class="px-4 py-4 flex flex-col gap-5">
@@ -127,19 +119,16 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="sm:col-span-2">
-          <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'LESSONS.DRAWER.LABEL_NAME' | translate }} <span class="text-red-400">*</span></label>
-          <input type="text" formControlName="name"
-            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-            [placeholder]="'LESSONS.DRAWER.PLACEHOLDER_NAME' | translate" />
+          <app-form-field [label]="'LESSONS.DRAWER.LABEL_NAME' | translate" [required]="true">
+            <input type="text" formControlName="name" class="form-input"
+              [placeholder]="'LESSONS.DRAWER.PLACEHOLDER_NAME' | translate" />
+          </app-form-field>
         </div>
-        <div>
-          <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'LESSONS.DRAWER.LABEL_CAPACITY' | translate }} <span class="text-red-400">*</span></label>
-          <input type="number" formControlName="maxStudents"
-            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors"
-            placeholder="20" />
-        </div>
+        <app-form-field [label]="'LESSONS.DRAWER.LABEL_CAPACITY' | translate" [required]="true">
+          <input type="number" formControlName="maxStudents" class="form-input" placeholder="20" />
+        </app-form-field>
       </div>
-      <!-- Continue button -->
+
       <div class="flex justify-end pt-2">
         <button type="button" (click)="toggleSection(2)"
           class="px-4 py-2 rounded-lg text-sm font-medium text-primary bg-primary/10 hover:bg-primary hover:text-white transition-all border border-primary/30 flex items-center gap-1.5 cursor-pointer">
@@ -157,39 +146,36 @@
       [isDone]="!!section2Done()"
       (toggle)="toggleSection(2)">
 
-      <div>
-        <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'LESSONS.DRAWER.LABEL_SPORT' | translate }} <span class="text-red-400">*</span></label>
+      <app-form-field [label]="'LESSONS.DRAWER.LABEL_SPORT' | translate" [required]="true">
         <div class="relative">
-          <select formControlName="schoolSportId"
-            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 pl-4 pr-10 text-sm appearance-none cursor-pointer">
+          <select formControlName="schoolSportId" class="form-input pl-4 pr-10 appearance-none cursor-pointer">
             <option value="" disabled selected>{{ 'LESSONS.DRAWER.PLACEHOLDER_SPORT' | translate }}</option>
             @for (s of sports(); track s.id) { <option class="bg-slate-800" [value]="s.id">{{ s.sportName }}</option> }
           </select>
           <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
         </div>
-      </div>
-      <div>
-        <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'LESSONS.DRAWER.LABEL_COACH' | translate }} <span class="text-red-400">*</span></label>
+      </app-form-field>
+
+      <app-form-field [label]="'LESSONS.DRAWER.LABEL_COACH' | translate" [required]="true">
         <div class="relative">
-          <select formControlName="coachId"
-            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 pl-4 pr-10 text-sm appearance-none cursor-pointer">
+          <select formControlName="coachId" class="form-input pl-4 pr-10 appearance-none cursor-pointer">
             <option value="" disabled selected>{{ 'LESSONS.DRAWER.PLACEHOLDER_COACH' | translate }}</option>
             @for (c of coaches(); track c.id) { <option class="bg-slate-800" [value]="c.id">{{ c.firstName }} {{ c.lastName }}</option> }
           </select>
           <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
         </div>
-      </div>
-      <div>
-        <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'LESSONS.DRAWER.LABEL_LOCATION' | translate }} <span class="text-red-400">*</span></label>
+      </app-form-field>
+
+      <app-form-field [label]="'LESSONS.DRAWER.LABEL_LOCATION' | translate" [required]="true">
         <div class="relative">
-          <select formControlName="facilityId"
-            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 pl-4 pr-10 text-sm appearance-none cursor-pointer">
+          <select formControlName="facilityId" class="form-input pl-4 pr-10 appearance-none cursor-pointer">
             <option value="" disabled selected>{{ 'LESSONS.DRAWER.PLACEHOLDER_LOCATION' | translate }}</option>
             @for (f of facilities(); track f.id) { <option class="bg-slate-800" [value]="f.id">{{ f.name }}</option> }
           </select>
           <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
         </div>
-      </div>
+      </app-form-field>
+
       <div class="flex justify-end pt-2">
         <button type="button" (click)="toggleSection(3)"
           class="px-4 py-2 rounded-lg text-sm font-medium text-primary bg-primary/10 hover:bg-primary hover:text-white transition-all border border-primary/30 flex items-center gap-1.5 cursor-pointer">
@@ -204,30 +190,25 @@
       [number]="3"
       [title]="'LESSONS.DRAWER.SECTION_SCHEDULE' | translate"
       [isOpen]="openSection() === 3"
-      [isDone]="false"
+      [isDone]="!!section3Done()"
       (toggle)="toggleSection(3)">
 
-      <div>
-        <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'LESSONS.DRAWER.LABEL_DAY' | translate }} <span class="text-red-400">*</span></label>
+      <app-form-field [label]="'LESSONS.DRAWER.LABEL_DAY' | translate" [required]="true">
         <div class="relative">
-          <select formControlName="dayOfWeek"
-            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 pl-4 pr-10 appearance-none cursor-pointer">
+          <select formControlName="dayOfWeek" class="form-input pl-4 pr-10 appearance-none cursor-pointer">
             @for (day of daysOfWeek; track day) { <option class="bg-slate-800" [value]="day">{{ 'COMMON.DAYS.' + day.toUpperCase() | translate }}</option> }
           </select>
           <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
         </div>
-      </div>
+      </app-form-field>
+
       <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'LESSONS.DRAWER.LABEL_START' | translate }} <span class="text-red-400">*</span></label>
-          <input type="text" formControlName="startTime" placeholder="17:00"
-            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors" />
-        </div>
-        <div>
-          <label class="text-sm font-medium text-slate-300 block mb-2">{{ 'LESSONS.DRAWER.LABEL_END' | translate }} <span class="text-red-400">*</span></label>
-          <input type="text" formControlName="endTime" placeholder="18:30"
-            class="w-full bg-slate-800/50 border border-slate-700/50 text-slate-100 rounded-lg focus:ring-1 focus:ring-primary h-11 px-4 placeholder:text-slate-500 transition-colors" />
-        </div>
+        <app-form-field [label]="'LESSONS.DRAWER.LABEL_START' | translate" [required]="true">
+          <input type="text" formControlName="startTime" placeholder="17:00" class="form-input" />
+        </app-form-field>
+        <app-form-field [label]="'LESSONS.DRAWER.LABEL_END' | translate" [required]="true">
+          <input type="text" formControlName="endTime" placeholder="18:30" class="form-input" />
+        </app-form-field>
       </div>
 
     </app-drawer-section>
@@ -239,10 +220,7 @@
     <button type="submit" form="lessonForm" [disabled]="lessonForm.invalid || isSubmitting()"
       class="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary/90 transition-all cursor-pointer shadow-lg shadow-primary/20 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
       @if (isSubmitting()) {
-        <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
+        <app-spinner size="sm" class="text-white" />
         <span>{{ 'LESSONS.DRAWER.SAVING' | translate }}</span>
       } @else {
         <span>{{ 'LESSONS.DRAWER.CREATE_BTN' | translate }}</span>
@@ -251,3 +229,176 @@
     </button>
   </ng-container>
 </app-drawer>
+
+<!-- ================= DRAWER: MANAGE LESSON ================= -->
+<app-drawer
+  [isOpen]="showManageDrawer()"
+  [title]="selectedLesson()?.name || ''"
+  [subtitle]="selectedLesson() ? ((selectedLesson()!.schoolSport?.sport?.name || '') + ' · ' + ('COMMON.DAYS.' + selectedLesson()!.dayOfWeek.toUpperCase() | translate) + ' · ' + selectedLesson()!.startTime + ' - ' + selectedLesson()!.endTime) : ''"
+  icon="groups"
+  (closed)="closeManageDrawer()">
+
+  @if (selectedLesson(); as l) {
+
+    <!-- Sticky Top: Capacity + Tabs (always visible while scrolling) -->
+    <div class="sticky top-0 z-10 bg-slate-900">
+
+      <!-- Capacity always visible -->
+      <div class="px-4 py-4 border-b border-slate-700/50">
+        <div class="flex items-center justify-between gap-4 mb-2">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">
+            {{ 'LESSONS.DETAILS.CAPACITY_TITLE' | translate }}
+          </p>
+          <div class="flex items-baseline gap-1.5">
+            <span class="text-xl font-bold font-mono leading-none"
+                  [class.text-slate-100]="!isClassFull()"
+                  [class.text-red-400]="isClassFull()">{{ enrolledStudents().length }}</span>
+            <span class="text-sm text-slate-500">/ {{ l.maxStudents }}</span>
+          </div>
+        </div>
+        <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700/30">
+          <div class="h-full rounded-full transition-all duration-500"
+               [class.bg-primary]="!isClassFull()"
+               [class.bg-red-500]="isClassFull()"
+               [style.width.%]="(enrolledStudents().length / l.maxStudents) * 100">
+          </div>
+        </div>
+        @if (isClassFull()) {
+          <p class="text-xs text-red-400 mt-2 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">warning</span>
+            {{ 'LESSONS.DETAILS.CLASS_FULL_HINT' | translate }}
+          </p>
+        }
+      </div>
+
+      <!-- Tabs -->
+      <app-tabs
+        [tabs]="[
+          { id: 'enrolled', label: 'LESSONS.DETAILS.TAB_ENROLLED' | translate, count: enrolledStudents().length, icon: 'groups' },
+          { id: 'add', label: 'LESSONS.DETAILS.TAB_ADD' | translate, icon: 'person_add' }
+        ]"
+        [activeTab]="activeManageTab()"
+        (tabChange)="activeManageTab.set($any($event))" />
+    </div>
+
+    <!-- Tab Content -->
+    <div class="px-4 py-4">
+
+      @if (activeManageTab() === 'enrolled') {
+        @if (isLoadingEnrolled()) {
+          <app-loading [message]="'LESSONS.DETAILS.LOADING_LAYOUT' | translate" />
+        } @else if (enrolledStudents().length === 0) {
+          <app-empty-state
+            icon="group_off"
+            [title]="'LESSONS.DETAILS.EMPTY_ENROLLED' | translate"
+            [subtitle]="'LESSONS.DETAILS.EMPTY_ENROLLED_SUB' | translate">
+            <button action (click)="activeManageTab.set('add')"
+              class="mt-6 h-10 px-5 rounded-lg bg-primary/10 hover:bg-primary text-primary hover:text-white text-sm font-bold border border-primary/30 transition-all flex items-center gap-2 cursor-pointer">
+              <span class="material-symbols-outlined text-lg">person_add</span>
+              {{ 'LESSONS.DETAILS.ENROLL_FIRST_BTN' | translate }}
+            </button>
+          </app-empty-state>
+        } @else {
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            @for (student of enrolledStudents(); track student.id) {
+              <div class="group bg-slate-800/40 hover:bg-slate-800/80 border border-slate-700/30 hover:border-slate-600 rounded-xl p-3 flex items-center justify-between transition-all">
+                <div class="flex items-center gap-3 overflow-hidden">
+                  <div class="w-9 h-9 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 flex items-center justify-center shrink-0">
+                    <span class="text-slate-300 font-bold text-xs">{{ student.firstName?.charAt(0) }}{{ student.lastName?.charAt(0) }}</span>
+                  </div>
+                  <div class="truncate pr-2">
+                    <p class="text-sm font-bold text-slate-200 truncate">{{ student.firstName }} {{ student.lastName }}</p>
+                    <p class="text-xs font-mono text-slate-500 truncate">{{ student.rut }}</p>
+                  </div>
+                </div>
+                <button (click)="unenrollStudent(student.id, student.firstName)"
+                  class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition-colors sm:opacity-0 sm:group-hover:opacity-100 shrink-0 cursor-pointer"
+                  [title]="'LESSONS.DETAILS.REMOVE_BTN' | translate">
+                  <span class="material-symbols-outlined text-[18px]">person_remove</span>
+                </button>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      @if (activeManageTab() === 'add') {
+        @if (isClassFull()) {
+          <app-empty-state
+            icon="warning"
+            [title]="'LESSONS.DETAILS.FULL_TITLE' | translate"
+            [subtitle]="'LESSONS.DETAILS.FULL_SUB' | translate:{ count: l.maxStudents }">
+          </app-empty-state>
+        } @else {
+          <div class="flex flex-col gap-4">
+
+            <!-- Search input -->
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 z-10 pointer-events-none">search</span>
+              <input type="text"
+                     name="searchQuery"
+                     [ngModel]="searchQuery()"
+                     (keyup)="onSearchChange($event)"
+                     [placeholder]="'LESSONS.DETAILS.SEARCH_PLACEHOLDER' | translate"
+                     autocomplete="off"
+                     class="form-input pl-11 pr-10" />
+
+              @if (isSearching()) {
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 text-primary">
+                  <app-spinner size="sm" />
+                </div>
+              }
+            </div>
+
+            <!-- Available spots indicator -->
+            <p class="text-xs text-slate-500 -mt-2">
+              {{ 'LESSONS.DETAILS.SPOTS_AVAILABLE' | translate:{ available: l.maxStudents - enrolledStudents().length, total: l.maxStudents } }}
+            </p>
+
+            <!-- Results -->
+            @if (searchQuery().length < 2) {
+              <app-empty-state
+                icon="manage_search"
+                [title]="'LESSONS.DETAILS.SEARCH_INITIAL_TITLE' | translate"
+                [subtitle]="'LESSONS.DETAILS.SEARCH_INITIAL_SUB' | translate">
+              </app-empty-state>
+            } @else if (searchResults().length === 0 && !isSearching()) {
+              <app-empty-state
+                size="sm"
+                icon="search_off"
+                [title]="'LESSONS.DETAILS.SEARCH_EMPTY_TITLE' | translate"
+                [subtitle]="'LESSONS.DETAILS.SEARCH_EMPTY_SUB' | translate">
+              </app-empty-state>
+            } @else {
+              <div class="flex flex-col gap-2">
+                @for (res of searchResults(); track res.id) {
+                  <div class="bg-slate-800/40 border border-slate-700/40 rounded-xl p-3 flex items-center justify-between hover:bg-slate-800/80 hover:border-slate-600 transition-all">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                      <div class="w-10 h-10 rounded-full bg-slate-700/50 border border-slate-600/50 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-slate-400 text-[18px]">person</span>
+                      </div>
+                      <div class="truncate">
+                        <p class="text-sm font-bold text-slate-200 truncate">{{ res.firstName }} {{ res.lastName }}</p>
+                        <p class="text-xs font-mono text-slate-500">{{ res.rut }}</p>
+                      </div>
+                    </div>
+
+                    <button (click)="enrollStudent(res)"
+                      class="h-8 px-3 rounded-lg flex items-center justify-center gap-1 text-xs font-bold text-primary bg-primary/10 hover:bg-primary hover:text-white transition-all border border-primary/20 shrink-0 ml-2 cursor-pointer">
+                      <span class="material-symbols-outlined text-[16px]">add</span>
+                      {{ 'LESSONS.DETAILS.ENROLL_BTN' | translate }}
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+
+          </div>
+        }
+      }
+
+    </div>
+  }
+
+</app-drawer>
+

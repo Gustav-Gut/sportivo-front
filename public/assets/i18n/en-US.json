@@ -125,6 +125,60 @@
       "PLACEHOLDER_DISPLAY_COACH": "e.g. Years of Experience",
       "SAVE_BTN": "Save Configuration"
     },
+    "PAYMENT_PLANS_PAGE": {
+      "TITLE": "Payment Plans",
+      "SUBTITLE": "Manage subscription plans and enroll your students automatically.",
+      "NEW_PLAN_BTN": "New Plan",
+      "ENROLL_BTN": "Enroll Student",
+      "REGISTERED_PLANS": "Registered Plans",
+      "LOADING": "Loading plans...",
+      "EMPTY_TITLE": "No plans created yet",
+      "EMPTY_SUBTITLE": "Create your first payment plan to start enrolling students automatically.",
+      "CREATE_FIRST": "Create first plan",
+      "DELETE_PLAN_TITLE": "Delete Plan",
+      "DEFAULT_DESCRIPTION": "Recurring subscription with no description.",
+      "PER_MONTH": "/ month",
+      "PER_MONTHS": "/ {{count}} months",
+      "PLAN_DRAWER": {
+        "TITLE": "Create Payment Plan",
+        "SUBTITLE": "Define a new subscription plan for the school.",
+        "SECTION_DETAILS": "Plan Details",
+        "LABEL_NAME": "Plan Name",
+        "PLACEHOLDER_NAME": "e.g. Basic Monthly Plan",
+        "LABEL_DESCRIPTION": "Description",
+        "PLACEHOLDER_DESCRIPTION": "Includes 2 weekly classes...",
+        "LABEL_PRICE": "Price (CLP)",
+        "LABEL_DURATION": "Duration (Months)",
+        "SAVE_BTN": "Save Plan"
+      },
+      "ENROLL_DRAWER": {
+        "TITLE": "Enroll Student & Generate Subscription",
+        "SUBTITLE": "Associate a student with a payment plan.",
+        "SECTION_CONFIG": "Subscription Settings",
+        "LABEL_PLAN": "Select Payment Plan",
+        "PLACEHOLDER_PLAN": "Select a plan...",
+        "PLAN_OPTION": "{{name}} - {{price}} / {{months}} month(s)",
+        "LABEL_IS_ADULT": "Is the student an adult?",
+        "IS_ADULT_YES": "Yes, an adult",
+        "IS_ADULT_NO": "No, a minor",
+        "SECTION_STUDENT": "Student Information",
+        "LABEL_RUT": "ID / RUT",
+        "LABEL_FIRST_NAME": "First Name",
+        "LABEL_LAST_NAME": "Last Name",
+        "LABEL_EMAIL": "Email",
+        "OPTIONAL_HINT": "(Optional)",
+        "LABEL_PHONE": "Phone",
+        "SECTION_TUTOR": "Guardian Information",
+        "SECTION_TUTOR_SUBTITLE": "Payment Responsible",
+        "TUTOR_EMAIL_HINT": "(Will receive receipts)",
+        "LABEL_RELATION": "Relation",
+        "RELATION_PARENT": "Parent",
+        "RELATION_GRANDPARENT": "Grandparent",
+        "RELATION_LEGAL": "Legal Guardian",
+        "RELATION_OTHER": "Other",
+        "SUBMIT_BTN": "Create Subscription"
+      }
+    },
     "FACILITIES_PAGE": {
       "TITLE": "Facilities Management",
       "SUBTITLE": "Manage the courts, fields, and rooms available for scheduling classes.",
@@ -280,7 +334,14 @@
     "LOGIN_SCHOOL_NOT_FOUND": "School not found. Please check the code.",
     "LOGIN_VERIFY_ERROR": "Could not verify school code. Please try again.",
     "LOGIN_FAILED": "Login failed. Please verify your credentials.",
-    "INVOICE_CREATED": "Invoice {{id}} created successfully for {{name}}"
+    "INVOICE_CREATED": "Invoice {{id}} created successfully for {{name}}",
+    "PLAN_LOAD_ERROR": "Failed to load payment plans",
+    "PLAN_CREATE_SUCCESS": "Plan created successfully",
+    "PLAN_CREATE_ERROR": "Failed to create plan",
+    "PLAN_DELETE_SUCCESS": "Plan deleted successfully",
+    "PLAN_DELETE_ERROR": "Failed to delete plan",
+    "ENROLL_PLAN_SUCCESS": "Student enrolled successfully",
+    "ENROLL_PLAN_ERROR": "Failed to enroll student"
   },
   "MODALS": {
     "CONFIRM": "Confirm",
@@ -297,6 +358,11 @@
     "DELETE_LESSON_MSG": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
     "UNENROLL_TITLE": "Remove Student",
     "UNENROLL_MSG": "Are you sure you want to remove {{name}} from this lesson?",
+    "DELETE_PLAN_TITLE": "Delete Plan?",
+    "DELETE_PLAN_MSG": "Are you sure you want to delete this plan? This action cannot be undone.",
+    "OPEN_PAYMENT_LINK_TITLE": "Subscription Generated",
+    "OPEN_PAYMENT_LINK_MSG": "Do you want to open the associated MercadoPago link?",
+    "OPEN_LINK_BTN": "Open Link",
     "USER": {
       "NEW_TITLE": "New User",
       "NEW_SUBTITLE": "Complete each section to create the account",
@@ -397,7 +463,15 @@
       "FULL_SUB": "This lesson has reached its maximum capacity of {{count}} students. Remove a student to open up a spot.",
       "ENROLL_BTN": "Enroll",
       "REMOVE_BTN": "Remove Student",
-      "LOADING_LAYOUT": "Loading lesson layout..."
+      "LOADING_LAYOUT": "Loading lesson layout...",
+      "BACK_BTN": "Back",
+      "OPEN_ENROLL_BTN": "Enroll Student",
+      "ENROLL_FIRST_BTN": "Enroll first student",
+      "ADD_DRAWER_TITLE": "Enroll Students",
+      "TAB_ENROLLED": "Enrolled",
+      "TAB_ADD": "Add",
+      "SPOTS_AVAILABLE": "{{available}} of {{total}} spots available",
+      "CLASS_FULL_HINT": "Class has reached maximum capacity"
     }
   }
 }

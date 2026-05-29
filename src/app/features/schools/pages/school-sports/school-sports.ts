@@ -5,11 +5,31 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SportsService } from '../../../../core/services/sports.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { ConfirmService } from '../../../../core/services/confirm.service';
+import { PageLayoutComponent } from '../../../../shared/ui/page-layout/page-layout';
+import { PageHeaderComponent } from '../../../../shared/ui/page-header/page-header';
+import { LoadingComponent } from '../../../../shared/ui/loading/loading';
+import { SpinnerComponent } from '../../../../shared/ui/spinner/spinner';
+import { SectionCardComponent } from '../../../../shared/ui/section-card/section-card';
+import { EmptyStateComponent } from '../../../../shared/ui/empty-state/empty-state';
+import { SectionHeaderComponent } from '../../../../shared/ui/section-header/section-header';
+import { InlineQuickAddComponent } from '../../../../shared/ui/inline-quick-add/inline-quick-add';
 
 @Component({
   selector: 'app-school-sports',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    PageLayoutComponent,
+    PageHeaderComponent,
+    LoadingComponent,
+    SpinnerComponent,
+    SectionCardComponent,
+    EmptyStateComponent,
+    SectionHeaderComponent,
+    InlineQuickAddComponent,
+  ],
   templateUrl: './school-sports.html',
   styleUrls: ['./school-sports.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -24,6 +44,7 @@ export class SchoolSports implements OnInit {
   sportsSchema = signal<any[]>([]);
   availableSports = signal<any[]>([]);
   selectedNewSportId = signal<string>('');
+  showAddForm = signal(false);
 
   // Sport field editing state
   editingSportId = signal<string | null>(null);
@@ -31,6 +52,14 @@ export class SchoolSports implements OnInit {
 
   ngOnInit() {
     this.loadSports();
+  }
+
+  toggleAddForm() {
+    const willOpen = !this.showAddForm();
+    this.showAddForm.set(willOpen);
+    if (!willOpen) {
+      this.selectedNewSportId.set('');
+    }
   }
 
   private loadSports() {

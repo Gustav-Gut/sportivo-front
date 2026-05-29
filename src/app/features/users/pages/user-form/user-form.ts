@@ -6,11 +6,29 @@ import { UsersService } from '../../../../core/services/users.service';
 import { SportsService } from '../../../../core/services/sports.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
+import { PageLayoutComponent } from '../../../../shared/ui/page-layout/page-layout';
+import { PageHeaderComponent } from '../../../../shared/ui/page-header/page-header';
+import { SectionCardComponent } from '../../../../shared/ui/section-card/section-card';
+import { SpinnerComponent } from '../../../../shared/ui/spinner/spinner';
+import { FormFieldComponent } from '../../../../shared/ui/form-field/form-field';
+import { AlertComponent } from '../../../../shared/ui/alert/alert';
+import { SectionHeaderComponent } from '../../../../shared/ui/section-header/section-header';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    PageLayoutComponent,
+    PageHeaderComponent,
+    SectionCardComponent,
+    SpinnerComponent,
+    FormFieldComponent,
+    AlertComponent,
+    SectionHeaderComponent,
+  ],
   templateUrl: './user-form.html',
   styleUrls: ['./user-form.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
